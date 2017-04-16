@@ -1,0 +1,27 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model IEnumerable<AllCourseViewModel>
+
+@{
+    ViewBag.Title = "All Courses";
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new {@class="btn btn-primary"})
+</p>
+@foreach (var item in Model)
+{
+    <div class="card col-md-4">
+        <div class="card-block">
+            <h3 class="card-title">@item.Title</h3>
+            <p class="card-text">Instructor: @item.InstructorName | Students in course: @item.StudentsInCourse</p>
+            <p class="card-text">@item.Description</p>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+}
+
+
+   
+

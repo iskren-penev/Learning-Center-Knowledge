@@ -1,0 +1,33 @@
+﻿@using LearningCenter.Models.ViewModels.User
+@model ProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+<div class="container custom-form">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="heading-centered">Profile Information</h2>
+        </div>
+    </div>
+    <div class="row">
+        @Html.DisplayNameFor(m => m.Email)
+        <div class="col-md-6">
+            @Html.DisplayFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        @Html.DisplayNameFor(m => m.FirstName)
+        <div class="col-md-6">
+            @Html.DisplayFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        @Html.DisplayNameFor(m => m.Email)
+        <div class="col-md-6">
+            @Html.DisplayFor(m => m.Email)
+        </div>
+    </div>
+    @Html.ActionLink("Edit profile", "Edit", null, new {@class="btn btn-warning"})
+</div>

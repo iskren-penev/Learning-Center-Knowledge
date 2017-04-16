@@ -1,0 +1,47 @@
+﻿@using LearningCenter.Models.ViewModels.Forum
+@model IEnumerable<AllTopicsViewModel>
+@{
+    ViewBag.Title = "All topics";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="heading-centered">Forum</h2>
+    </div>
+
+<div class="col-sm-offset-1 col-sm-1">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary" })
+    }
+    <br />
+</div>
+
+</div>
+
+<div class="container">
+
+    @foreach (var topic in Model)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">@Html.ActionLink(topic.Title, "Detailed", "Forum", new { id = topic.Id }, null)</h3>
+            </div>
+            <div class="panel-body">
+                <h4>
+                    <span>By: @topic.Author</span>
+                </h4>
+                <h4>
+                    <span>Category: @topic.Category</span>
+                </h4>
+                <h4>
+                    <span>Published on: @topic.PublishDate.Date</span>
+                </h4>
+            </div>
+            <div class="panel-footer">
+                <p>Replies: @topic.Replies</p>
+                
+            </div>
+        </div>
+    }
+</div>

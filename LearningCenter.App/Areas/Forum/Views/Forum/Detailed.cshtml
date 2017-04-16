@@ -1,0 +1,58 @@
+﻿@model LearningCenter.Models.ViewModels.Forum.DetailedTopicViewModel
+
+@{
+    ViewBag.Title = "Detailed";
+}
+
+<div class="container">
+    <h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublishDate)
+        </dd>
+    </dl>
+    <p style="font-size: 14px;">@Html.DisplayFor(model => model.Content)</p>
+    <div class="pull-right">
+        @Html.ActionLink("Edit", "EditTopic", "Forum", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Back to forum", "All", "Forum", null, new { @class = "btn btn-default" })
+    </div>
+    <br />
+    <h3 class="heading-centered">@Html.DisplayNameFor(model => model.Replies)</h3>
+    @foreach (var reply in Model.Replies)
+    {
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>@Html.DisplayFor(r => reply.Content)</p>
+                </div>
+                <div class="panel-footer">
+                    <div>By: @reply.Author</div>
+                    <div>Published on: @reply.PublishDate</div>
+            </div>
+        </div>
+    </div>
+    }
+    @Html.Partial("_AddReply")
+</div>
+

@@ -1,0 +1,24 @@
+﻿
+@using (@Html.BeginForm("AddReply", "Forum", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <input type="number" value=@ViewBag.TopicId name="TopicId" hidden="" />
+        </div>
+        <div class="form-group">
+
+            <label class="control-label col-sm-1 col-sm-offset-2">Type your reply:</label>
+
+            <div class="col-sm-9">
+                <textarea rows="10" cols="150"  name="Content" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-2">
+                <input type="submit" class="btn btn-success" value="Post reply" />
+            </div>
+        </div>
+    </div>
+}
