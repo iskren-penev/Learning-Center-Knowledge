@@ -9,22 +9,20 @@
     using LearningCenter.Models.ViewModels.Forum;
     using LearningCenter.Services.Interfaces;
 
-    public class ForumService: Service, IForumService
+    public class ForumService : Service, IForumService
     {
-
-        public void AddNewTopic(AddTopicBindingModel model)
-        {
-            Topic newTopic = Mapper.Instance.Map<Topic>(model);
-            newTopic.PublishDate = DateTime.Now;
-
-            this.Context.Topics.Add(newTopic);
-            this.Context.SaveChanges();
-        }
-
-        public IEnumerable<AllTopicsViewModel> GetAllTopics()
+        public IEnumerable<AllTopicsViewModel> GetAllTopics(string search)
         {
             IEnumerable<Topic> topics = this.Context.Topics;
             IEnumerable<AllTopicsViewModel> viewModels = Mapper.Instance.Map<IEnumerable<AllTopicsViewModel>>(topics);
+            if (search != null)
+            {
+                search = search.ToLower();
+                viewModels = viewModels.Where(topic =>
+                    topic.Title.ToLower().Contains(search)
+                    || topic.Category.ToLower().Contains(search)
+                    || topic.Author.ToLower().Contains(search));
+            }
             return viewModels;
         }
 
@@ -69,6 +67,17 @@
         public void EditTopic(EditTopicBindingModel model)
         {
             Topic topic = this.Context.Topics.Find(model.Id);
+            Category category = this.Context.Categories.FirstOrDefault(cat => cat.Name == model.Category);
+            if (category == null)
+            {
+                category = new Category()
+                {
+                    Name = model.Category
+                };
+                this.Context.Categories.Add(category);
+                this.Context.SaveChanges();
+            }
+            topic.Category = category;
             topic.Content = model.Content;
             this.Context.SaveChanges();
         }
@@ -86,10 +95,6 @@
             this.Context.SaveChanges();
         }
 
-        public void DeleteTopic()
-        {
-            throw new NotImplementedException();
-        }
 
         public AddTopicViewModel GetAddTopicViewModel(AddTopicBindingModel model)
         {
@@ -97,6 +102,6 @@
             return viewModel;
         }
 
-        
+
     }
 }

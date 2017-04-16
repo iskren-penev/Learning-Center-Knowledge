@@ -75,11 +75,11 @@
     <Compile Include="ForumService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlineLearningCenter.Data\LearningCenter.Data.csproj">
+    <ProjectReference Include="..\LearningCenter.Data\LearningCenter.Data.csproj">
       <Project>{5deb99f6-ce25-4b1e-badc-aff7bc7079ee}</Project>
       <Name>LearningCenter.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OnlineLearningCenter.Models\LearningCenter.Models.csproj">
+    <ProjectReference Include="..\LearningCenter.Models\LearningCenter.Models.csproj">
       <Project>{d420330b-c45f-4e06-9af7-0ba5dbe70963}</Project>
       <Name>LearningCenter.Models</Name>
     </ProjectReference>

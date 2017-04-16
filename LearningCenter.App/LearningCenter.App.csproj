@@ -109,6 +109,14 @@
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -217,6 +225,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -235,6 +244,7 @@
     <Content Include="Areas\Forum\Views\Forum\Detailed.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_AddReply.cshtml" />
     <Content Include="Areas\Forum\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\EditTopic.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -295,26 +305,25 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\ProfilePage.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LearningCenter.Data\LearningCenter.Data.csproj">
+      <Project>{5deb99f6-ce25-4b1e-badc-aff7bc7079ee}</Project>
+      <Name>LearningCenter.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningCenter.Models\LearningCenter.Models.csproj">
+      <Project>{d420330b-c45f-4e06-9af7-0ba5dbe70963}</Project>
+      <Name>LearningCenter.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningCenter.Services\LearningCenter.Services.csproj">
+      <Project>{f13e8b10-f301-4fdc-8885-c68766ec0eec}</Project>
+      <Name>LearningCenter.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OnlineLearningCenter.Data\LearningCenter.Data.csproj">
-      <Project>{5deb99f6-ce25-4b1e-badc-aff7bc7079ee}</Project>
-      <Name>LearningCenter.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnlineLearningCenter.Models\LearningCenter.Models.csproj">
-      <Project>{d420330b-c45f-4e06-9af7-0ba5dbe70963}</Project>
-      <Name>LearningCenter.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnlineLearningCenter.Services\LearningCenter.Services.csproj">
-      <Project>{f13e8b10-f301-4fdc-8885-c68766ec0eec}</Project>
-      <Name>LearningCenter.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,22 +1,36 @@
-﻿@using LearningCenter.Models.ViewModels.Forum
-@model IEnumerable<AllTopicsViewModel>
+﻿@using PagedList
+@using PagedList.Mvc
+@using LearningCenter.Models.ViewModels.Forum
+@model IPagedList<AllTopicsViewModel>
 @{
-    ViewBag.Title = "All topics";
+    ViewBag.Title = " - Forum";
 }
 
 <div class="row">
     <div class="col-sm-12">
         <h2 class="heading-centered">Forum</h2>
     </div>
-
-<div class="col-sm-offset-1 col-sm-1">
-    @if (User.Identity.IsAuthenticated)
-    {
-        @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary" })
-    }
-    <br />
 </div>
-
+<div class="row">
+    <form class="form-horizontal" method="get">
+        <div class="col-sm-8 col-sm-offset-1">
+            <div class="form-group">
+                <input type="text" class="form-control" name="parameter" placeholder="Search by topic title, category name or author name" />
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-success"/>
+            </div>
+        </div>
+    </form>
+    <div class="col-sm-1">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary" })
+        }
+        <br />
+    </div>
 </div>
 
 <div class="container">
@@ -40,8 +54,14 @@
             </div>
             <div class="panel-footer">
                 <p>Replies: @topic.Replies</p>
-                
+
             </div>
         </div>
     }
 </div>
+
+@Html.PagedListPager(Model, pageNumber => Url.Action("All", new
+{
+    pageNumber,
+    search = Request.QueryString["search"]
+}))

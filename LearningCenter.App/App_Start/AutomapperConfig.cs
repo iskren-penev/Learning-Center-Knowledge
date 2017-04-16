@@ -27,7 +27,9 @@
                     .ForMember(model => model.Category, configurationExpression =>
                         configurationExpression.MapFrom(topic => topic.Category.Name));
 
-                exp.CreateMap<Topic, EditTopicViewModel>();
+                exp.CreateMap<Topic, EditTopicViewModel>()
+                    .ForMember(model => model.Category, configurationExpression =>
+                        configurationExpression.MapFrom(topic => topic.Category.Name));
 
                 exp.CreateMap<Reply, ReplyViewModel>()
                     .ForMember(model => model.Author, configurationExpression =>

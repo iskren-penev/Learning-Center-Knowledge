@@ -6,6 +6,7 @@
     using LearningCenter.Models.ViewModels.Forum;
     using LearningCenter.Services.Interfaces;
     using Microsoft.AspNet.Identity;
+    using PagedList;
 
     [Authorize]
     [RouteArea("forum")]
@@ -17,15 +18,15 @@
         {
             this.service = service;
         }
-
+        
         [HttpGet]
         [AllowAnonymous]
         [Route]
-        public ActionResult All()
+        public ActionResult All(string parameter, int? pageNumber)
         {
-            IEnumerable<AllTopicsViewModel> viewModels = this.service.GetAllTopics();
-
-            return this.View(viewModels);
+            IEnumerable<AllTopicsViewModel> viewModels = this.service.GetAllTopics(parameter);
+            
+            return this.View(viewModels.ToPagedList(pageNumber ?? 1, 10));
         }
 
         [HttpGet]
@@ -68,7 +69,7 @@
 
         [HttpPost]
         [Route("edit/{id:int:min(1)}")]
-        public ActionResult EditTopic([Bind(Include = "Content")] EditTopicBindingModel model)
+        public ActionResult EditTopic([Bind(Include = "Id,Content,Category")] EditTopicBindingModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -79,8 +80,7 @@
             return this.View(this.service.GetEditViewModel(model.Id));
         }
 
-
-        // add reply, 
+        
         [HttpGet]
         public ActionResult AddReply()
         {
