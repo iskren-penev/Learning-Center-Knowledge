@@ -81,6 +81,6 @@ namespace LearningCenter.App.App_Start
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IForumService>().To<ForumService>();
 
-        }        
+        }
     }
 }

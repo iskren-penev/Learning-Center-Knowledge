@@ -26,6 +26,20 @@ namespace LearningCenter.Data
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany<Course>(u => u.EnrolledCourses)
+                .WithMany(c => c.Students)
+                .Map(configuration =>
+                {
+                    configuration.MapLeftKey("UserId");
+                    configuration.MapRightKey("CourseId");
+                    configuration.ToTable("UserCourses");
+                });
 
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

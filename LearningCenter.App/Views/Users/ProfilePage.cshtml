@@ -1,33 +1,57 @@
 ﻿@using LearningCenter.Models.ViewModels.User
+@using Microsoft.AspNet.Identity
 @model ProfileViewModel
 @{
     ViewBag.Title = "Profile";
+    var indexOfAt = User.Identity.Name.IndexOf("@");
+    var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
 }
 
-
+<br />
+<br />
 <div class="container custom-form">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <h2 class="heading-centered">Profile Information</h2>
+            <hr />
         </div>
     </div>
     <div class="row">
-        @Html.DisplayNameFor(m => m.Email)
-        <div class="col-md-6">
-            @Html.DisplayFor(m => m.Email, new { @class = "form-control" })
+        <div class="col-sm-offset-2 col-sm-2">
+            <h3><label class="label label-info">@Html.DisplayNameFor(model => model.Email)</label></h3>
+        </div>
+        <div class="col-sm-6">
+            <h3>@Html.DisplayFor(m => m.Email, new { @class = "form-control" })</h3>
         </div>
     </div>
     <div class="row">
-        @Html.DisplayNameFor(m => m.FirstName)
-        <div class="col-md-6">
-            @Html.DisplayFor(m => m.Email, new { @class = "form-control" })
+        <div class="col-sm-offset-2 col-sm-2">
+            <h3><label class="label label-info">@Html.DisplayNameFor(model => model.FirstName)</label></h3>
+        </div>
+        <div class="col-sm-6">
+            <h3>@Html.DisplayFor(m => m.FirstName, new { @class = "form-control" })</h3>
         </div>
     </div>
     <div class="row">
-        @Html.DisplayNameFor(m => m.Email)
-        <div class="col-md-6">
-            @Html.DisplayFor(m => m.Email)
+        <div class="col-sm-offset-2 col-sm-2">
+            <h3><label class="label label-info">@Html.DisplayNameFor(model => model.LastName)</label></h3>
+        </div>
+        <div class="col-sm-6">
+            <h3>@Html.DisplayFor(m => m.LastName, new { @class = "form-control" })</h3>
         </div>
     </div>
-    @Html.ActionLink("Edit profile", "Edit", null, new {@class="btn btn-warning"})
+    @if (Model.Email == User.Identity.GetUserName())
+    {
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">
+                @Html.ActionLink("Edit profile", "Edit", new { username = currentUsername }, new { @class = "btn btn-block btn-warning" })
+            </div>
+            <div class="col-sm-2">
+                @Html.ActionLink("Change password", "ChangePassword", "Manage", null, new { @class = "btn btn-block btn-info" })
+                <br />
+            </div>
+
+        </div>
+
+    }
 </div>

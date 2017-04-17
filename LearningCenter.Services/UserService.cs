@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.Services
 {
+    using System.Linq;
     using AutoMapper;
     using LearningCenter.Services.Interfaces;
     using LearningCenter.Models.BindingModels.User;
@@ -17,17 +18,19 @@
 
         }
 
-        public EditProfileViewModel GetEditProfileViewModel(string userId)
+        public EditProfileViewModel GetEditProfileViewModel(string username)
         {
-            User currentUser = this.GetCurrentUser(userId);
-            EditProfileViewModel viewModel = Mapper.Instance.Map<EditProfileViewModel>(currentUser);
+            User user = this.Context.Users.FirstOrDefault(u => u.UserName.StartsWith(username));
+
+            EditProfileViewModel viewModel = Mapper.Instance.Map<EditProfileViewModel>(user);
             return viewModel;
         }
 
-        public ProfileViewModel GetProfileViewModel(string userId)
+        public ProfileViewModel GetProfileViewModel(string username)
         {
-            User currentUser = this.GetCurrentUser(userId);
-            ProfileViewModel viewModel = Mapper.Instance.Map<ProfileViewModel>(currentUser);
+            User user = this.Context.Users.FirstOrDefault(u => u.UserName.StartsWith(username));
+
+            ProfileViewModel viewModel = Mapper.Instance.Map<ProfileViewModel>(user);
             return viewModel;
         }
     }

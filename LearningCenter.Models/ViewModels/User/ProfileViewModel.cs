@@ -6,10 +6,10 @@
     {
         public string Email { get; set; }
 
-        [Display(Name = "First name")]
+        [Display(Name = "Name")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last name")]
+        [Display(Name = "Surname(s)")]
         public string LastName { get; set; }
 
     }

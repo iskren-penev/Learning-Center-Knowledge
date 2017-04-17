@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Online Learning Center</title>
+    <title>Knowledge Center - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -15,13 +15,13 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Online Learning Center", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Courses", "All", "Courses")</li>
+                    <li>@Html.ActionLink("Forum", "All", "Forum", new {area="Forum"}, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -32,8 +32,8 @@
     </div>
     <footer class="footer">
         <div class="container">
-            <br />
-            <p>&copy; @DateTime.Now.Year - Online Learning Center</p>
+            <hr />
+            <p>&copy; @DateTime.Now.Year - Learning Center Knowledge</p>
         </div>
     </footer>
 

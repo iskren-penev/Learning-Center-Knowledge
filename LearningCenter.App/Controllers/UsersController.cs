@@ -1,5 +1,4 @@
-﻿
-namespace LearningCenter.App.Controllers
+﻿namespace LearningCenter.App.Controllers
 {
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.User;
@@ -19,35 +18,40 @@ namespace LearningCenter.App.Controllers
         }
 
         [HttpGet]
-        [Route("profile")]
-        public ActionResult ProfilePage()
+        [Route("profile/{username}")]
+        public ActionResult ProfilePage(string username)
         {
-            string userId = User.Identity.GetUserId();
-            ProfileViewModel viewModel = this.service.GetProfileViewModel(userId);
+            ProfileViewModel viewModel = this.service.GetProfileViewModel(username);
             return this.View(viewModel);
         }
 
         [HttpGet]
-        [Route("edit")]
-        public ActionResult Edit()
+        [Route("edit/{username}")]
+        public ActionResult Edit(string username)
         {
-            string userId = User.Identity.GetUserId();
-            EditProfileViewModel viewModel = this.service.GetEditProfileViewModel(userId);
+            if (!User.Identity.Name.StartsWith(username))
+            {
+                return this.RedirectToAction("ProfilePage", new {username = username.ToLower()});
+            }
+            EditProfileViewModel viewModel = this.service.GetEditProfileViewModel(username);
             return this.View(viewModel);
         }
 
         [HttpPost]
-        [Route("edit")]
+        [Route("edit/{username}")]
         public ActionResult Edit([Bind(Include = "FirstName,LastName")]EditProfileBindingModel model)
         {
             string userId = User.Identity.GetUserId();
 
+            var indexOfAt = User.Identity.Name.IndexOf("@");
+            var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
+
             if (this.ModelState.IsValid)
             {
                 this.service.EditProfile(model, userId);
-                return this.RedirectToAction("ProfilePage");
+                return this.RedirectToAction("ProfilePage", new {username = currentUsername});
             }
-            EditProfileViewModel viewModel = this.service.GetEditProfileViewModel(userId);
+            EditProfileViewModel viewModel = this.service.GetEditProfileViewModel(currentUsername);
             return this.View(viewModel);
         }
     }

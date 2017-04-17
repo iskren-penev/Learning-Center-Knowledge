@@ -31,9 +31,9 @@
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -214,6 +214,7 @@
 
         //
         // GET: /Manage/ChangePassword
+        [Route("manage/changepassword")]
         public ActionResult ChangePassword()
         {
             return View();
@@ -222,6 +223,7 @@
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
+        [Route("manage/changepassword")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -237,7 +239,10 @@
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                var currentUserName = User.Identity.Name;
+                currentUserName= currentUserName.Substring(0, currentUserName.IndexOf("@"));
+                return RedirectToAction("ProfilePage", "Users", new { username = currentUserName });
+                //return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
@@ -332,7 +337,7 @@
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -383,6 +388,6 @@
             Error
         }
 
-#endregion
+        #endregion
     }
 }

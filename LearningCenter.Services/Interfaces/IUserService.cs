@@ -7,8 +7,8 @@
     {
         void EditProfile(EditProfileBindingModel model, string userId);
 
-        EditProfileViewModel GetEditProfileViewModel(string userId);
+        EditProfileViewModel GetEditProfileViewModel(string username);
 
-        ProfileViewModel GetProfileViewModel(string userId);
+        ProfileViewModel GetProfileViewModel(string username);
     }
 }
