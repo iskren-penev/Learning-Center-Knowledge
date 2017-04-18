@@ -1,4 +1,4 @@
-﻿@using LearningCenter.Models.ViewModels.User
+﻿@using LearningCenter.Models.ViewModels.Admin
 @model IEnumerable<AllUserViewModel>
 @{
     ViewBag.Title = "Users";
@@ -48,7 +48,7 @@
         var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
         <tr>
             <td>
-                @Html.ActionLink(item.Email, "ProfilePage", new {username = currentUsername})
+                @Html.ActionLink(item.Email, "ProfilePage", "Users", new { username = currentUsername })
             </td>
             <td>
                 @Html.DisplayFor(model => item.FirstName)

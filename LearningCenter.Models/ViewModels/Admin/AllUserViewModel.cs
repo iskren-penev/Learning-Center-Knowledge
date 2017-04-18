@@ -1,4 +1,4 @@
-﻿namespace LearningCenter.Models.ViewModels.User
+﻿namespace LearningCenter.Models.ViewModels.Admin
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminService.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IForumService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="CourseService.cs" />

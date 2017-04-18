@@ -1,14 +1,10 @@
 ﻿namespace LearningCenter.App.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.User;
     using LearningCenter.Models.ViewModels.User;
     using LearningCenter.Services.Interfaces;
     using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.Owin;
 
     [Authorize]
     [RoutePrefix("users")]
@@ -19,23 +15,6 @@
         public UsersController(IUserService service)
         {
             this.service = service;
-        }
-
-        [HttpGet]
-        [Route]
-        public ActionResult All(string search)
-        {
-            IEnumerable<AllUserViewModel> viewModels = this.service.GetAllUsers(search);
-            var accManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            foreach (var model in viewModels)
-            {
-                var user = this.service.GetCurrentUserByEmail(model.Email);
-                var roles = accManager.GetRoles(user.Id).ToList();
-                this.service.SetRoleNameForModel(model, roles);
-            }
-
-            return this.View(viewModels);
         }
 
         [HttpGet]

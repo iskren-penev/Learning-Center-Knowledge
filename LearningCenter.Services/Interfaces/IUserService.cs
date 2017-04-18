@@ -12,11 +12,5 @@
         EditProfileViewModel GetEditProfileViewModel(string username);
 
         ProfileViewModel GetProfileViewModel(string username);
-
-        IEnumerable<AllUserViewModel> GetAllUsers(string search);
-
-        User GetCurrentUserByEmail(string email);
-
-        void SetRoleNameForModel(AllUserViewModel model, List<string> roleNames);
     }
 }

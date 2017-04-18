@@ -4,6 +4,7 @@
     using AutoMapper;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.EntityModels;
+    using LearningCenter.Models.ViewModels.Admin;
     using LearningCenter.Models.ViewModels.Course;
     using LearningCenter.Models.ViewModels.Forum;
     using LearningCenter.Models.ViewModels.User;

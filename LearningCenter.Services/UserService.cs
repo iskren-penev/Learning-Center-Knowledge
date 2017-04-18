@@ -1,6 +1,5 @@
 ﻿namespace LearningCenter.Services
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
@@ -49,32 +48,6 @@
             return viewModel;
         }
 
-        public IEnumerable<AllUserViewModel> GetAllUsers(string search)
-        {
-            IEnumerable<User> users = this.Context.Users;
-            IEnumerable<AllUserViewModel> viewModels = Mapper.Instance
-                .Map<IEnumerable<User>, IEnumerable<AllUserViewModel>>(users).ToList();
-            
-            if (search != null)
-            {
-                search = search.ToLower();
-                viewModels = viewModels.Where(user =>
-                    user.Email.ToLower().Contains(search)
-                    || (user.FirstName + " " + user.LastName).ToLower().Contains(search));
-            }
-            return viewModels;
-        }
-
-        public void SetRoleNameForModel(AllUserViewModel model, List<string> roleNames)
-        {
-            foreach (string role in roleNames)
-            {
-                model.Roles.Add(role);
-            }
-        }
-        public User GetCurrentUserByEmail(string email)
-        {
-            return this.Context.Users.FirstOrDefault(u => u.Email == email);
-        }
+        
     }
 }
