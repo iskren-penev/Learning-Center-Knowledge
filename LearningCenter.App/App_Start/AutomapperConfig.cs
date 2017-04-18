@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.App
 {
+    using System.Linq;
     using AutoMapper;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.EntityModels;
@@ -13,7 +14,8 @@
         {
             Mapper.Initialize(exp =>
             {
-                //forum mappings
+                #region Forum mappings
+
                 exp.CreateMap<AddTopicBindingModel, Topic>()
                 .ForMember(model => model.Category, configurationExpression =>
                         configurationExpression.Ignore());
@@ -50,16 +52,33 @@
                     .ForMember(model => model.TopicId, configurationExpression =>
                         configurationExpression.Ignore());
 
+                #endregion
+
+                #region Courses mappings
                 exp.CreateMap<Course, AllCourseViewModel>()
-                    .ForMember(model => model.InstructorName,
-                        configurationExpression =>
-                            configurationExpression.MapFrom(
-                                course => $"{course.Instructor.FirstName} {course.Instructor.LastName}"))
                     .ForMember(model => model.StudentsInCourse,
                         configurationExpression => configurationExpression.MapFrom(course => course.Students.Count));
 
+
+                #endregion
+
+                #region User profile mappings
+
+                exp.CreateMap<User, AllUserViewModel>()
+                    .ForMember(model => model.Roles, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.EnrolledCourses, configurationExpression =>
+                        configurationExpression.MapFrom(user => user.EnrolledCourses.Count));
+
                 exp.CreateMap<User, EditProfileViewModel>();
-                exp.CreateMap<User, ProfileViewModel>();
+
+                exp.CreateMap<User, ProfileViewModel>()
+                    .ForMember(model => model.EnrolledCourses, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.ForumTopics, configurationExpression =>
+                        configurationExpression.Ignore());
+                #endregion
+
             });
         }
     }

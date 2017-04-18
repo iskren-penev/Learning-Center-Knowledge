@@ -1,12 +1,11 @@
 ﻿namespace LearningCenter.Services
 {
+    using System.Linq;
     using LearningCenter.Data;
     using LearningCenter.Models.EntityModels;
 
     public abstract class Service
     {
-        
-
         public Service()
         {
             this.Context = new LearningCenterContext();
@@ -18,5 +17,6 @@
         {
             return this.Context.Users.Find(userId);
         }
+        
     }
 }

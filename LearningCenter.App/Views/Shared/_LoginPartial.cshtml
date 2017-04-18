@@ -1,10 +1,11 @@
 ﻿@using Microsoft.AspNet.Identity
-@{
-    var indexOfAt = User.Identity.Name.IndexOf("@");
-    var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
-}
+
 @if (Request.IsAuthenticated)
 {
+
+    var indexOfAt = User.Identity.Name.IndexOf("@");
+    var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
+
     using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()

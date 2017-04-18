@@ -25,11 +25,10 @@
         [StringLength(50, MinimumLength = 4)]
         public string Title { get; set; }
 
+        [Required]
         [StringLength(1000)]
         public string Description { get; set; }
         
-        public virtual User Instructor { get; set; }
-
         public virtual ICollection<User> Students
         {
             get { return this.students; }

@@ -50,8 +50,61 @@
                 @Html.ActionLink("Change password", "ChangePassword", "Manage", null, new { @class = "btn btn-block btn-info" })
                 <br />
             </div>
-
         </div>
-
     }
 </div>
+<br />
+<div class="col-sm-offset-1 col-sm-10">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#EnrolledCourses" data-toggle="tab">@Html.DisplayNameFor(model => model.EnrolledCourses)</a></li>
+        <li class=""><a href="#ForumTopics" data-toggle="tab">@Html.DisplayNameFor(model => model.ForumTopics)</a></li>
+    </ul>
+</div>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="EnrolledCourses">
+        @foreach (var course in Model.EnrolledCourses)
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.ActionLink(course.Title, "Details", "Courses", new { id = course.Id }, null)</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <span>@course.Description</span>
+                    </p>
+                   
+                </div>
+                <div class="panel-footer">
+                    <p>Students in course: @course.StudentsInCourse</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="tab-pane fade" id="ForumTopics">
+        @foreach (var topic in Model.ForumTopics)
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.ActionLink(topic.Title, "Detailed", "Forum", new { id = topic.Id }, null)</h3>
+                </div>
+                <div class="panel-body">
+                    <h4>
+                        <span>By: @topic.Author</span>
+                    </h4>
+                    <h4>
+                        <span>Category: @topic.Category</span>
+                    </h4>
+                    <h4>
+                        <span>Published on: @topic.PublishDate.Date</span>
+                    </h4>
+                </div>
+                <div class="panel-footer">
+                    <p>Replies: @topic.Replies</p>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+

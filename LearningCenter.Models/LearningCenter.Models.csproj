@@ -133,6 +133,7 @@
     <Compile Include="ViewModels\Forum\DetailedTopicViewModel.cs" />
     <Compile Include="ViewModels\Forum\EditTopicViewModel.cs" />
     <Compile Include="ViewModels\Forum\ReplyViewModel.cs" />
+    <Compile Include="ViewModels\User\AllUserViewModel.cs" />
     <Compile Include="ViewModels\User\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginListViewModel.cs" />
