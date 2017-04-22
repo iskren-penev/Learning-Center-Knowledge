@@ -6,7 +6,9 @@
 
     public interface IForumService
     {
-        IEnumerable<AllTopicsViewModel> GetAllTopics(string search);
+        IEnumerable<AllTopicsViewModel> GetAllTopics();
+
+        IEnumerable<AllTopicsViewModel> SearchTopics(string search);
 
         void AddTopic(AddTopicBindingModel model, string userId);
 

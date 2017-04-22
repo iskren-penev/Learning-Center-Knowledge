@@ -11,10 +11,17 @@
 
     public class ForumService : Service, IForumService
     {
-        public IEnumerable<AllTopicsViewModel> GetAllTopics(string search)
+        public IEnumerable<AllTopicsViewModel> GetAllTopics()
         {
             IEnumerable<Topic> topics = this.Context.Topics;
             IEnumerable<AllTopicsViewModel> viewModels = Mapper.Instance.Map<IEnumerable<AllTopicsViewModel>>(topics);
+            return viewModels;
+        }
+
+
+        public IEnumerable<AllTopicsViewModel> SearchTopics(string search)
+        {
+            var viewModels = this.GetAllTopics();
             if (search != null)
             {
                 search = search.ToLower();
@@ -101,7 +108,6 @@
             AddTopicViewModel viewModel = Mapper.Instance.Map<AddTopicViewModel>(model);
             return viewModel;
         }
-
-
+        
     }
 }

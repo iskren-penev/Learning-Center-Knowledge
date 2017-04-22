@@ -6,14 +6,22 @@
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
     using LearningCenter.Services.Interfaces;
+
     public class AdminService : Service, IAdminService
     {
-        public IEnumerable<AllUserViewModel> GetAllUsers(string search)
+        public IEnumerable<AllUserViewModel> GetAllUsers()
         {
             IEnumerable<User> users = this.Context.Users;
             IEnumerable<AllUserViewModel> viewModels = Mapper.Instance
                 .Map<IEnumerable<User>, IEnumerable<AllUserViewModel>>(users).ToList();
 
+            return viewModels;
+        }
+
+
+        public IEnumerable<AllUserViewModel> SearchUsers(string search)
+        {
+            var viewModels = this.GetAllUsers();
             if (search != null)
             {
                 search = search.ToLower();

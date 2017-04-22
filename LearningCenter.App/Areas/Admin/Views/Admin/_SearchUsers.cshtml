@@ -1,28 +1,5 @@
 ﻿@using LearningCenter.Models.ViewModels.Admin
 @model IEnumerable<AllUserViewModel>
-@{
-    ViewBag.Title = "Users";
-}
-
-<div class="row">
-    <div class="col-sm-12">
-        <h2 class="heading-centered">Users</h2>
-    </div>
-</div>
-<div class="row">
-    <form class="form-horizontal" method="get">
-        <div class="col-sm-8 col-sm-offset-1">
-            <div class="form-group">
-                <input type="text" class="form-control" name="parameter" placeholder="Search for user" />
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </div>
-        </div>
-    </form>
-</div>
 
 <table class="table table-striped table-bordered">
     <tr>
@@ -48,7 +25,7 @@
         var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
         <tr>
             <td>
-                @Html.ActionLink(item.Email, "ProfilePage", "Users", new { username = currentUsername })
+                @Html.ActionLink(item.Email, "ProfilePage", "Users", new {area="", username = currentUsername }, null)
             </td>
             <td>
                 @Html.DisplayFor(model => item.FirstName)

@@ -19,7 +19,7 @@
             context.MapRoute(
                 "Admin_default",
                 "{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "All", id = UrlParameter.Optional }
             );
         }
     }

@@ -1,0 +1,19 @@
+﻿@using LearningCenter.Models.ViewModels.User
+@model ProfileViewModel
+
+@foreach (var course in Model.EnrolledCourses)
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Html.ActionLink(course.Title, "Details", "Courses", new { id = course.Id }, null)</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                <span>@course.ShortDescription</span>
+            </p>
+        </div>
+        <div class="panel-footer">
+            <p>Students in course: @course.StudentsInCourse</p>
+        </div>
+    </div>
+}

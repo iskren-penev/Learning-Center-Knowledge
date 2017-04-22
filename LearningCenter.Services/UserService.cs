@@ -34,9 +34,9 @@
             User user = this.Context.Users.
                 FirstOrDefault(u => u.UserName.StartsWith(username));
             IEnumerable<Topic> topics = this.Context.Topics
-                .Where(topic => topic.Author.UserName == username);
+                .Where(topic => topic.Author.UserName == user.UserName);
             IEnumerable<Course> courses = this.Context.Courses
-                .Where(course => course.Students.Any(u => u.UserName == username));
+                .Where(course => course.Students.Any(u => u.UserName == user.UserName));
 
             ProfileViewModel viewModel = Mapper.Instance
                 .Map<User, ProfileViewModel>(user);

@@ -1,12 +1,12 @@
-﻿@using LearningCenter.Models.ViewModels.Forum
-@model IEnumerable<AllTopicsViewModel>
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model IEnumerable<AllUserViewModel>
 @{
-    ViewBag.Title = "Forum";
+    ViewBag.Title = "Users";
 }
 
 <div class="row">
     <div class="col-sm-12">
-        <h2 class="heading-centered">Forum</h2>
+        <h2 class="heading-centered">Users</h2>
     </div>
 </div>
 <div class="row">
@@ -21,7 +21,7 @@
     {
         <div class="col-sm-9">
             <div class="form-group">
-                <input type="text" class="form-control" name="search" placeholder="Search by topic title, category or author..." />
+                <input type="text" class="form-control" name="search" placeholder="Search..." />
             </div>
         </div>
         <div class="col-sm-1">
@@ -30,23 +30,14 @@
             </div>
         </div>
     }
-
-    <div class="col-sm-1">
-        @if (User.Identity.IsAuthenticated)
-        {
-            @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary" })
-        }
-        <br />
-    </div>
+    <br />
 </div>
-
 <div id="loadingElement" hidden="hidden">
     <div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" style="width: 100%"></div>
     </div>
 </div>
+
 <div id="search-result">
-    @Html.Partial("_SearchTopics", Model)
+    @Html.Partial("_SearchUsers", Model)
 </div>
-
-

@@ -10,8 +10,8 @@
         [StringLength(50, MinimumLength = 4)]
         public string Title { get; set; }
 
-        [StringLength(1000)]
-        public string Description { get; set; }
+        
+        public string ShortDescription { get; set; }
         
         [Display(Name = "Students in course")]
         public int StudentsInCourse { get; set; }

@@ -26,7 +26,9 @@
         public string Title { get; set; }
 
         [Required]
-        [StringLength(1000)]
+        public string ShortDescription { get; set; }
+
+        [Required]
         public string Description { get; set; }
         
         public virtual ICollection<User> Students

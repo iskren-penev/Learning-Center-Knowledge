@@ -54,5 +54,6 @@
             EditProfileViewModel viewModel = this.service.GetEditProfileViewModel(currentUsername);
             return this.View(viewModel);
         }
-    }
+        
+        }
 }

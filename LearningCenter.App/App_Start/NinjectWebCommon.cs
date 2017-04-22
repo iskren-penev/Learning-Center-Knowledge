@@ -80,7 +80,7 @@ namespace LearningCenter.App.App_Start
             kernel.Bind<ICourseService>().To<CourseService>();
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IForumService>().To<ForumService>();
-
+            kernel.Bind<IAdminService>().To<AdminService>();
         }
     }
 }

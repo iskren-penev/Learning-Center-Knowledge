@@ -22,15 +22,24 @@
         [HttpGet]
         [AllowAnonymous]
         [Route]
-        public ActionResult All(string parameter, int? pageNumber)
+        public ActionResult All(/*int? pageNumber*/)
         {
-            IEnumerable<AllTopicsViewModel> viewModels = this.service.GetAllTopics(parameter);
+            IEnumerable<AllTopicsViewModel> viewModels = this.service.GetAllTopics();
             
-            return this.View(viewModels.ToPagedList(pageNumber ?? 1, 10));
+            return this.View(viewModels/*.ToPagedList(pageNumber ?? 1, 10)*/);
         }
 
         [HttpGet]
-        [Route("{id:int:min(1)}")]
+        [ChildActionOnly]
+        public ActionResult Search(string search)
+        {
+            IEnumerable<AllTopicsViewModel> viewModels = this.service.SearchTopics(search);
+            return this.PartialView("_SearchTopics", viewModels);
+        }
+
+
+        [HttpGet]
+        [Route("topic/{id:int:min(1)}")]
         public ActionResult Detailed(int id)
         {
             this.ViewBag.TopicId = id;

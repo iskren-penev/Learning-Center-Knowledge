@@ -6,7 +6,9 @@
 
     public interface IAdminService
     {
-        IEnumerable<AllUserViewModel> GetAllUsers(string search);
+        IEnumerable<AllUserViewModel> GetAllUsers();
+
+        IEnumerable<AllUserViewModel> SearchUsers(string search);
 
         void SetRoleNameForModel(AllUserViewModel model, List<string> roleNames);
 
