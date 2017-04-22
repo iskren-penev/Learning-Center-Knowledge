@@ -42,6 +42,9 @@
                     .ForMember(model => model.Author,
                         configurationExpression =>
                             configurationExpression.MapFrom(topic => $"{topic.Author.FirstName} {topic.Author.LastName}"))
+                    .ForMember(model => model.AuthorEmail,
+                        configurationExpression =>
+                            configurationExpression.MapFrom(topic => topic.Author.Email))
                     .ForMember(model => model.Replies, configurationExpression =>
                         configurationExpression.Ignore())
                     .ForMember(model => model.Category, configurationExpression =>

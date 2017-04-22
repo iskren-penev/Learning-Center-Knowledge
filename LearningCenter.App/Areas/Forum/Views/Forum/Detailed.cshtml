@@ -4,55 +4,134 @@
     ViewBag.Title = "View topic";
 }
 
-<div class="container">
-    <h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublishDate)
-        </dd>
-    </dl>
-    <p style="font-size: 14px;">@Html.DisplayFor(model => model.Content)</p>
-    <div class="pull-right">
-        @Html.ActionLink("Edit", "EditTopic", "Forum", new { id = Model.Id }, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Back to forum", "All", "Forum", null, new { @class = "btn btn-default" })
+<h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+<div class="row">
+    <div class="col-sm-2">
+        <h3>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.Author):
+            </label>
+        </h3>
     </div>
-    <br />
-    <h3 class="heading-centered">@Html.DisplayNameFor(model => model.Replies)</h3>
-    @foreach (var reply in Model.Replies)
-    {
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>@Html.DisplayFor(r => reply.Content)</p>
-                </div>
-                <div class="panel-footer">
-                    <div>By: @reply.Author</div>
-                    <div>Published on: @reply.PublishDate</div>
+    <div class="col-sm-6">
+        <h3>
+            @Html.DisplayFor(model => model.Author)
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <h3>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.Category):
+            </label>
+        </h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>
+            @Html.DisplayFor(model => model.Category)
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <h3>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.PublishDate):
+            </label>
+        </h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>
+            @Html.DisplayFor(model => model.PublishDate)
+        </h3>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div style="font-size: 18px">
+            <blockquote>
+                @Html.Raw(Model.Content)
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+@if (User.Identity.Name == Model.AuthorEmail || User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Edit", "EditTopic", "Forum", new { id = Model.Id }, new { @class = "btn btn-warning" })
+}
+@Html.ActionLink("Back to forum", "All", "Forum", null, new { @class = "btn btn-default" })
+
+<br />
+<h3 class="heading-centered">@Html.DisplayNameFor(model => model.Replies)</h3>
+@foreach (var reply in Model.Replies)
+{
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>@Html.Raw(reply.Content)</p>
+            </div>
+            <div class="panel-footer">
+                <div>By: @reply.Author</div>
+                <div>Published on: @reply.PublishDate</div>
             </div>
         </div>
     </div>
-    }
-    @Html.Partial("_AddReply")
-</div>
+}
+@Html.Partial("_AddReply")
+@section scripts{
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#mytextarea',
+            width: 945,
+            heigth: 400,
+            plugins: 'textcolor, link, wordcount, emoticons',
+            textcolor_map: [
+                "000000", "Black",
+                "993300", "Burnt orange",
+                "333300", "Dark olive",
+                "003300", "Dark green",
+                "003366", "Dark azure",
+                "000080", "Navy Blue",
+                "333399", "Indigo",
+                "333333", "Very dark gray",
+                "800000", "Maroon",
+                "FF6600", "Orange",
+                "808000", "Olive",
+                "008000", "Green",
+                "008080", "Teal",
+                "0000FF", "Blue",
+                "666699", "Grayish blue",
+                "808080", "Gray",
+                "FF0000", "Red",
+                "FF9900", "Amber",
+                "99CC00", "Yellow green",
+                "339966", "Sea green",
+                "33CCCC", "Turquoise",
+                "3366FF", "Royal blue",
+                "800080", "Purple",
+                "999999", "Medium gray",
+                "FF00FF", "Magenta",
+                "FFCC00", "Gold",
+                "FFFF00", "Yellow",
+                "00FF00", "Lime",
+                "00FFFF", "Aqua",
+                "00CCFF", "Sky blue",
+                "993366", "Red violet",
+                "FFFFFF", "White",
+                "FF99CC", "Pink",
+                "FFCC99", "Peach",
+                "FFFF99", "Light yellow",
+                "CCFFCC", "Pale green",
+                "CCFFFF", "Pale cyan",
+                "99CCFF", "Light sky blue",
+                "CC99FF", "Plum"],
+            toolbar: 'styleselect | removeformat formats | forecolor  | bold italic underline | alignleft aligncenter alignright alignjustify | link image |undo redo | emoticons',
+            menubar: false
 
+        });
+    </script>
+}

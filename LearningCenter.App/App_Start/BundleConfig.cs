@@ -27,6 +27,8 @@ namespace LearningCenter.App
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                        "~/Scripts/tinymce/tinymce.js"));
         }
     }
 }

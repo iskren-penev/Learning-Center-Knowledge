@@ -14,6 +14,8 @@
 
         public string Author { get; set; }
 
+        public string AuthorEmail { get; set; }
+
         [Display(Name = "Published on")]
         public DateTime PublishDate { get; set; }
 
