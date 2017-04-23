@@ -1,0 +1,30 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model IEnumerable<UnitListViewModel>
+    
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "UnitPreview",  new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CourseName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUnit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </thead>
+</table>

@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class AllUserViewModel
+    public class UserListViewModel
     {
 
-        public AllUserViewModel()
+        public UserListViewModel()
         {
             this.Roles = new List<string>();
         }

@@ -1,0 +1,34 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model ICollection<UnitListViewModel>
+
+<table class="table table-bordered table-striped" style="table-layout: fixed">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CourseName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var unit in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => unit.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => unit.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => unit.CourseName)
+                </td>
+        </tr>
+        }
+    </tbody>
+</table>

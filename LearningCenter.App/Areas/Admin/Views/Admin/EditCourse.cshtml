@@ -1,0 +1,97 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model EditCourseViewModel
+
+@{
+    ViewBag.Title = "Edit Course";
+}
+<br />
+<br />
+<div class="container-fluid custom-form">
+
+    @using (Html.BeginForm("EditCourse", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h2 class="heading-centered">Edit course</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.Id)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    <textarea name="Description" rows="10" cols="200" class="form-control"></textarea>
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.UnitIds, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.UnitIds, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Display("(Type the id's of unassigned courses from the table below, separated by comma or space.)")
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-8">
+                    @Html.ActionLink("Cancel", "CourseList", "Admin", null, new { @class = "btn btn-default" })
+                    <input type="submit" value="Edit" class="btn btn-success" />
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>
+
+<div class="col-sm-offset-1 col-sm-10">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#Unassigned" data-toggle="tab" aria-expanded="true">@Html.DisplayNameFor(model => model.UnassignedUnits)</a>
+        </li>
+        <li class="">
+            <a href="#InCourse" data-toggle="tab" aria-expanded="false">@Html.DisplayNameFor(model => model.UnitsInCourse)</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane fade active" id="Unassigned">
+        <div class="col-sm-offset-1 col-sm-10">
+            @Html.Partial("_DisplayCourses", Model.UnassignedUnits)
+        </div>
+    </div>
+    <div class="tab-pane fade" id="InCourse">
+        <div class="col-sm-offset-1 col-sm-10">
+            @Html.Partial("_DisplayCourses", Model.UnitsInCourse)
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
