@@ -113,10 +113,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingModels\Admin\AddCourseBindingModel.cs" />
-    <Compile Include="BindingModels\Admin\AddUnitBindingModel.cs" />
-    <Compile Include="BindingModels\Admin\EditCourseBindingModel.cs" />
-    <Compile Include="BindingModels\Admin\EditUnitBindingModel.cs" />
+    <Compile Include="BindingModels\Courses\AddCourseBindingModel.cs" />
+    <Compile Include="BindingModels\Units\AddUnitBindingModel.cs" />
+    <Compile Include="BindingModels\Courses\EditCourseBindingModel.cs" />
+    <Compile Include="BindingModels\Units\EditUnitBindingModel.cs" />
     <Compile Include="BindingModels\Forum\AddReplyBindingModel.cs" />
     <Compile Include="BindingModels\Forum\EditTopicBindingModel.cs" />
     <Compile Include="BindingModels\User\EditProfileBindingModel.cs" />
@@ -132,12 +132,13 @@
     <Compile Include="EntityModels\Unit.cs" />
     <Compile Include="EntityModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Admin\AddCourseViewModel.cs" />
-    <Compile Include="ViewModels\Admin\AddUnitViewModel.cs" />
+    <Compile Include="ViewModels\Course\AddCourseViewModel.cs" />
+    <Compile Include="ViewModels\Units\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\Admin\CourseListViewModel.cs" />
-    <Compile Include="ViewModels\Admin\EditCourseViewModel.cs" />
-    <Compile Include="ViewModels\Admin\EditUnitViewModel.cs" />
-    <Compile Include="ViewModels\Admin\UnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Course\DetailedCourseViewModel.cs" />
+    <Compile Include="ViewModels\Course\EditCourseViewModel.cs" />
+    <Compile Include="ViewModels\Units\EditUnitViewModel.cs" />
+    <Compile Include="ViewModels\Units\UnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Admin\UnitListViewModel.cs" />
     <Compile Include="ViewModels\Forum\AddTopicViewModel.cs" />
     <Compile Include="ViewModels\Forum\AllTopicsViewModel.cs" />

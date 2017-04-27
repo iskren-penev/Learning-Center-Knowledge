@@ -1,4 +1,4 @@
-﻿namespace LearningCenter.Models.ViewModels.Admin
+﻿namespace LearningCenter.Models.ViewModels.Course
 {
     using System.ComponentModel.DataAnnotations;
 

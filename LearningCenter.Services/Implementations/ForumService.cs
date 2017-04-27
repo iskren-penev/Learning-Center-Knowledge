@@ -1,4 +1,4 @@
-﻿namespace LearningCenter.Services
+﻿namespace LearningCenter.Services.Implementations
 {
     using System;
     using System.Collections.Generic;

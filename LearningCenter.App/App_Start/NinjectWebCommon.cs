@@ -5,19 +5,14 @@ namespace LearningCenter.App.App_Start
 {
     using System;
     using System.Web;
-
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
-
-    using Services;
     using Services.Interfaces;
-
     using LearningCenter.Models.EntityModels;
+    using LearningCenter.Services.Implementations;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
 
@@ -81,6 +76,7 @@ namespace LearningCenter.App.App_Start
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IForumService>().To<ForumService>();
             kernel.Bind<IAdminService>().To<AdminService>();
+            kernel.Bind<IUnitsService>().To<UnitsService>();
         }
     }
 }

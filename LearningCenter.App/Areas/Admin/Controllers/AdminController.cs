@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-    using LearningCenter.Models.BindingModels.Admin;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Account;
     using LearningCenter.Models.ViewModels.Admin;
@@ -68,14 +67,14 @@
 
 
         [AllowAnonymous]
-        [Route("register")]
+        [Route("users/add")]
         public ActionResult AddUser()
         {
             return View();
         }
         
         [HttpPost]
-        [Route("register")]
+        [Route("users/add")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddUser([Bind(Include = "Email,Password,FirstName,LastName,ConfirmPassword")]RegisterViewModel model)
         {
@@ -117,52 +116,6 @@
             return this.PartialView("_SearchCourses", viewModels);
         }
 
-        [HttpGet]
-        [Route("courses/add")]
-        public ActionResult AddCourse()
-        {
-            return this.View(new AddCourseViewModel());
-        }
-
-
-        [HttpPost]
-        [Route("courses/add")]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddCourse([Bind(Include = "Title,ShortDescription,Description")]AddCourseBindingModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                this.service.AddCourse(model);
-                return this.RedirectToAction("CourseList");
-            }
-
-            AddCourseViewModel viewModel = this.service.GetAddCourseViewModel(model);
-            return this.View(viewModel);
-        }
-
-        [HttpGet]
-        [Route("courses/edit/{id:int:min(1)}")]
-        public ActionResult EditCourse(int id)
-        {
-            EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(id);
-            return this.View(viewModel);
-        }
-
-        [HttpPost]
-        [Route("courses/edit/{id:int:min(1)}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditCourse([Bind(Include = "Id,Title,ShortDescription,Description,UnitIds")] EditCourseBindingModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                this.service.EditCourse(model);
-
-                return this.RedirectToAction("Details", "Courses", new { area = "", id = model.Id });
-            }
-
-            EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(model.Id);
-            return this.View(viewModel);
-        }
 
         [HttpGet]
         [Route("units")]
@@ -179,62 +132,6 @@
             IEnumerable<UnitListViewModel> viewModels = this.service.SearchUnits(search);
             return this.PartialView("_SearchUnits", viewModels);
         }
-
-        [HttpGet]
-        [Route("units/{id:int:min(1)}")]
-        public ActionResult UnitPreview(int id)
-        {
-            UnitDetailsViewModel viewModel = this.service.GetUnitDetailsViewModel(id);
-
-            return this.View(viewModel);
-        }
-
-        [HttpGet]
-        [Route("units/add")]
-        public ActionResult AddUnit()
-        {
-            return this.View(new AddUnitBindingModel());
-        }
-
-        [HttpPost]
-        [Route("units/add")]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddUnit([Bind(Include = "Title,ContentUrl")]AddUnitBindingModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                this.service.AddUnit(model);
-                return this.RedirectToAction("UnitsList");
-            }
-
-            AddUnitViewModel viewModel = this.service.GetAddUnitViewModel(model);
-            return this.View(viewModel);
-        }
-
-        [HttpGet]
-        [Route("units/edit/{id:int:min(1)}")]
-        public ActionResult EditUnit(int id)
-        {
-            EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(id);
-            return this.View(viewModel);
-        }
-
-        [HttpPost]
-        [Route("units/edit/{id:int:min(1)}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditUnit([Bind(Include = "")] EditUnitBindingModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                this.service.EditUnit(model);
-                return this.RedirectToAction("UnitPreview", new { id = model.Id });
-            }
-
-            EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(model.Id);
-            return this.View(viewModel);
-        }
-
-
 
         private void AddErrors(IdentityResult result)
         {

@@ -1,4 +1,4 @@
-﻿namespace LearningCenter.Models.ViewModels.Admin
+﻿namespace LearningCenter.Models.ViewModels.Units
 {
     public class EditUnitViewModel
     {

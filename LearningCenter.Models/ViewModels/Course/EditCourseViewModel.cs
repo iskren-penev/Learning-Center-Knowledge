@@ -1,6 +1,7 @@
-﻿namespace LearningCenter.Models.ViewModels.Admin
+﻿namespace LearningCenter.Models.ViewModels.Course
 {
     using System.Collections.Generic;
+    using LearningCenter.Models.ViewModels.Admin;
 
     public class EditCourseViewModel
     {

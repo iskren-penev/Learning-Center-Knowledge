@@ -1,14 +1,14 @@
-﻿namespace LearningCenter.Services
+﻿namespace LearningCenter.Services.Implementations
 {
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
-    using LearningCenter.Services.Interfaces;
     using LearningCenter.Models.BindingModels.User;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Course;
     using LearningCenter.Models.ViewModels.Forum;
     using LearningCenter.Models.ViewModels.User;
+    using LearningCenter.Services.Interfaces;
 
     public class UserService : Service, IUserService
     {

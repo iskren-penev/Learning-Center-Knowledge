@@ -1,12 +1,14 @@
 ﻿namespace LearningCenter.App
 {
     using AutoMapper;
-    using LearningCenter.Models.BindingModels.Admin;
+    using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.BindingModels.Forum;
+    using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
     using LearningCenter.Models.ViewModels.Course;
     using LearningCenter.Models.ViewModels.Forum;
+    using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Models.ViewModels.User;
 
     public static class AutomapperConfig
@@ -63,6 +65,35 @@
                     .ForMember(model => model.StudentsInCourse,
                         configurationExpression => configurationExpression.MapFrom(course => course.Students.Count));
 
+                exp.CreateMap<Course, CourseListViewModel>()
+                   .ForMember(model => model.Students, configurationExpression =>
+                       configurationExpression.MapFrom(course => course.Students.Count));
+
+                exp.CreateMap<AddCourseBindingModel, Course>();
+
+                exp.CreateMap<AddCourseBindingModel, AddCourseViewModel>();
+
+                exp.CreateMap<Course, EditCourseViewModel>()
+                    .ForMember(model => model.UnitIds, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.UnitsInCourse, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.UnassignedUnits, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                #endregion
+
+                #region Units Mappings
+
+                exp.CreateMap<Unit, UnitDetailsViewModel>()
+                    .ForMember(model => model.CourseName, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                exp.CreateMap<AddUnitBindingModel, Unit>();
+
+                exp.CreateMap<AddUnitBindingModel, AddUnitViewModel>();
+
+                exp.CreateMap<Unit, EditUnitViewModel>();
 
                 #endregion
 
@@ -86,38 +117,12 @@
                     .ForMember(model => model.EnrolledCourses, configurationExpression =>
                         configurationExpression.MapFrom(user => user.EnrolledCourses.Count));
 
-
-                //courses
-                exp.CreateMap<Course, CourseListViewModel>()
-                    .ForMember(model => model.Students, configurationExpression =>
-                        configurationExpression.MapFrom(course => course.Students.Count));
-
-                exp.CreateMap<AddCourseBindingModel, Course>();
-
-                exp.CreateMap<AddCourseBindingModel, AddCourseViewModel>();
-
-                exp.CreateMap<Course, EditCourseViewModel>()
-                    .ForMember(model => model.UnitIds, configurationExpression =>
-                        configurationExpression.Ignore())
-                    .ForMember(model => model.UnitsInCourse, configurationExpression =>
-                        configurationExpression.Ignore())
-                    .ForMember(model => model.UnassignedUnits, configurationExpression =>
-                        configurationExpression.Ignore());
-
-                //units
+                
                 exp.CreateMap<Unit, UnitListViewModel>()
                     .ForMember(model => model.CourseName, configurationExpression =>
                         configurationExpression.Ignore());
 
-                exp.CreateMap<Unit, UnitDetailsViewModel>()
-                    .ForMember(model => model.CourseName, configurationExpression =>
-                        configurationExpression.Ignore());
-
-                exp.CreateMap<AddUnitBindingModel, Unit>();
-
-                exp.CreateMap<AddUnitBindingModel, AddUnitViewModel>();
-
-                exp.CreateMap<Unit, EditUnitViewModel>();
+                
 
                 #endregion
 

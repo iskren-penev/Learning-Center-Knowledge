@@ -1,25 +1,25 @@
-﻿namespace LearningCenter.App.Areas.Admin
+﻿namespace LearningCenter.App.Areas.Courses
 {
     using System.Web.Mvc;
 
-    public class AdminAreaRegistration : AreaRegistration 
+    public class CoursesAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Admin";
+                return "Courses";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.Routes.MapMvcAttributeRoutes();
-            
+
             context.MapRoute(
-                "Admin_default",
-                "{controller}/{action}/{id}",
-                new { action = "UsersList", id = UrlParameter.Optional }
+                "Courses_default",
+                "Courses/{controller}/{action}/{id}",
+                new { action = "AllCourses", id = UrlParameter.Optional }
             );
         }
     }

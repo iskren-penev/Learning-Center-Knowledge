@@ -6,17 +6,12 @@
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50, MinimumLength = 4)]
         public string Title { get; set; }
+        
 
-        
         public string ShortDescription { get; set; }
-        
+
         [Display(Name = "Students in course")]
         public int StudentsInCourse { get; set; }
     }
-    
-
-   
 }

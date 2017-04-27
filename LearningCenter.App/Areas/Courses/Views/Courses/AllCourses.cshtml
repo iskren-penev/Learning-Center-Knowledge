@@ -4,11 +4,9 @@
 @{
     ViewBag.Title = "All Courses";
 }
-<h2>Index</h2>
+@*TODO*@
 
-<p>
-    @Html.ActionLink("Create New", "Create", new {@class="btn btn-primary"})
-</p>
+
 @foreach (var course in Model)
 {
     <div class="panel panel-primary">
@@ -17,7 +15,7 @@
         </div>
         <div class="panel-body">
             <p>
-                <span>@course.Description</span>
+                <span>@course.ShortDescription</span>
             </p>
 
         </div>

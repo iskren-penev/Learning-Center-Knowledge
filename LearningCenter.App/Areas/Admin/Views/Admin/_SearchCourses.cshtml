@@ -16,13 +16,13 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Title, "Details", "Courses", new {area = "", id = item.Id}, null)
+                    @Html.ActionLink(item.Title, "Details", "Courses", new {area = "Courses", id = item.Id}, null)
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.Students)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditCourse", new { id= item.Id}, new {@class = "btn btn-warning"})
+                    @Html.ActionLink("Edit", "EditCourse", "Courses", new {area="Courses", id= item.Id}, new {@class = "btn btn-warning"})
                 </td>
             </tr>
         }

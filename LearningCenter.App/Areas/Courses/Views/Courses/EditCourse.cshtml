@@ -1,4 +1,5 @@
-﻿@using LearningCenter.Models.ViewModels.Admin
+﻿@using LearningCenter.Models.ViewModels.Course
+@using LearningCenter.Models.ViewModels.Admin
 @model EditCourseViewModel
 
 @{
@@ -8,7 +9,7 @@
 <br />
 <div class="container-fluid custom-form">
 
-    @using (Html.BeginForm("EditCourse", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("EditCourse", "Courses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -60,7 +61,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-8">
-                    @Html.ActionLink("Cancel", "CourseList", "Admin", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Cancel", "CourseList", "Admin", new { area = "Admin" }, new { @class = "btn btn-default" })
                     <input type="submit" value="Edit" class="btn btn-success" />
                 </div>
             </div>
@@ -83,12 +84,12 @@
 <div class="tab-content">
     <div class="tab-pane fade active" id="Unassigned">
         <div class="col-sm-offset-1 col-sm-10">
-            @Html.Partial("_DisplayCourses", Model.UnassignedUnits)
+            @Html.Partial("_DisplayCourses", new Tuple<int, ICollection<UnitListViewModel>>(Model.Id, Model.UnassignedUnits))
         </div>
     </div>
     <div class="tab-pane fade" id="InCourse">
         <div class="col-sm-offset-1 col-sm-10">
-            @Html.Partial("_DisplayCourses", Model.UnitsInCourse)
+            @Html.Partial("_DisplayCourses", new Tuple<int, ICollection<UnitListViewModel>>(Model.Id, Model.UnitsInCourse))
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Services.Interfaces;
 
+    [Authorize(Roles = "Admin,User")]
     [RoutePrefix("courses")]
     public class CoursesController : Controller
     {
@@ -20,6 +21,7 @@
 
         // GET: Courses
         [HttpGet]
+        [AllowAnonymous]
         [Route]
         public ActionResult All()
         {
@@ -27,7 +29,7 @@
             return View(courses);
         }
 
-        // GET: Courses/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

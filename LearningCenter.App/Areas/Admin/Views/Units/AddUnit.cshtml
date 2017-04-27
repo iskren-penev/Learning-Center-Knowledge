@@ -1,10 +1,10 @@
-﻿@using LearningCenter.Models.ViewModels.Admin
+﻿@using LearningCenter.Models.ViewModels.Units
 @model AddUnitViewModel
 @{
     ViewBag.Title = "Add unit";
 }
 
-@using (Html.BeginForm("AddUnit", "Admin", FormMethod.Post, new { @class = "custom-form" }))
+@using (Html.BeginForm("AddUnit", "Units", FormMethod.Post, new { @class = "custom-form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -33,7 +33,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-8">
-                    @Html.ActionLink("Cancel", "UnitsList", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Cancel", "UnitsList","Admin", new {area ="Admin"}, new { @class = "btn btn-default" })
                     <input type="submit" value="Create" class="btn btn-success" />
                 </div>
             </div>
