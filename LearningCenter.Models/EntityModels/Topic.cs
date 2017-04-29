@@ -7,10 +7,13 @@
     public class Topic
     {
         private ICollection<Reply> replies;
-        
+        private ICollection<Tag> tags;
+
+
         public Topic()
         {
             this.replies = new List<Reply>();
+            this.tags = new List<Tag>();
         }
 
         public int Id { get; set; }
@@ -24,15 +27,19 @@
         public string Content { get; set; }
 
         public DateTime PublishDate { get; set; }
-
-        public virtual Category Category { get; set; }
-
+        
         public virtual User Author { get; set; }
 
         public virtual ICollection<Reply> Replies
         {
             get { return this.replies; }
             set { this.replies = value; }
+        }
+
+        public virtual ICollection<Tag> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
         }
     }
 }

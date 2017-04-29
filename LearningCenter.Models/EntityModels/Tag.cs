@@ -2,13 +2,13 @@
 {
     using System.Collections.Generic;
 
-    public class Category
+    public class Tag
     {
         private ICollection<Topic> topics;
 
-        public Category()
+        public Tag()
         {
-            this.Topics = new List<Topic>();
+            this.topics = new List<Topic>();
         }
 
         public int Id { get; set; }

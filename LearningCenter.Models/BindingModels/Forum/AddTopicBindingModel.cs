@@ -13,8 +13,8 @@
         [MinLength(50)]
         [AllowHtml]
         public string Content { get; set; }
-
+        
         [Required]
-        public string Category { get; set; }
+        public string Tags { get; set; }
     }
 }

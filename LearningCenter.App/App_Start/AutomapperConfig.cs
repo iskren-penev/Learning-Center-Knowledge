@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.App
 {
+    using System.Linq;
     using AutoMapper;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.BindingModels.Forum;
@@ -20,7 +21,7 @@
                 #region Forum mappings
 
                 exp.CreateMap<AddTopicBindingModel, Topic>()
-                .ForMember(model => model.Category, configurationExpression =>
+                .ForMember(model => model.Tags, configurationExpression =>
                         configurationExpression.Ignore());
 
                 exp.CreateMap<Topic, AllTopicsViewModel>()
@@ -29,12 +30,12 @@
                             configurationExpression.MapFrom(topic => $"{topic.Author.FirstName} {topic.Author.LastName}"))
                     .ForMember(model => model.Replies,
                         configurationExpression => configurationExpression.MapFrom(topic => topic.Replies.Count))
-                    .ForMember(model => model.Category, configurationExpression =>
-                        configurationExpression.MapFrom(topic => topic.Category.Name));
+                    .ForMember(model => model.Tags, configurationExpression =>
+                        configurationExpression.MapFrom(topic => topic.Tags.Select(t => t.Name)));
 
                 exp.CreateMap<Topic, EditTopicViewModel>()
-                    .ForMember(model => model.Category, configurationExpression =>
-                        configurationExpression.MapFrom(topic => topic.Category.Name));
+                    .ForMember(model => model.Tags, configurationExpression =>
+                        configurationExpression.MapFrom(topic => string.Join(",",topic.Tags.Select(t => t.Name))));
 
                 exp.CreateMap<Reply, ReplyViewModel>()
                     .ForMember(model => model.Author, configurationExpression =>
@@ -49,14 +50,18 @@
                             configurationExpression.MapFrom(topic => topic.Author.Email))
                     .ForMember(model => model.Replies, configurationExpression =>
                         configurationExpression.Ignore())
-                    .ForMember(model => model.Category, configurationExpression =>
-                        configurationExpression.MapFrom(topic => topic.Category.Name)); ;
+                    .ForMember(model => model.Tags, configurationExpression =>
+                        configurationExpression.MapFrom(topic => topic.Tags.Select(t => t.Name))); ;
 
                 exp.CreateMap<AddTopicBindingModel, AddTopicViewModel>();
 
                 exp.CreateMap<AddReplyBindingModel, Reply>()
                     .ForMember(model => model.TopicId, configurationExpression =>
                         configurationExpression.Ignore());
+
+                exp.CreateMap<Tag, ForumTagViewModel>()
+                    .ForMember(model => model.TopicsCount, configurationExpression =>
+                        configurationExpression.MapFrom(tag => tag.Topics.Count));
 
                 #endregion
 

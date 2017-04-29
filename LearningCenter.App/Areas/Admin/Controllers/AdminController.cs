@@ -49,9 +49,8 @@
             }
             return this.View(viewModels);
         }
+        
 
-        [HttpGet]
-        [ChildActionOnly]
         public ActionResult SearchUsers(string search)
         {
             IEnumerable<UserListViewModel> viewModels = this.service.SearchUsers(search);
@@ -109,7 +108,6 @@
         }
 
         [HttpGet]
-        [ChildActionOnly]
         public ActionResult SearchCourses(string search)
         {
             IEnumerable<CourseListViewModel> viewModels = this.service.SearchCourses(search);
@@ -126,7 +124,6 @@
         }
 
         [HttpGet]
-        [ChildActionOnly]
         public ActionResult SearchUnits(string search)
         {
             IEnumerable<UnitListViewModel> viewModels = this.service.SearchUnits(search);

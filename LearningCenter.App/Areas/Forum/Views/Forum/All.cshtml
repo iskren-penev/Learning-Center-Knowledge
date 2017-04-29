@@ -1,5 +1,5 @@
 ﻿@using LearningCenter.Models.ViewModels.Forum
-@model IEnumerable<AllTopicsViewModel>
+@model ForumListViewModel
 @{
     ViewBag.Title = "Forum";
 }
@@ -10,43 +10,62 @@
     </div>
 </div>
 <div class="row">
-    @using (Ajax.BeginForm("Search", new AjaxOptions()
-    {
-        HttpMethod = "GET",
-        UpdateTargetId = "search-result",
-        InsertionMode = InsertionMode.Replace,
-        LoadingElementId = "loadingElement",
-        LoadingElementDuration = 2000
-    }))
-    {
-        <div class="col-sm-9">
-            <div class="form-group">
-                <input type="text" class="form-control" name="search" placeholder="Search by topic title, category or author..." />
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-success" />
-            </div>
-        </div>
-    }
-
-    <div class="col-sm-1">
+    <div class="col-sm-2">
         @if (User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Add new topic", "Add", "Forum", null, new { @class = "btn btn-primary btn-block" })
         }
         <br />
+        <h4 class="heading-centered">Popular Tags:</h4>
+        <br />
+        @foreach (var tag in Model.Tags)
+        {
+            @Ajax.ActionLink(tag.Name, "Display", new { search = tag.Name }, new AjaxOptions()
+        {
+           UpdateTargetId = "searchResult",
+           InsertionMode = InsertionMode.Replace,
+           LoadingElementId = "loadingElement",
+           LoadingElementDuration = 1500
+        }, new { @class = "btn btn-info" })
+            <br/>
+            <br/>
+        }
+    </div>
+    <div class="col-sm-10">
+        <div class="row">
+            @using (Ajax.BeginForm("Display", new AjaxOptions()
+            {
+                UpdateTargetId = "searchResult",
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "loadingElement",
+                LoadingElementDuration = 1500
+            }))
+            {
+                <div class="col-sm-10">
+                    <div class="form-group">
+                       <input type="text" class="form-control" name="search" placeholder="Search by title, tag or author..."/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <input type="submit" id="submit" value="Search" class="btn btn-success btn-block" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div id="loadingElement" hidden="hidden">
+                <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+                </div>
+            </div>
+            <div id="searchResult">
+                @Html.Action("Display", new { search= ""})
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="loadingElement" hidden="hidden">
-    <div class="progress progress-striped">
-        <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-    </div>
-</div>
-<div id="search-result">
-    @Html.Partial("_SearchTopics", Model)
-</div>
+
 
 

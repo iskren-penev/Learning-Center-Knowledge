@@ -214,7 +214,7 @@
 
         //
         // GET: /Manage/ChangePassword
-        [Route("manage/changepassword")]
+        [Route("users/changepassword")]
         public ActionResult ChangePassword()
         {
             return View();
@@ -223,7 +223,7 @@
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
-        [Route("manage/changepassword")]
+        [Route("users/changepassword")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {

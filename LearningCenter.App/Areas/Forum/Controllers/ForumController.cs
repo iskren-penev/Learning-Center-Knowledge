@@ -22,28 +22,26 @@
         [HttpGet]
         [AllowAnonymous]
         [Route]
-        public ActionResult All(/*int? pageNumber*/)
+        public ActionResult All()
         {
-            IEnumerable<AllTopicsViewModel> viewModels = this.service.GetAllTopics();
+            ForumListViewModel viewModel = this.service.GetForumListViewModel();
             
-            return this.View(viewModels/*.ToPagedList(pageNumber ?? 1, 10)*/);
+            return this.View(viewModel);
         }
-
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult Search(string search)
+        
+        public PartialViewResult Display(string search)
         {
-            IEnumerable<AllTopicsViewModel> viewModels = this.service.SearchTopics(search);
-            return this.PartialView("_SearchTopics", viewModels);
+            var viewModels = this.service.SearchTopics(search);
+            return this.PartialView("_DisplayTopics", viewModels);
         }
-
+        
 
         [HttpGet]
         [Route("topic/{id:int:min(1)}")]
         public ActionResult Detailed(int id)
         {
             this.ViewBag.TopicId = id;
-            DetailedTopicViewModel viewModel = this.service.DetailedTopic(id);
+            DetailedTopicViewModel viewModel =  this.service.DetailedTopic(id);
             return this.View(viewModel);
         }
 
@@ -56,7 +54,7 @@
 
         [HttpPost]
         [Route("add")]
-        public ActionResult Add([Bind(Include = "Title,Content,Category")] AddTopicBindingModel model)
+        public ActionResult Add([Bind(Include = "Title,Content,Tags")] AddTopicBindingModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -78,7 +76,7 @@
 
         [HttpPost]
         [Route("edit/{id:int:min(1)}")]
-        public ActionResult EditTopic([Bind(Include = "Id,Content,Category")] EditTopicBindingModel model)
+        public ActionResult EditTopic([Bind(Include = "Id,Content,Tags")] EditTopicBindingModel model)
         {
             if (this.ModelState.IsValid)
             {

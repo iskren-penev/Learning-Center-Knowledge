@@ -8,44 +8,47 @@
 <hr />
 <div class="row">
     <div class="col-sm-2">
-        <h3>
+        <h4>
             <label class="label label-info">
                 @Html.DisplayNameFor(model => model.Author):
             </label>
-        </h3>
+        </h4>
     </div>
     <div class="col-sm-6">
-        <h3>
+        <h4>
             @Html.DisplayFor(model => model.Author)
-        </h3>
+        </h4>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2">
-        <h3>
+        <h4>
             <label class="label label-info">
-                @Html.DisplayNameFor(model => model.Category):
+                @Html.DisplayNameFor(model => model.Tags):
             </label>
-        </h3>
+        </h4>
     </div>
     <div class="col-sm-6">
-        <h3>
-            @Html.DisplayFor(model => model.Category)
-        </h3>
+        <h4>
+            @foreach (string tg in Model.Tags)
+            {
+                @Html.DisplayFor(model => tg)<span> </span>
+            }
+        </h4>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2">
-        <h3>
+        <h4>
             <label class="label label-info">
                 @Html.DisplayNameFor(model => model.PublishDate):
             </label>
-        </h3>
+        </h4>
     </div>
     <div class="col-sm-6">
-        <h3>
+        <h4>
             @Html.DisplayFor(model => model.PublishDate)
-        </h3>
+        </h4>
     </div>
 </div>
 <br />
@@ -69,7 +72,7 @@
 <h3 class="heading-centered">@Html.DisplayNameFor(model => model.Replies)</h3>
 @foreach (var reply in Model.Replies)
 {
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-1 col-sm-10">
         <div class="panel panel-default">
             <div class="panel-body">
                 <p>@Html.Raw(reply.Content)</p>

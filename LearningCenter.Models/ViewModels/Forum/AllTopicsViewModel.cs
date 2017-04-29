@@ -1,6 +1,7 @@
 ﻿namespace LearningCenter.Models.ViewModels.Forum
 {
     using System;
+    using System.Collections.Generic;
 
     public class AllTopicsViewModel
     {
@@ -14,6 +15,6 @@
 
         public DateTime PublishDate { get; set; }
 
-        public string Category { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

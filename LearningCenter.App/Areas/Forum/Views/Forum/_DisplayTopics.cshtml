@@ -9,10 +9,13 @@
         </div>
         <div class="panel-body">
             <h4>
-                <span>By: @topic.Author</span>
+                By: @topic.Author
             </h4>
             <h4>
-                <span>Category: @topic.Category</span>
+                Tags: @foreach (string tag in topic.Tags)
+                {
+                    @Html.DisplayFor(model => tag)<span> </span>
+                }
             </h4>
             <h4>
                 <span>Published on: @topic.PublishDate.Date</span>
@@ -20,7 +23,6 @@
         </div>
         <div class="panel-footer">
             <p>Replies: @topic.Replies</p>
-
         </div>
     </div>
 }

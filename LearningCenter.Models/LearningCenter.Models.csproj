@@ -122,7 +122,7 @@
     <Compile Include="BindingModels\User\EditProfileBindingModel.cs" />
     <Compile Include="BindingModels\Forum\AddTopicBindingModel.cs" />
     <Compile Include="EntityModels\Answer.cs" />
-    <Compile Include="EntityModels\Category.cs" />
+    <Compile Include="EntityModels\Tag.cs" />
     <Compile Include="EntityModels\Grade.cs" />
     <Compile Include="EntityModels\Topic.cs" />
     <Compile Include="EntityModels\Course.cs" />
@@ -133,6 +133,7 @@
     <Compile Include="EntityModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Course\AddCourseViewModel.cs" />
+    <Compile Include="ViewModels\Forum\ForumListViewModel.cs" />
     <Compile Include="ViewModels\Units\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\Admin\CourseListViewModel.cs" />
     <Compile Include="ViewModels\Course\DetailedCourseViewModel.cs" />
@@ -171,7 +172,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Compile Include="ViewModels\Forum\ForumCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Forum\ForumTagViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

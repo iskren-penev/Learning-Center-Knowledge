@@ -24,7 +24,7 @@ namespace LearningCenter.Data
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,6 +38,15 @@ namespace LearningCenter.Data
                     configuration.ToTable("UserCourses");
                 });
 
+            modelBuilder.Entity<Topic>()
+                .HasMany<Tag>(topic => topic.Tags)
+                .WithMany(tag => tag.Topics)
+                .Map(configuration =>
+                {
+                    configuration.MapLeftKey("TopicId");
+                    configuration.MapRightKey("TagId");
+                    configuration.ToTable("TopicTags");
+                });
 
             base.OnModelCreating(modelBuilder);
         }

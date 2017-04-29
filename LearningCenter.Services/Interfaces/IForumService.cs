@@ -1,6 +1,7 @@
 ﻿namespace LearningCenter.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.ViewModels.Forum;
 
@@ -21,5 +22,7 @@
         void AddReply(AddReplyBindingModel model, string userId);
         
         AddTopicViewModel GetAddTopicViewModel(AddTopicBindingModel model);
+
+        ForumListViewModel GetForumListViewModel();
     }
 }

@@ -21,15 +21,14 @@
 
         public IEnumerable<AllTopicsViewModel> SearchTopics(string search)
         {
-            var viewModels = this.GetAllTopics();
-            if (search != null)
-            {
-                search = search.ToLower();
-                viewModels = viewModels.Where(topic =>
-                    topic.Title.ToLower().Contains(search)
-                    || topic.Category.ToLower().Contains(search)
-                    || topic.Author.ToLower().Contains(search));
-            }
+
+            IEnumerable<Topic> topics = this.Context.Topics.Where(topic =>
+                topic.Title.StartsWith(search)
+                || topic.Tags.Any(tag => tag.Name == search)
+                || topic.Author.FirstName.Contains(search)
+                || topic.Author.LastName.Contains(search));
+            IEnumerable<AllTopicsViewModel> viewModels = Mapper.Instance.Map<IEnumerable<AllTopicsViewModel>>(topics);
+
             return viewModels;
         }
 
@@ -43,21 +42,28 @@
 
         public void AddTopic(AddTopicBindingModel model, string userId)
         {
-            User currentUser = this.Context.Users.Find(userId);
-            Category category = this.Context.Categories.FirstOrDefault(cat => cat.Name == model.Category);
-            if (category == null)
-            {
-                category = new Category()
-                {
-                    Name = model.Category
-                };
-                this.Context.Categories.Add(category);
-                this.Context.SaveChanges();
-            }
+            User currentUser = GetCurrentUser(userId);
+
             Topic topic = Mapper.Instance.Map<Topic>(model);
             topic.Author = currentUser;
             topic.PublishDate = DateTime.Now;
-            topic.Category = category;
+
+            string[] tags = model.Tags.Split(new[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string tagString in tags)
+            {
+                Tag tag = this.Context.Tags.FirstOrDefault(t => t.Name == tagString);
+                if (tag == null)
+                {
+                    tag = new Tag()
+                    {
+                        Name = tagString
+                    };
+                    this.Context.Tags.Add(tag);
+                    this.Context.SaveChanges();
+                }
+
+                topic.Tags.Add(tag);
+            }
 
             this.Context.Topics.Add(topic);
             this.Context.SaveChanges();
@@ -74,17 +80,25 @@
         public void EditTopic(EditTopicBindingModel model)
         {
             Topic topic = this.Context.Topics.Find(model.Id);
-            Category category = this.Context.Categories.FirstOrDefault(cat => cat.Name == model.Category);
-            if (category == null)
+            string[] tags = model.Tags.Split(new[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string tagString in tags)
             {
-                category = new Category()
+                if (!topic.Tags.Any(t => t.Name == tagString))
                 {
-                    Name = model.Category
-                };
-                this.Context.Categories.Add(category);
-                this.Context.SaveChanges();
+                    Tag tag = this.Context.Tags.FirstOrDefault(t => t.Name == tagString);
+                    if (tag == null)
+                    {
+                        tag = new Tag()
+                        {
+                            Name = tagString
+                        };
+                        this.Context.Tags.Add(tag);
+                        this.Context.SaveChanges();
+                    }
+                    topic.Tags.Add(tag);
+
+                }
             }
-            topic.Category = category;
             topic.Content = model.Content;
             this.Context.SaveChanges();
         }
@@ -108,6 +122,27 @@
             AddTopicViewModel viewModel = Mapper.Instance.Map<AddTopicViewModel>(model);
             return viewModel;
         }
-        
+
+        public ForumListViewModel GetForumListViewModel()
+        {
+            ForumListViewModel viewModel = new ForumListViewModel()
+            {
+                Tags = this.GetTopTags(),
+                Topics = this.GetAllTopics()
+            };
+
+            return viewModel;
+        }
+
+        private IEnumerable<ForumTagViewModel> GetTopTags()
+        {
+            IEnumerable<Tag> tags = this.Context.Tags
+                .OrderByDescending(t => t.Topics.Count)
+                .Take(10);
+            IEnumerable<ForumTagViewModel> viewModels = Mapper.Instance
+                .Map<IEnumerable<Tag>, IEnumerable<ForumTagViewModel>>(tags);
+
+            return viewModels;
+        }
     }
 }

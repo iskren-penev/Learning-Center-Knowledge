@@ -19,7 +19,7 @@
         [Display(Name = "Published on")]
         public DateTime PublishDate { get; set; }
 
-        public string Category { get; set; }
+        public IEnumerable<string> Tags { get; set; }
 
         public IEnumerable<ReplyViewModel> Replies { get; set; }
     }
