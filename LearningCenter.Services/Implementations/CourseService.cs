@@ -52,16 +52,7 @@
             course.Title = model.Title;
             course.ShortDescription = model.ShortDescription;
             course.Description = model.Description;
-
-            var unitIds = model.UnitIds.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse).ToArray();
-
-            foreach (int id in unitIds)
-            {
-                Unit currentUnit = this.Context.Units.Find(id);
-                course.Units.Add(currentUnit);
-            }
-
+            
             this.Context.SaveChanges();
         }
 

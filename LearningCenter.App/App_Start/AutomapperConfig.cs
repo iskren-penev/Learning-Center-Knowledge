@@ -79,8 +79,6 @@
                 exp.CreateMap<AddCourseBindingModel, AddCourseViewModel>();
 
                 exp.CreateMap<Course, EditCourseViewModel>()
-                    .ForMember(model => model.UnitIds, configurationExpression =>
-                        configurationExpression.Ignore())
                     .ForMember(model => model.UnitsInCourse, configurationExpression =>
                         configurationExpression.Ignore())
                     .ForMember(model => model.UnassignedUnits, configurationExpression =>

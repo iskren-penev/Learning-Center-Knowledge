@@ -82,13 +82,13 @@
         [Authorize(Roles = "Admin")]
         [Route("edit/{id:int:min(1)}")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCourse([Bind(Include = "Id,Title,ShortDescription,Description,UnitIds")] EditCourseBindingModel model)
+        public ActionResult EditCourse([Bind(Include = "Id,Title,ShortDescription,Description")] EditCourseBindingModel model)
         {
             if (this.ModelState.IsValid)
             {
                 this.service.EditCourse(model);
 
-                return this.RedirectToAction("Details", "Courses", new { area = "", id = model.Id });
+                return this.RedirectToAction("Details", "Courses", new { area = "Courses", id = model.Id });
             }
 
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(model.Id);
@@ -96,16 +96,17 @@
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult AddCourseUnit(int unitId, int courseId)
+        [Route("addcourseunit")]
+        public RedirectToRouteResult AddCourseUnit(int unitId, int courseId)
         {
             this.service.AddUnitToCourse(unitId, courseId);
-
 
             return this.RedirectToAction("EditCourse", new { id = courseId });
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult RemoveCourseUnit(int unitId, int courseId)
+        [Route("removecourseunit")]
+        public RedirectToRouteResult RemoveCourseUnit(int unitId, int courseId)
         {
             this.service.RemoveUnitFromCourse(unitId, courseId);
 

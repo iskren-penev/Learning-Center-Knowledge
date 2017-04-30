@@ -33,7 +33,7 @@
                     @if (unit.CourseName == "Unassigned")
                     {
                         @Html.ActionLink("Add to course", "AddCourseUnit",
-                            new { unitId = unit.Id, courseId = Model.Item1 },
+                            new { area="Courses", unitId = unit.Id, courseId = Model.Item1 },
                             new { @class = "btn btn-success" })
                     }
                     else

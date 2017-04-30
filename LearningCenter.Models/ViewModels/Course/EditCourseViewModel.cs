@@ -18,9 +18,7 @@
         public string ShortDescription { get; set; }
 
         public string Description { get; set; }
-
-        public string UnitIds { get; set; }
-
+        
         public ICollection<UnitListViewModel> UnitsInCourse { get; set; }
 
         public ICollection<UnitListViewModel> UnassignedUnits { get; set; }

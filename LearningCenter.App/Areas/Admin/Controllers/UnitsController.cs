@@ -29,7 +29,7 @@
         [Route("units/add")]
         public ActionResult AddUnit()
         {
-            return this.View(new AddUnitBindingModel());
+            return this.View(new AddUnitViewModel());
         }
 
         [HttpPost]
@@ -58,7 +58,7 @@
         [HttpPost]
         [Route("units/edit/{id:int:min(1)}")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUnit([Bind(Include = "")] EditUnitBindingModel model)
+        public ActionResult EditUnit([Bind(Include = "Id,Title,ContentUrl")] EditUnitBindingModel model)
         {
             if (this.ModelState.IsValid)
             {

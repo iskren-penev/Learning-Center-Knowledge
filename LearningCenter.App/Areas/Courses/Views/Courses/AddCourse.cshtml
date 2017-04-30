@@ -34,7 +34,9 @@
             <div class="row">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-xs-2" })
                 <div class="col-xs-10">
-                    <textarea name="Description" rows="20" cols="200" class="form-control"></textarea>
+                    @Html.TextAreaFor(model => model.Description,20,200,  new {@class= "form-control"})
+                    
+
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
