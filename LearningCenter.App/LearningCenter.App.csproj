@@ -253,7 +253,6 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\AddCourse.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AddQuiz.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\AddRoleToUser.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_DisplayTopics.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_SearchUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\UsersList.cshtml" />

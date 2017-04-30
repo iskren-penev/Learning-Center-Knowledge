@@ -14,11 +14,7 @@
         void SetRoleNameForModel(UserListViewModel model, List<string> roleNames);
 
         User GetCurrentUserByEmail(string email);
-
-        void AddRoleToUser(string userId);
         
-        void AddQuiz();
-
         IEnumerable<CourseListViewModel> GetAllCourses();
 
         IEnumerable<CourseListViewModel> SearchCourses(string search);
@@ -26,5 +22,7 @@
         IEnumerable<UnitListViewModel> GetAllUnits();
 
         IEnumerable<UnitListViewModel> SearchUnits(string search);
+
+        bool CheckUserExists(string userId);
     }
 }

@@ -25,6 +25,14 @@ namespace LearningCenter.Data.Migrations
                 manager.Create(role);
             }
 
+            if (!context.Roles.Any(role => role.Name == "Instructor"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole("Instructor");
+                manager.Create(role);
+            }
+
             if (!context.Roles.Any(role => role.Name == "User"))
             {
                 var store = new RoleStore<IdentityRole>(context);

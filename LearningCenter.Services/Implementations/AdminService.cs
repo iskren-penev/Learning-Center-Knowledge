@@ -45,18 +45,6 @@
             return this.Context.Users.FirstOrDefault(u => u.Email == email);
         }
         
-        public void AddRoleToUser(string userId)
-        {
-            throw new System.NotImplementedException();
-        }
-        
-
-        public void AddQuiz()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        
         public IEnumerable<CourseListViewModel> GetAllCourses()
         {
             IEnumerable<Course> courses = this.Context.Courses;
@@ -76,6 +64,11 @@
             }
 
             return viewModels;
+        }
+
+        public bool CheckUserExists(string userId)
+        {
+            return this.Context.Users.Find(userId) != null;
         }
     }
 }

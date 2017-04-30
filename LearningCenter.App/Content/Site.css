@@ -79,3 +79,7 @@ hr {
 .panel-title {
     font-size: 22px;
 }
+
+table {
+    table-layout: fixed;
+}

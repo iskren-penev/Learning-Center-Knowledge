@@ -5,7 +5,7 @@
     using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Instructor")]
     [RouteArea("admin")]
     public class UnitsController : Controller
     {

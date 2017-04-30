@@ -8,7 +8,7 @@
     using Microsoft.AspNet.Identity;
     using PagedList;
 
-    [Authorize]
+    //[Authorize]
     [RouteArea("forum")]
     public class ForumController : Controller
     {
@@ -29,14 +29,17 @@
             return this.View(viewModel);
         }
         
-        public PartialViewResult Display(string search)
+        public PartialViewResult Display(string search, int? page)
         {
+            this.ViewBag.SearchKeyWord = search;
+
             var viewModels = this.service.SearchTopics(search);
-            return this.PartialView("_DisplayTopics", viewModels);
+            return this.PartialView("_DisplayTopics", viewModels.ToPagedList(page ?? 1, 10));
         }
         
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("topic/{id:int:min(1)}")]
         public ActionResult Detailed(int id)
         {
@@ -46,6 +49,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = "User,Admin,Instructor")]
         [Route("add")]
         public ActionResult Add()
         {
@@ -53,6 +57,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin,Instructor")]
         [Route("add")]
         public ActionResult Add([Bind(Include = "Title,Content,Tags")] AddTopicBindingModel model)
         {
@@ -67,6 +72,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = "User,Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditTopic(int id)
         {
@@ -75,6 +81,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditTopic([Bind(Include = "Id,Content,Tags")] EditTopicBindingModel model)
         {
@@ -89,12 +96,14 @@
 
         
         [HttpGet]
+        [Authorize(Roles = "User,Admin,Instructor")]
         public ActionResult AddReply()
         {
             return this.PartialView();
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Admin,Instructor")]
         public ActionResult AddReply([Bind(Include = "TopicId,Content")] AddReplyBindingModel model)
         {
             if (this.ModelState.IsValid)

@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.App.Areas.Admin.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -51,7 +52,7 @@
         }
         
 
-        public ActionResult SearchUsers(string search)
+        public PartialViewResult SearchUsers(string search)
         {
             IEnumerable<UserListViewModel> viewModels = this.service.SearchUsers(search);
 
@@ -64,8 +65,7 @@
             return this.PartialView("_SearchUsers", viewModels);
         }
 
-
-        [AllowAnonymous]
+        
         [Route("users/add")]
         public ActionResult AddUser()
         {
@@ -99,7 +99,20 @@
             return this.View(model);
         }
 
+        [HttpPost]
+        public ActionResult MakeInstructor(string userId)
+        {
+            if (this.service.CheckUserExists(userId))
+            {
+                throw new ArgumentNullException(nameof(userId), "User with this Id does not exist");
+            }
+            this.Manager.AddToRole(userId, "Instructor");
+            return this.RedirectToAction("UsersList");
+
+        }
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("courses")]
         public ActionResult CourseList()
         {
@@ -108,7 +121,7 @@
         }
 
         [HttpGet]
-        public ActionResult SearchCourses(string search)
+        public PartialViewResult SearchCourses(string search)
         {
             IEnumerable<CourseListViewModel> viewModels = this.service.SearchCourses(search);
             return this.PartialView("_SearchCourses", viewModels);
@@ -116,6 +129,7 @@
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("units")]
         public ActionResult UnitsList()
         {
@@ -124,7 +138,7 @@
         }
 
         [HttpGet]
-        public ActionResult SearchUnits(string search)
+        public PartialViewResult SearchUnits(string search)
         {
             IEnumerable<UnitListViewModel> viewModels = this.service.SearchUnits(search);
             return this.PartialView("_SearchUnits", viewModels);
