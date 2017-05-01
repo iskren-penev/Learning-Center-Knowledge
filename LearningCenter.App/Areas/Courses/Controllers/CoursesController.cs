@@ -4,7 +4,9 @@
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.ViewModels.Course;
+    using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
+    using Microsoft.AspNet.Identity;
 
 
     [Authorize(Roles = "Admin,User")]
@@ -31,10 +33,10 @@
         [HttpGet]
         [Route("{id:int:min(1)}")]
         [AllowAnonymous]
-        public ActionResult Details(int id)
+        public ActionResult Detailed(int id)
         {
-
-            DetailedCourseViewModel viewModel = this.service.GetDetailedCourseViewModel(id);
+            string userId = this.User.Identity.GetUserId();
+            DetailedCourseViewModel viewModel = this.service.GetDetailedCourseViewModel(id, userId);
             if (viewModel == null)
             {
                 return this.HttpNotFound();
@@ -43,6 +45,25 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
+        public PartialViewResult ShowDescription(string Description)
+        {
+            return this.PartialView("_ShowDescription",Description);
+        }
+
+        [HttpGet]
+        public PartialViewResult ShowUnitContent(int unitId)
+        {
+            UnitDetailsViewModel viewModel = this.service.GetUnitPreview(unitId);
+            return this.PartialView("_ShowUnitContent", viewModel);
+        }
+
+        public RedirectToRouteResult EnrollInCourse(int courseId)
+        {
+            string userId = User.Identity.GetUserId();
+            this.service.EnrollUser(userId, courseId);
+            return this.RedirectToAction("Detailed", new {id = courseId});
+        }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -88,7 +109,7 @@
             {
                 this.service.EditCourse(model);
 
-                return this.RedirectToAction("Details", "Courses", new { area = "Courses", id = model.Id });
+                return this.RedirectToAction("Detailed", "Courses", new { area = "Courses", id = model.Id });
             }
 
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(model.Id);

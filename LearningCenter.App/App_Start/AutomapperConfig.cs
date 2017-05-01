@@ -84,6 +84,15 @@
                     .ForMember(model => model.UnassignedUnits, configurationExpression =>
                         configurationExpression.Ignore());
 
+                exp.CreateMap<Course, DetailedCourseViewModel>()
+                    .ForMember(model => model.StudentsInCourse, configurationExpression =>
+                        configurationExpression.MapFrom(course => course.Students.Count))
+                    .ForMember(model => model.IsCurrentUserEnrolled, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.Units, configurationExpression =>
+                        configurationExpression.Ignore());
+
+
                 #endregion
 
                 #region Units Mappings
@@ -97,6 +106,8 @@
                 exp.CreateMap<AddUnitBindingModel, AddUnitViewModel>();
 
                 exp.CreateMap<Unit, EditUnitViewModel>();
+
+                exp.CreateMap<Unit, UnitsInCourseListViewModel>();
 
                 #endregion
 

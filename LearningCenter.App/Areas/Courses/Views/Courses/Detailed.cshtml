@@ -1,0 +1,18 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model DetailedCourseViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+<br />
+<br />
+<h1 class="heading-centered">@Model.Title</h1>
+
+@if (Model.IsCurrentUserEnrolled)
+{
+    @Html.Partial("_DetailsForEnrolled", Model)
+}
+else
+{
+    @Html.Partial("_DetailsForNotEnrolled", Model)
+}

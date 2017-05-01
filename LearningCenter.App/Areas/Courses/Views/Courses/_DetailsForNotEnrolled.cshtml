@@ -1,0 +1,24 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model DetailedCourseViewModel
+    
+<div class="row">
+@Html.Partial("_ShowDescription", Model.Description)
+    </div>
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        @foreach (var unit in Model.Units)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.DisplayFor(model => unit.Title)
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        @Html.ActionLink("ENROLL IN COURSE", "EnrollInCourse", new {courseId = Model.Id}, new { @class = "btn btn-block btn-success" })
+    </div>
+</div>

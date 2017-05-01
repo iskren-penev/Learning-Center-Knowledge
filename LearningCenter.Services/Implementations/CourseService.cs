@@ -1,12 +1,12 @@
 ﻿namespace LearningCenter.Services.Implementations
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Course;
+    using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
 
     public class CourseService : Service, ICourseService
@@ -74,9 +74,39 @@
             this.Context.SaveChanges();
         }
 
-        public DetailedCourseViewModel GetDetailedCourseViewModel(int id)
+        public DetailedCourseViewModel GetDetailedCourseViewModel(int id, string userId)
         {
-            throw new NotImplementedException();
+            Course course = this.Context.Courses.Find(id);
+            var units = course.Units.ToList();
+
+            DetailedCourseViewModel viewModel = Mapper.Instance
+                .Map<Course, DetailedCourseViewModel>(course);
+            viewModel.Units = Mapper.Instance
+                .Map<ICollection<Unit>, ICollection<UnitsInCourseListViewModel>>(units);
+            if (course.Students.Any(s => s.Id == userId))
+            {
+                viewModel.IsCurrentUserEnrolled = true;
+            }
+
+            return viewModel;
+        }
+
+        public UnitDetailsViewModel GetUnitPreview(int unitId)
+        {
+            Unit unit = this.Context.Units.Find(unitId);
+            UnitDetailsViewModel viewModel = Mapper.Instance
+                .Map<Unit, UnitDetailsViewModel>(unit);
+
+            return viewModel;
+        }
+
+        public void EnrollUser(string userId, int courseId)
+        {
+            User user = this.GetCurrentUser(userId);
+            Course course = this.Context.Courses.Find(courseId);
+            course.Students.Add(user);
+            this.Context.SaveChanges();
+
         }
     }
 }

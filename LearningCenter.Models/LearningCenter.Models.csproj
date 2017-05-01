@@ -133,6 +133,7 @@
     <Compile Include="EntityModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Course\AddCourseViewModel.cs" />
+    <Compile Include="ViewModels\Course\UnitsInCourseListViewModel.cs" />
     <Compile Include="ViewModels\Forum\ForumListViewModel.cs" />
     <Compile Include="ViewModels\Units\AddUnitViewModel.cs" />
     <Compile Include="ViewModels\Admin\CourseListViewModel.cs" />

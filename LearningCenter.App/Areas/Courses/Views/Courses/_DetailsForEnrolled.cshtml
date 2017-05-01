@@ -1,0 +1,39 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model DetailedCourseViewModel
+
+<div class="row">
+    <div class="col-sm-2">
+        @Ajax.ActionLink("Description", "ShowDescription", new { description = Model.Description },
+        new AjaxOptions()
+        {
+            UpdateTargetId = "resultContainer",
+            InsertionMode = InsertionMode.Replace,
+            LoadingElementDuration = 1500,
+            LoadingElementId = "loadingElement"
+        }, new { @class = "btn btn-block btn-primary" })
+        <br />
+        @foreach (var item in Model.Units)
+        {
+            @Ajax.ActionLink(item.Title, "ShowUnitContent", new { unitId = item.Id },
+            new AjaxOptions()
+            {
+                UpdateTargetId = "resultContainer",
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementDuration = 1500,
+                LoadingElementId = "loadingElement"
+            }, new { @class = "btn btn-block btn-primary" })
+            <br />
+        }
+    </div>
+
+    <div class="col-sm-10">
+        <div id="loadingElement" hidden="hidden">
+            <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+            </div>
+        </div>
+        <div id="resultContainer">
+            @Html.Partial("_ShowDescription", Model.Description)
+        </div>
+    </div>
+</div>
