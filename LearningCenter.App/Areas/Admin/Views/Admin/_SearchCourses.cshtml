@@ -16,7 +16,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Title, "Details", "Courses", new {area = "Courses", id = item.Id}, null)
+                    @Html.ActionLink(item.Title, "Detailed", "Courses", new {area = "Courses", id = item.Id}, null)
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.Students)

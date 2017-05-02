@@ -1,7 +1,6 @@
 ﻿namespace LearningCenter.Services.Interfaces
 {
     using System.Collections.Generic;
-    using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
 
@@ -24,5 +23,13 @@
         IEnumerable<UnitListViewModel> SearchUnits(string search);
 
         bool CheckUserExists(string userId);
+
+        IEnumerable<QuizListViewModel> GetAllQuizzes();
+
+        IEnumerable<QuizListViewModel> SearchQuizzes(string search);
+
+        IEnumerable<QuestionListViewModel> GetAllQuestions();
+        
+        IEnumerable<QuestionListViewModel> SearchQuestions(string search);
     }
 }

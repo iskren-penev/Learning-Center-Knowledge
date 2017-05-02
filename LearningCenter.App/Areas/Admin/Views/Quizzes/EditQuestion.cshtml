@@ -1,0 +1,88 @@
+﻿@using LearningCenter.Models.ViewModels.Quiz
+@model EditQuestionViewModel
+    
+@{
+    ViewBag.Title = "Edit Question";
+}
+
+<br />
+<br />
+<div class="container-fluid custom-form">
+
+    @using (Html.BeginForm("EditQuestion", "Quizzes", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h2 class="heading-centered">Edit Quiz</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.Id)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.AnswerOneId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.OptionOne, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.OptionOne, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OptionOne, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.AnswerTwoId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.OptionTwo, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.OptionTwo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OptionTwo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.AnswerThreeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.OptionThree, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.OptionThree, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OptionThree, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-8">
+                    @Html.ActionLink("Cancel", "QuestionList", "Admin", new { area = "Admin" }, new { @class = "btn btn-default" })
+                    <input type="submit" value="Edit" class="btn btn-success" />
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>

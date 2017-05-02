@@ -22,7 +22,17 @@
                 LoadingElementDuration = 1500,
                 LoadingElementId = "loadingElement"
             }, new { @class = "btn btn-block btn-primary" })
-           
+        }
+        @foreach (var item in Model.Quizzes)
+        {
+            @Ajax.ActionLink(item.Title, "ShowQuiz", new { quiz = item.Id },
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "resultContainer",
+                    InsertionMode = InsertionMode.Replace,
+                    LoadingElementDuration = 1500,
+                    LoadingElementId = "loadingElement"
+                }, new { @class = "btn btn-block btn-primary" })
         }
     </div>
 

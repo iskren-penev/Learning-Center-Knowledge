@@ -1,0 +1,138 @@
+﻿@using LearningCenter.Models.ViewModels.Quiz
+@model PreviewQuizViewModel
+
+@{
+    var questions = Model.Questions.ToArray();
+}
+<h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+@using (@Html.BeginForm("ShowQuiz", "Courses", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.HiddenFor(model => model.Id)
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[0].Description)</p>
+        @foreach (var answer in questions[0].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerOne" id="AnswerOne" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[1].Description)</p>
+        @foreach (var answer in questions[1].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerTwo" id="AnswerTwo" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[2].Description)</p>
+        @foreach (var answer in questions[2].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerThree" id="AnswerThree" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[3].Description)</p>
+        @foreach (var answer in questions[3].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerFour" id="AnswerFour" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[4].Description)</p>
+        @foreach (var answer in questions[4].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerFive" id="AnswerFive" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[5].Description)</p>
+        @foreach (var answer in questions[5].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerSix" id="AnswerSix" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[6].Description)</p>
+        @foreach (var answer in questions[6].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerSeven" id="AnswerSeven" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[7].Description)</p>
+        @foreach (var answer in questions[7].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerEight" id="AnswerEight" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[8].Description)</p>
+        @foreach (var answer in questions[8].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerNine" id="AnswerNine" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <p>1. @Html.DisplayFor(model => questions[9].Description)</p>
+        @foreach (var answer in questions[9].Answers)
+        {
+            <div class="radio">
+                <label>
+                    <input name="AnswerTen" id="AnswerTen" value="@answer.Id" type="radio">
+                    @answer.Value
+                </label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit Quiz" class="btn btn-success"/>
+    </div>
+}

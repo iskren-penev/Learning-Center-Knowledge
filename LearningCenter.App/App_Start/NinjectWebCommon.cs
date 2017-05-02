@@ -77,6 +77,7 @@ namespace LearningCenter.App.App_Start
             kernel.Bind<IForumService>().To<ForumService>();
             kernel.Bind<IAdminService>().To<AdminService>();
             kernel.Bind<IUnitsService>().To<UnitsService>();
+            kernel.Bind<IQuizService>().To<QuizService>();
         }
     }
 }

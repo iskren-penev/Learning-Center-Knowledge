@@ -1,0 +1,50 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model Tuple<int,int,IEnumerable<QuestionListViewModel>>
+    
+<table class="table table-bordered table-striped" style="table-layout: fixed">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Item3.FirstOrDefault().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item3.FirstOrDefault().QuizName)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var question in Model.Item3)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => question.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(model => question.QuizName)
+            </td>
+            <td>
+                @if (question.QuizName == "Unassigned")
+                {
+                    if (Model.Item2 <= 10)
+                    {
+                        @Html.ActionLink("Add to quiz", "AddToQuiz",
+                            new { area="Admin", questionId = question.Id, quizId = Model.Item1 },
+                            new { @class = "btn btn-success" })
+                    }
+                    else
+                    {
+                        <button class="btn btn-success">Question set is full</button>
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink("Remove from quiz", "RemoveFromQuiz",
+                        new { area="Admin", questionId = question.Id, quizId = Model.Item1 },
+                        new { @class = "btn btn-danger" })
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

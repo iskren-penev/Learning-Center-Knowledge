@@ -66,11 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\AdminService.cs" />
+    <Compile Include="Implementations\QuizService.cs" />
     <Compile Include="Implementations\UnitsService.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IForumService.cs" />
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Implementations\CourseService.cs" />
+    <Compile Include="Interfaces\IQuizService.cs" />
     <Compile Include="Interfaces\IUnitsService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\ICourseService.cs" />

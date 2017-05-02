@@ -9,13 +9,14 @@
         private ICollection<User> students;
         private ICollection<Unit> units;
         private ICollection<Grade> grades;
-
-
+        private ICollection<Quiz> quizzes;
+        
         public Course()
         {
             this.students = new List<User>();
             this.units = new List<Unit>();
             this.grades= new List<Grade>();
+            this.quizzes= new List<Quiz>();
         }
 
         [Key]
@@ -44,10 +45,11 @@
             set { this.units = value; }
         }
 
-        [ForeignKey("Quiz")]
-        public int? QuizId { get; set; }
-
-        public virtual Quiz Quiz { get; set; }
+        public virtual ICollection<Quiz> Quizzes
+        {
+            get { return this.quizzes; }
+            set { this.quizzes = value; }
+        }
 
         public virtual ICollection<Grade> Grades
         {

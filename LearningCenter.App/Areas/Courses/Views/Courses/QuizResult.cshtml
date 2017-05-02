@@ -1,0 +1,13 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model GradeViewModel
+    
+@{
+    ViewBag.Title = "Result";
+}
+
+<div class="custom-form">
+    <h2 class="heading-centered">Course: @Html.DisplayFor(model => model.CourseTitle)</h2>
+    <h3 class="heading-centered">@Html.DisplayFor(model => model.QuizTitle)</h3>
+    <p>You got @Model.Result out of 10 points</p>
+    @Html.ActionLink("Back to course", "Detailed", new { area="Courses", id=Model.CourseId}, new {@class="btn btn-default"})
+</div>

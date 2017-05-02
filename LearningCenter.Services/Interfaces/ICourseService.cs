@@ -3,6 +3,7 @@ namespace LearningCenter.Services.Interfaces
     using System.Collections.Generic;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.ViewModels.Course;
+    using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Models.ViewModels.Units;
 
     public interface ICourseService
@@ -26,5 +27,11 @@ namespace LearningCenter.Services.Interfaces
         UnitDetailsViewModel GetUnitPreview(int unitId);
 
         void EnrollUser(string userId, int courseId);
+
+        PreviewQuizViewModel GetQuizPreview(int quizId);
+
+        int EvaluateQuiz(EvaluateQuizBindingModel model, string userId);
+
+        GradeViewModel GetGradeViewModel(int id);
     }
 }

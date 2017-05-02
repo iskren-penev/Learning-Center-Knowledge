@@ -1,0 +1,75 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@using LearningCenter.Models.ViewModels.Quiz
+@model EditQuizViewModel
+
+@{
+    ViewBag.Title = "Edit quiz";
+}
+
+<br />
+<br />
+<div class="container-fluid custom-form">
+
+    @using (Html.BeginForm("EditQuiz", "Quizzes", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h2 class="heading-centered">Edit Quiz</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                @Html.HiddenFor(model => model.Id)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-xs-2" })
+                <div class="col-xs-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-8">
+                    @Html.ActionLink("Cancel", "QuizList", "Admin", new { area = "Admin" }, new { @class = "btn btn-default" })
+                    <input type="submit" value="Edit" class="btn btn-success" />
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>
+
+<br />
+<br />
+<div class="col-sm-offset-1 col-sm-10">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#Unassigned" data-toggle="tab" aria-expanded="true">@Html.DisplayNameFor(model => model.UnassignedQuestions)</a>
+        </li>
+        <li class="">
+            <a href="#InQuiz" data-toggle="tab" aria-expanded="false">@Html.DisplayNameFor(model => model.QuestionsInQuiz)</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane fade active" id="Unassigned">
+        <div class="col-sm-offset-1 col-sm-10">
+            @Html.Partial("_DisplayQuestions", new Tuple<int,int, IEnumerable<QuestionListViewModel>>(Model.Id,Model.NumberOfQuestionsInQuiz, Model.UnassignedQuestions))
+        </div>
+    </div>
+    <div class="tab-pane fade" id="InQuiz">
+        <div class="col-sm-offset-1 col-sm-10">
+            @Html.Partial("_DisplayQuestions", new Tuple<int,int, IEnumerable<QuestionListViewModel>>(Model.Id,Model.NumberOfQuestionsInQuiz, Model.QuestionsInQuiz))
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

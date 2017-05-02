@@ -6,6 +6,7 @@
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Course;
+    using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
 
@@ -107,6 +108,77 @@
             course.Students.Add(user);
             this.Context.SaveChanges();
 
+        }
+
+        public PreviewQuizViewModel GetQuizPreview(int quizId)
+        {
+            Quiz quiz = this.Context.Quizzes.Find(quizId);
+            PreviewQuizViewModel viewModel = Mapper.Instance
+                .Map<Quiz, PreviewQuizViewModel>(quiz);
+
+            foreach (Question question in quiz.Questions)
+            {
+                PreviewQuestionViewModel questionViewModel = Mapper.Instance
+                    .Map<Question, PreviewQuestionViewModel>(question);
+                
+                questionViewModel.Answers = Mapper.Instance
+                    .Map<ICollection<Answer>, ICollection<AnswerViewModel>>(question.Answers);
+
+                viewModel.Questions.Add(questionViewModel);
+            }
+            return viewModel;
+        }
+
+        public int EvaluateQuiz(EvaluateQuizBindingModel model, string userId)
+        {
+            int result = 0;
+
+            result = this.CheckAnswer(model.AnswerOne, result);
+            result = this.CheckAnswer(model.AnswerTwo, result);
+            result = this.CheckAnswer(model.AnswerThree, result);
+            result = this.CheckAnswer(model.AnswerFour, result);
+            result = this.CheckAnswer(model.AnswerFive, result);
+            result = this.CheckAnswer(model.AnswerSix, result);
+            result = this.CheckAnswer(model.AnswerSeven, result);
+            result = this.CheckAnswer(model.AnswerEight, result);
+            result = this.CheckAnswer(model.AnswerNine, result);
+            result = this.CheckAnswer(model.AnswerTen, result);
+
+            Course course = this.Context.Quizzes.Find(model.Id).Course;
+            User user = this.GetCurrentUser(userId);
+            Grade grade= new Grade()
+            {
+                Student = user,
+                Course = course,
+                Result = result,
+                QuizTitle = this.Context.Quizzes.Find(model.Id).Title
+            };
+
+            this.Context.Grades.Add(grade);
+            this.Context.SaveChanges();
+
+            return grade.Id;
+        }
+
+        public GradeViewModel GetGradeViewModel(int id)
+        {
+            Grade grade = this.Context.Grades.Find(id);
+            GradeViewModel viewModel = Mapper.Instance
+                .Map<Grade, GradeViewModel>(grade);
+
+            return viewModel;
+        }
+
+        private int CheckAnswer(int? answerId, int result)
+        {
+            if (answerId != null)
+            {
+                if (this.Context.Answers.Find(answerId).IsCorrect)
+                {
+                    result++;
+                }
+            }
+            return result;
         }
     }
 }

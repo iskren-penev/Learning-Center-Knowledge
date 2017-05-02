@@ -4,12 +4,13 @@
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.ViewModels.Course;
+    using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
     using Microsoft.AspNet.Identity;
 
 
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin,Instructor,User")]
     [RouteArea("courses")]
     public class CoursesController: Controller
     {
@@ -60,6 +61,35 @@
             return this.PartialView("_ShowUnitContent", viewModel);
         }
 
+        [HttpGet]
+        [Route("showquiz")]
+        public PartialViewResult ShowQuiz(int quizId)
+        {
+            PreviewQuizViewModel viewModel = this.service.GetQuizPreview(quizId);
+            return this.PartialView("_ShowQuiz", viewModel);
+        }
+
+        [HttpPost]
+        [Route("showquiz")]
+        public ActionResult ShowQuiz(
+            [Bind(Include =
+                "Id,AnswerOne,AnswerTwo,AnswerThree,AnswerFour,AnswerFive,AnswerSix,AnswerSeven,AnswerEight,AnswerNine,AnswerTen")]
+            EvaluateQuizBindingModel model)
+        {
+            string userId = this.User.Identity.GetUserId();
+            int gradeId= this.service.EvaluateQuiz(model, userId);
+
+            return this.RedirectToAction("QuizResult", new {id = gradeId});
+        }
+
+        [HttpGet]
+        [Route("grade/{id:int:min(1)}")]
+        public ActionResult QuizResult(int id)
+        {
+            GradeViewModel viewModel = this.service.GetGradeViewModel(id);
+            return this.View(viewModel);
+        }
+
         [Route("enrollincourse")]
         public RedirectToRouteResult EnrollInCourse(int courseId)
         {
@@ -69,7 +99,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("add")]
         public ActionResult AddCourse()
         {
@@ -78,7 +108,7 @@
 
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("add")]
         [ValidateAntiForgeryToken]
         public ActionResult AddCourse([Bind(Include = "Title,ShortDescription,Description")]AddCourseBindingModel model)
@@ -94,7 +124,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditCourse(int id)
         {
@@ -103,7 +133,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         [ValidateAntiForgeryToken]
         public ActionResult EditCourse([Bind(Include = "Id,Title,ShortDescription,Description")] EditCourseBindingModel model)
@@ -119,7 +149,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("addcourseunit")]
         public RedirectToRouteResult AddCourseUnit(int unitId, int courseId)
         {
@@ -128,7 +158,7 @@
             return this.RedirectToAction("EditCourse", new { id = courseId });
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         [Route("removecourseunit")]
         public RedirectToRouteResult RemoveCourseUnit(int unitId, int courseId)
         {

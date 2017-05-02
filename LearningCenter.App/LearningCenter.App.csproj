@@ -209,6 +209,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuizzesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UnitsController.cs" />
     <Compile Include="Areas\Courses\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Courses\CoursesAreaRegistration.cs" />
@@ -252,7 +253,7 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\AddCourse.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\AddQuiz.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\AddQuiz.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_DisplayTopics.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_SearchUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\UsersList.cshtml" />
@@ -273,6 +274,18 @@
     <Content Include="Areas\Courses\Views\Courses\_ShowUnitContent.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\_DetailsForEnrolled.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\_DetailsForNotEnrolled.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\QuizList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_SearchQuizzes.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\EditQuiz.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\QuestionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_SearchQuestions.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\AddQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\EditQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\PreviewQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\PreviewQuiz.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\_DisplayQuestions.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\_ShowQuiz.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\QuizResult.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

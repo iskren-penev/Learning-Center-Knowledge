@@ -58,5 +58,73 @@
             return viewModels;
         }
 
+        public IEnumerable<QuizListViewModel> GetAllQuizzes()
+        {
+            IEnumerable<Quiz> quizzes = this.Context.Quizzes;
+            QuizListViewModel[] viewModels = Mapper.Instance
+                .Map<IEnumerable<Quiz>, IEnumerable<QuizListViewModel>>(quizzes).ToArray();
+
+            for (int i = 0; i < viewModels.Length; i++)
+            {
+                var quiz = quizzes.FirstOrDefault(u => u.Id == viewModels[i].Id);
+                if (quiz.CourseId != null)
+                {
+                    viewModels[i].CourseName = quiz.Course.Title;
+                }
+                else
+                {
+                    viewModels[i].CourseName = "Unassigned";
+                }
+            }
+
+            return viewModels;
+        }
+
+        public IEnumerable<QuizListViewModel> SearchQuizzes(string search)
+        {
+            IEnumerable<QuizListViewModel> viewModels = this.GetAllQuizzes();
+            if (!string.IsNullOrEmpty(search))
+            {
+                search = search.ToLower();
+                viewModels = viewModels.Where(model => model.Title.ToLower().Contains(search)
+                                                       || model.CourseName.ToLower().Contains(search));
+            }
+
+            return viewModels;
+        }
+
+        public IEnumerable<QuestionListViewModel> GetAllQuestions()
+        {
+            IEnumerable<Question> questions = this.Context.Questions;
+            QuestionListViewModel[] viewModels = Mapper.Instance
+                .Map<IEnumerable<Question>, IEnumerable<QuestionListViewModel>>(questions).ToArray();
+
+            for (int i = 0; i < viewModels.Length; i++)
+            {
+                var question = questions.FirstOrDefault(u => u.Id == viewModels[i].Id);
+                if (question.QuizId != null)
+                {
+                    viewModels[i].QuizName = question.Quiz.Title;
+                }
+                else
+                {
+                    viewModels[i].QuizName = "Unassigned";
+                }
+            }
+
+            return viewModels;
+        }
+
+        public IEnumerable<QuestionListViewModel> SearchQuestions(string search)
+        {
+            IEnumerable<QuestionListViewModel> viewModels = this.GetAllQuestions();
+            if (!string.IsNullOrEmpty(search))
+            {
+                search = search.ToLower();
+                viewModels = viewModels.Where(model => model.QuizName.ToLower().Contains(search));
+            }
+
+            return viewModels;
+        }
     }
 }

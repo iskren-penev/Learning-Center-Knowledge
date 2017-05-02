@@ -1,0 +1,49 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model IEnumerable<QuestionListViewModel>
+
+@{
+    ViewBag.Title = "Questions";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="heading-centered">Questions</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        @Html.ActionLink("Add question", "AddQuestion", "Quizzes", new { area = "Admin" }, new { @class = "btn btn-primary btn-block" })
+    </div>
+    @using (Ajax.BeginForm("SearchQuestions", new AjaxOptions()
+    {
+        UpdateTargetId = "search-result",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "loadingElement",
+        LoadingElementDuration = 2000
+    }))
+    {
+        <div class="col-sm-8">
+            <div class="form-group">
+                <input type="text" class="form-control" name="search" placeholder="Search..." />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-success btn-block" />
+            </div>
+        </div>
+    }
+
+    <br />
+</div>
+<div class="row">
+    <div id="loadingElement" hidden="hidden">
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <div id="search-result">
+        @Html.Partial("_SearchQuestions", Model)
+    </div>
+</div>

@@ -152,5 +152,37 @@
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
+        [Route("quizzes")]
+        public ActionResult QuizList()
+        {
+            IEnumerable<QuizListViewModel> viewModels = this.service.GetAllQuizzes();
+            return this.View(viewModels);
+        }
+
+        [HttpGet]
+        public PartialViewResult SearchQuizzes(string search)
+        {
+            IEnumerable<QuizListViewModel> viewModels = this.service.SearchQuizzes(search);
+            return this.PartialView("_SearchQuizzes", viewModels);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,Instructor")]
+        [Route("questions")]
+        public ActionResult QuestionList()
+        {
+            IEnumerable<QuestionListViewModel> viewModels = this.service.GetAllQuestions();
+            return this.View(viewModels);
+        }
+
+        [HttpGet]
+        public PartialViewResult SearchQuestions(string search)
+        {
+            IEnumerable<QuestionListViewModel> viewModels = this.service.SearchQuestions(search);
+            return this.PartialView("_SearchQuestions", viewModels);
+        }
     }
 }

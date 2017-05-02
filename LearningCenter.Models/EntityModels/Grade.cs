@@ -9,7 +9,7 @@
         public int Id { get; set; }
 
         [Required]
-        [Range(0,100)]
+        [Range(0,10)]
         public int Result { get; set; }
 
         [ForeignKey("Course")]
@@ -17,7 +17,7 @@
 
         public virtual Course Course { get; set; }
 
-        
+        public string QuizTitle { get; set; }
 
         public virtual User Student { get; set; }
     }

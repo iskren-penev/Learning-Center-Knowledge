@@ -4,11 +4,13 @@
     using AutoMapper;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.BindingModels.Forum;
+    using LearningCenter.Models.BindingModels.Quiz;
     using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
     using LearningCenter.Models.ViewModels.Course;
     using LearningCenter.Models.ViewModels.Forum;
+    using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Models.ViewModels.User;
 
@@ -35,7 +37,7 @@
 
                 exp.CreateMap<Topic, EditTopicViewModel>()
                     .ForMember(model => model.Tags, configurationExpression =>
-                        configurationExpression.MapFrom(topic => string.Join(",",topic.Tags.Select(t => t.Name))));
+                        configurationExpression.MapFrom(topic => string.Join(",", topic.Tags.Select(t => t.Name))));
 
                 exp.CreateMap<Reply, ReplyViewModel>()
                     .ForMember(model => model.Author, configurationExpression =>
@@ -51,7 +53,7 @@
                     .ForMember(model => model.Replies, configurationExpression =>
                         configurationExpression.Ignore())
                     .ForMember(model => model.Tags, configurationExpression =>
-                        configurationExpression.MapFrom(topic => topic.Tags.Select(t => t.Name))); ;
+                        configurationExpression.MapFrom(topic => topic.Tags.Select(t => t.Name))); 
 
                 exp.CreateMap<AddTopicBindingModel, AddTopicViewModel>();
 
@@ -92,6 +94,11 @@
                     .ForMember(model => model.Units, configurationExpression =>
                         configurationExpression.Ignore());
 
+                exp.CreateMap<Grade, GradeViewModel>()
+                    .ForMember(model => model.CourseId, configurationExpression =>
+                        configurationExpression.MapFrom(grade => grade.Course.Id))
+                    .ForMember(model => model.CourseTitle, configurationExpression =>
+                        configurationExpression.MapFrom(grade => grade.Course.Title));
 
                 #endregion
 
@@ -108,6 +115,50 @@
                 exp.CreateMap<Unit, EditUnitViewModel>();
 
                 exp.CreateMap<Unit, UnitsInCourseListViewModel>();
+
+                #endregion
+
+                #region Quiz mappings
+
+                exp.CreateMap<Quiz, QuizListViewModel>()
+                    .ForMember(model => model.CourseName, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                exp.CreateMap<AddQuizBindingModel, Quiz>();
+
+                exp.CreateMap<AddQuizBindingModel, AddQuizViewModel>();
+
+                exp.CreateMap<Quiz, EditQuizViewModel>()
+                    .ForMember(model => model.NumberOfQuestionsInQuiz, configurationExpression =>
+                        configurationExpression.MapFrom(quiz => quiz.Questions.Count))
+                    .ForMember(model => model.QuestionsInQuiz, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.UnassignedQuestions, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                #endregion
+
+                #region Question mappings
+
+                exp.CreateMap<Question, QuestionListViewModel>()
+                    .ForMember(model => model.QuizName, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                exp.CreateMap<AddQuestionBindingModel, Question>();
+
+                exp.CreateMap<AddQuestionBindingModel, AddQuestionViewModel>();
+
+                exp.CreateMap<EditQuestionBindingModel, EditQuestionViewModel>();
+
+                exp.CreateMap<Answer, AnswerViewModel>();
+
+                exp.CreateMap<Question, PreviewQuestionViewModel>()
+                    .ForMember(model => model.Answers, configurationExpression =>
+                        configurationExpression.Ignore());
+
+                exp.CreateMap<Quiz, PreviewQuizViewModel>()
+                    .ForMember(model => model.Questions, configurationExpression =>
+                        configurationExpression.Ignore());
 
                 #endregion
 
@@ -131,12 +182,12 @@
                     .ForMember(model => model.EnrolledCourses, configurationExpression =>
                         configurationExpression.MapFrom(user => user.EnrolledCourses.Count));
 
-                
+
                 exp.CreateMap<Unit, UnitListViewModel>()
                     .ForMember(model => model.CourseName, configurationExpression =>
                         configurationExpression.Ignore());
 
-                
+
 
                 #endregion
 
