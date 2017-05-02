@@ -46,18 +46,21 @@
         }
 
         [HttpGet]
+        [Route("showunitdescription")]
         public PartialViewResult ShowDescription(string Description)
         {
             return this.PartialView("_ShowDescription",Description);
         }
 
         [HttpGet]
+        [Route("showunitcontent")]
         public PartialViewResult ShowUnitContent(int unitId)
         {
             UnitDetailsViewModel viewModel = this.service.GetUnitPreview(unitId);
             return this.PartialView("_ShowUnitContent", viewModel);
         }
 
+        [Route("enrollincourse")]
         public RedirectToRouteResult EnrollInCourse(int courseId)
         {
             string userId = User.Identity.GetUserId();

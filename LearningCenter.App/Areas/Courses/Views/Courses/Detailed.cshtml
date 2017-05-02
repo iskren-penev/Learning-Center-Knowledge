@@ -5,7 +5,6 @@
     ViewBag.Title = Model.Title;
 }
 <br />
-<br />
 <h1 class="heading-centered">@Model.Title</h1>
 
 @if (Model.IsCurrentUserEnrolled)
@@ -16,3 +15,5 @@ else
 {
     @Html.Partial("_DetailsForNotEnrolled", Model)
 }
+
+@Html.ActionLink("Back to courses", "AllCourses", new {area="Courses"}, new {@class="btn btn-default"})

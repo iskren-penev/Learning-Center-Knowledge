@@ -22,7 +22,7 @@
                 LoadingElementDuration = 1500,
                 LoadingElementId = "loadingElement"
             }, new { @class = "btn btn-block btn-primary" })
-            <br />
+           
         }
     </div>
 
@@ -32,8 +32,12 @@
                 <div class="progress-bar progress-bar-success" style="width: 100%"></div>
             </div>
         </div>
-        <div id="resultContainer">
-            @Html.Partial("_ShowDescription", Model.Description)
+        <div class="jumbotron">
+
+            <div id="resultContainer">
+                @Html.Partial("_ShowDescription", Model.Description)
+            </div>
         </div>
+
     </div>
 </div>
