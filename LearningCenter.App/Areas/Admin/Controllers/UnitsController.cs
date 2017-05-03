@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.App.Areas.Admin.Controllers
 {
+    using System.Net;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.ViewModels.Units;
@@ -21,7 +22,10 @@
         public ActionResult UnitPreview(int id)
         {
             UnitDetailsViewModel viewModel = this.service.GetUnitDetailsViewModel(id);
-
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -52,6 +56,10 @@
         public ActionResult EditUnit(int id)
         {
             EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -67,6 +75,10 @@
             }
 
             EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(model.Id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
     }

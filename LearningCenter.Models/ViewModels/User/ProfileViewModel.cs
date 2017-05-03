@@ -20,5 +20,8 @@
         
         [Display(Name = "Forum topics")]
         public IEnumerable<AllTopicsViewModel> ForumTopics { get; set; }
+
+        [Display(Name = "Quiz results")]
+        public IEnumerable<GradeViewModel> QuizResults { get; set; }
     }
 }

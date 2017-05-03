@@ -1,18 +1,21 @@
-﻿@using LearningCenter.Models.ViewModels.User
-@model ProfileViewModel
+﻿@using LearningCenter.Models.ViewModels.Forum
+@model IEnumerable<AllTopicsViewModel>
     
-@foreach (var topic in Model.ForumTopics)
+@foreach (var topic in Model)
 {
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">@Html.ActionLink(topic.Title, "Detailed", "Forum", new { id = topic.Id }, null)</h3>
+            <h3 class="panel-title">@Html.ActionLink(topic.Title, "Detailed", "Forum", new {area="Forum", id = topic.Id }, null)</h3>
         </div>
         <div class="panel-body">
             <h4>
                 <span>By: @topic.Author</span>
             </h4>
             <h4>
-                <span>Category: @topic.Category</span>
+                Tags: @foreach (string tag in topic.Tags)
+                      {
+                          @Html.DisplayFor(model => tag)<span> </span>
+                      }
             </h4>
             <h4>
                 <span>Published on: @topic.PublishDate.Date</span>

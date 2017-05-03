@@ -11,6 +11,10 @@
         public UnitDetailsViewModel GetUnitDetailsViewModel(int id)
         {
             Unit unit = this.Context.Units.Find(id);
+            if (unit == null)
+            {
+                return null;
+            }
             UnitDetailsViewModel viewModel = Mapper.Instance.Map<Unit, UnitDetailsViewModel>(unit);
             if (unit.CourseId != null)
             {
@@ -43,6 +47,10 @@
         public EditUnitViewModel GetEditUnitViewModel(int id)
         {
             Unit unit = this.Context.Units.Find(id);
+            if (unit == null)
+            {
+                return null;
+            }
             EditUnitViewModel viewModel = Mapper.Instance
                 .Map<Unit, EditUnitViewModel>(unit);
 
@@ -52,6 +60,10 @@
         public void EditUnit(EditUnitBindingModel model)
         {
             Unit unit = this.Context.Units.Find(model.Id);
+            if (unit == null)
+            {
+                return;
+            }
             unit.Title = model.Title;
             unit.ContentUrl = model.ContentUrl;
 

@@ -170,6 +170,8 @@
                     .ForMember(model => model.EnrolledCourses, configurationExpression =>
                         configurationExpression.Ignore())
                     .ForMember(model => model.ForumTopics, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.QuizResults, configurationExpression =>
                         configurationExpression.Ignore());
                 #endregion
 

@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.App.Areas.Admin.Controllers
 {
+    using System.Net;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Quiz;
     using LearningCenter.Models.ViewModels.Quiz;
@@ -33,6 +34,7 @@
                 return this.RedirectToAction("QuizList", "Admin", new {area = "Admin"});
             }
             AddQuizViewModel viewModel = this.service.GetAddViewModel(model);
+
             return this.View(viewModel);
         }
 
@@ -41,6 +43,10 @@
         public ActionResult EditQuiz(int id)
         {
             EditQuizViewModel viewModel = this.service.GetEditViewModel(id);
+            if (viewModel==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -54,6 +60,10 @@
                 return this.RedirectToAction("PreviewQuiz", "Quizzes", new { area = "Admin", id=model.Id });
             }
             EditQuizViewModel viewModel = this.service.GetEditViewModel(model.Id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -62,20 +72,31 @@
         public ActionResult PreviewQuiz(int id)
         {
             PreviewQuizViewModel viewModel = this.service.GetPreviewQuizViewModel(id);
-
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
         [Route("quizzes/addtoquiz")]
-        public RedirectToRouteResult AddToQuiz(int questionId, int quizId)
+        public ActionResult AddToQuiz(int questionId, int quizId)
         {
+            if (questionId < 1 || quizId < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             this.service.AddQuestionToQuiz(questionId, quizId);
             return this.RedirectToAction("EditQuiz", new {area = "Admin", id = quizId});
         }
 
         [Route("quizzes/removequiz")]
-        public RedirectToRouteResult RemoveFromQuiz(int questionId, int quizId)
+        public ActionResult RemoveFromQuiz(int questionId, int quizId)
         {
+            if (questionId < 1 || quizId < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             this.service.RemoveQuestionFromQuiz(questionId, quizId);
             return this.RedirectToAction("EditQuiz", new { area = "Admin", id = quizId });
         }
@@ -105,6 +126,10 @@
         public ActionResult EditQuestion(int id)
         {
             EditQuestionViewModel viewModel = this.service.GetEditQuestionViewModel(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -121,6 +146,10 @@
 
             }
             EditQuestionViewModel viewModel = this.service.GetEditQuestionViewModel(model);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -129,7 +158,10 @@
         public ActionResult PreviewQuestion(int id)
         {
             PreviewQuestionViewModel viewModel = this.service.GetPreviewQuestionViewModel(id);
-
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
     }

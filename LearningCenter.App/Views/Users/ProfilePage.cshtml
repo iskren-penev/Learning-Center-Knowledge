@@ -64,18 +64,26 @@
         <li class="">
             <a href="#ForumTopics" data-toggle="tab" aria-expanded="false">@Html.DisplayNameFor(model => model.ForumTopics)</a>
         </li>
+        <li class="">
+            <a href="#Grades" data-toggle="tab" aria-expanded="false">@Html.DisplayNameFor(model => model.QuizResults)</a>
+        </li>
     </ul>
 </div>
 
 <div class="tab-content">
     <div class="tab-pane fade active" id="EnrolledCourses">
         <div class="col-sm-offset-1 col-sm-10">
-            @Html.Partial("_DisplayCourses", Model)
+            @Html.Partial("_DisplayCourses", Model.EnrolledCourses)
         </div>
     </div>
     <div class="tab-pane fade" id="ForumTopics">
         <div class="col-sm-offset-1 col-sm-10">
-            @Html.Partial("_DisplayTopics", Model)
+            @Html.Partial("_DisplayTopics", Model.ForumTopics)
+        </div>
+    </div>
+    <div class="tab-pane fade active" id="Grades">
+        <div class="col-sm-offset-1 col-sm-10">
+            @Html.Partial("_DisplayGrades", Model.QuizResults)
         </div>
     </div>
 </div>

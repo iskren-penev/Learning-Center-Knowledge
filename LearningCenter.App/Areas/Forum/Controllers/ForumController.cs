@@ -1,6 +1,7 @@
 ﻿namespace LearningCenter.App.Areas.Forum.Controllers
 {
     using System.Collections.Generic;
+    using System.Net;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.ViewModels.Forum;
@@ -25,7 +26,6 @@
         public ActionResult All()
         {
             ForumListViewModel viewModel = this.service.GetForumListViewModel();
-            
             return this.View(viewModel);
         }
         
@@ -45,6 +45,10 @@
         {
             this.ViewBag.TopicId = id;
             DetailedTopicViewModel viewModel =  this.service.DetailedTopic(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -68,7 +72,6 @@
                 return this.RedirectToAction("All");
             }
             return this.View(this.service.GetAddTopicViewModel(model));
-
         }
 
         [HttpGet]
@@ -77,6 +80,10 @@
         public ActionResult EditTopic(int id)
         {
             EditTopicViewModel viewModel = this.service.GetEditViewModel(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -99,7 +106,7 @@
         [Authorize(Roles = "User,Admin,Instructor")]
         public ActionResult AddReply()
         {
-            return this.PartialView();
+            return this.PartialView("_AddReply");
         }
 
         [HttpPost]
@@ -113,7 +120,7 @@
 
                 return this.RedirectToAction("Detailed", new { id = model.TopicId });
             }
-            return this.PartialView();
+            return this.PartialView("_AddReply");
         }
     }
 }

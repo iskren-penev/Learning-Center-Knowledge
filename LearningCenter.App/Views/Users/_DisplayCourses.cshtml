@@ -1,11 +1,11 @@
-﻿@using LearningCenter.Models.ViewModels.User
-@model ProfileViewModel
+﻿@using LearningCenter.Models.ViewModels.Course
+@model IEnumerable<AllCourseViewModel>
 
-@foreach (var course in Model.EnrolledCourses)
+@foreach (var course in Model)
 {
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">@Html.ActionLink(course.Title, "Details", "Courses", new { id = course.Id }, null)</h3>
+            <h3 class="panel-title">@Html.ActionLink(course.Title, "Detailed", "Courses", new {area="Courses", id = course.Id }, null)</h3>
         </div>
         <div class="panel-body">
             <p>

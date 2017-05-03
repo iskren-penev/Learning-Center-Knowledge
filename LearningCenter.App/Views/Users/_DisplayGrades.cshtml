@@ -1,0 +1,15 @@
+﻿@using LearningCenter.Models.ViewModels.Course
+@model IEnumerable<GradeViewModel>
+    
+@foreach (var grade in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>@Html.ActionLink("Course: " + grade.CourseTitle, "Detailed", "Courses", new { area = "Courses", id = grade.CourseId }, null)</h3>
+        </div>
+        <div class="panel-body">
+            <h4>Quiz Title: @grade.QuizTitle</h4>
+            <h3>Result: @grade.Result / 10</h3>
+        </div>
+    </div>
+}

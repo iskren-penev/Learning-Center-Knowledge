@@ -394,6 +394,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Users\_DisplayCourses.cshtml" />
     <Content Include="Views\Users\_DisplayTopics.cshtml" />
+    <Content Include="Views\Users\_DisplayGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LearningCenter.Data\LearningCenter.Data.csproj">

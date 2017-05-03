@@ -1,6 +1,7 @@
 ﻿namespace LearningCenter.App.Areas.Courses.Controllers
 {
     using System.Collections.Generic;
+    using System.Net;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.ViewModels.Course;
@@ -12,7 +13,7 @@
 
     [Authorize(Roles = "Admin,Instructor,User")]
     [RouteArea("courses")]
-    public class CoursesController: Controller
+    public class CoursesController : Controller
     {
         private ICourseService service;
 
@@ -40,7 +41,7 @@
             DetailedCourseViewModel viewModel = this.service.GetDetailedCourseViewModel(id, userId);
             if (viewModel == null)
             {
-                return this.HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
             return this.View(viewModel);
@@ -50,22 +51,40 @@
         [Route("showunitdescription")]
         public PartialViewResult ShowDescription(string Description)
         {
-            return this.PartialView("_ShowDescription",Description);
+            return this.PartialView("_ShowDescription", Description);
         }
 
         [HttpGet]
         [Route("showunitcontent")]
-        public PartialViewResult ShowUnitContent(int unitId)
+        public ActionResult ShowUnitContent(int unitId)
         {
+            if (unitId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             UnitDetailsViewModel viewModel = this.service.GetUnitPreview(unitId);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            }
             return this.PartialView("_ShowUnitContent", viewModel);
         }
 
         [HttpGet]
         [Route("showquiz")]
-        public PartialViewResult ShowQuiz(int quizId)
+        public ActionResult ShowQuiz(int quizId)
         {
+            if (quizId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             PreviewQuizViewModel viewModel = this.service.GetQuizPreview(quizId);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            }
             return this.PartialView("_ShowQuiz", viewModel);
         }
 
@@ -77,9 +96,12 @@
             EvaluateQuizBindingModel model)
         {
             string userId = this.User.Identity.GetUserId();
-            int gradeId= this.service.EvaluateQuiz(model, userId);
-
-            return this.RedirectToAction("QuizResult", new {id = gradeId});
+            int gradeId = this.service.EvaluateQuiz(model, userId);
+            if (gradeId < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return this.RedirectToAction("QuizResult", new { id = gradeId });
         }
 
         [HttpGet]
@@ -87,15 +109,24 @@
         public ActionResult QuizResult(int id)
         {
             GradeViewModel viewModel = this.service.GetGradeViewModel(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            }
             return this.View(viewModel);
         }
 
         [Route("enrollincourse")]
-        public RedirectToRouteResult EnrollInCourse(int courseId)
+        public ActionResult EnrollInCourse(int courseId)
         {
+            if (courseId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             string userId = User.Identity.GetUserId();
             this.service.EnrollUser(userId, courseId);
-            return this.RedirectToAction("Detailed", new {id = courseId});
+            return this.RedirectToAction("Detailed", new { id = courseId });
         }
 
         [HttpGet]
@@ -116,10 +147,11 @@
             if (this.ModelState.IsValid)
             {
                 this.service.AddCourse(model);
-                return this.RedirectToAction("CourseList", "Admin", new {area = "Admin"});
+                return this.RedirectToAction("CourseList", "Admin", new { area = "Admin" });
             }
 
             AddCourseViewModel viewModel = this.service.GetAddCourseViewModel(model);
+            
             return this.View(viewModel);
         }
 
@@ -129,6 +161,10 @@
         public ActionResult EditCourse(int id)
         {
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
@@ -146,13 +182,21 @@
             }
 
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(model.Id);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return this.View(viewModel);
         }
 
         [Authorize(Roles = "Admin,Instructor")]
         [Route("addcourseunit")]
-        public RedirectToRouteResult AddCourseUnit(int unitId, int courseId)
+        public ActionResult AddCourseUnit(int unitId, int courseId)
         {
+            if (unitId <= 0 || courseId <=0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             this.service.AddUnitToCourse(unitId, courseId);
 
             return this.RedirectToAction("EditCourse", new { id = courseId });
@@ -160,8 +204,12 @@
 
         [Authorize(Roles = "Admin,Instructor")]
         [Route("removecourseunit")]
-        public RedirectToRouteResult RemoveCourseUnit(int unitId, int courseId)
+        public ActionResult RemoveCourseUnit(int unitId, int courseId)
         {
+            if (unitId <= 0 || courseId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             this.service.RemoveUnitFromCourse(unitId, courseId);
 
             return this.RedirectToAction("EditCourse", new { id = courseId });

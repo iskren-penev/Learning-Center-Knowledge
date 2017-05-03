@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.Services.Implementations
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
@@ -24,7 +25,10 @@
         public EditProfileViewModel GetEditProfileViewModel(string username)
         {
             User user = this.Context.Users.FirstOrDefault(u => u.UserName.StartsWith(username));
-
+            if (user == null)
+            {
+                return null;
+            }
             EditProfileViewModel viewModel = Mapper.Instance.Map<EditProfileViewModel>(user);
             return viewModel;
         }
@@ -33,21 +37,26 @@
         {
             User user = this.Context.Users.
                 FirstOrDefault(u => u.UserName.StartsWith(username));
-            IEnumerable<Topic> topics = this.Context.Topics
-                .Where(topic => topic.Author.UserName == user.UserName);
-            IEnumerable<Course> courses = this.Context.Courses
-                .Where(course => course.Students.Any(u => u.UserName == user.UserName));
+            if (user==null)
+            {
+                return null;
+            }
+            IEnumerable<Topic> topics = user.Topics;
+            IEnumerable<Course> courses = user.EnrolledCourses;
+            IEnumerable<Grade> grades = user.Grades;
+
 
             ProfileViewModel viewModel = Mapper.Instance
                 .Map<User, ProfileViewModel>(user);
+
             viewModel.ForumTopics = Mapper.Instance
                 .Map<IEnumerable<Topic>, IEnumerable<AllTopicsViewModel>>(topics);
             viewModel.EnrolledCourses = Mapper.Instance
                 .Map<IEnumerable<Course>, IEnumerable<AllCourseViewModel>>(courses);
+            viewModel.QuizResults = Mapper.Instance
+                .Map<IEnumerable<Grade>, IEnumerable<GradeViewModel>>(grades);
 
             return viewModel;
         }
-
-        
     }
 }

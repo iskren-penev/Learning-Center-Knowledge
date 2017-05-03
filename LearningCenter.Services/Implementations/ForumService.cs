@@ -35,6 +35,10 @@
         public DetailedTopicViewModel DetailedTopic(int id)
         {
             Topic topic = this.Context.Topics.Find(id);
+            if (topic == null)
+            {
+                return null;
+            }
             DetailedTopicViewModel viewModel = Mapper.Instance.Map<DetailedTopicViewModel>(topic);
             viewModel.Replies = Mapper.Map<IEnumerable<ReplyViewModel>>(topic.Replies);
             return viewModel;
@@ -80,6 +84,10 @@
         public void EditTopic(EditTopicBindingModel model)
         {
             Topic topic = this.Context.Topics.Find(model.Id);
+            if (topic==null)
+            {
+                return;
+            }
             string[] tags = model.Tags.Split(new[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string tagString in tags)
             {
@@ -107,6 +115,10 @@
         {
             User currentUser = this.GetCurrentUser(userId);
             Topic currentTopic = this.Context.Topics.Find(model.TopicId);
+            if (currentTopic == null)
+            {
+                return;
+            }
             Reply reply = Mapper.Instance.Map<Reply>(model);
             reply.Topic = currentTopic;
             reply.Author = currentUser;
@@ -119,6 +131,10 @@
 
         public AddTopicViewModel GetAddTopicViewModel(AddTopicBindingModel model)
         {
+            if (model== null)
+            {
+                return null;
+            }
             AddTopicViewModel viewModel = Mapper.Instance.Map<AddTopicViewModel>(model);
             return viewModel;
         }

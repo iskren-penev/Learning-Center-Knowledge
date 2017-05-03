@@ -38,6 +38,10 @@
         public EditCourseViewModel GetEditCourseViewModel(int id)
         {
             Course course = this.Context.Courses.Find(id);
+            if (course == null)
+            {
+                return null;
+            }
             EditCourseViewModel viewModel = Mapper.Instance.Map<Course, EditCourseViewModel>(course);
 
             viewModel.UnitsInCourse = this.SearchUnits(course.Title).ToList();
@@ -50,10 +54,13 @@
         {
             Course course = this.Context.Courses.Find(model.Id);
 
-            course.Title = model.Title;
-            course.ShortDescription = model.ShortDescription;
-            course.Description = model.Description;
-            
+            if (course != null)
+            {
+                course.Title = model.Title;
+                course.ShortDescription = model.ShortDescription;
+                course.Description = model.Description;
+            }
+
             this.Context.SaveChanges();
         }
 
@@ -62,7 +69,7 @@
             Course course = this.Context.Courses.Find(courseId);
             Unit unit = this.Context.Units.Find(unitId);
 
-            course.Units.Add(unit);
+            if (course != null && unit != null) course.Units.Add(unit);
             this.Context.SaveChanges();
         }
 
@@ -71,13 +78,17 @@
             Course course = this.Context.Courses.Find(courseId);
             Unit unit = this.Context.Units.Find(unitId);
 
-            course.Units.Remove(unit);
+            if (course != null && unit != null) course.Units.Remove(unit);
             this.Context.SaveChanges();
         }
 
         public DetailedCourseViewModel GetDetailedCourseViewModel(int id, string userId)
         {
             Course course = this.Context.Courses.Find(id);
+            if (course == null)
+            {
+                return null;
+            }
             var units = course.Units.ToList();
 
             DetailedCourseViewModel viewModel = Mapper.Instance
@@ -88,13 +99,16 @@
             {
                 viewModel.IsCurrentUserEnrolled = true;
             }
-
             return viewModel;
         }
 
         public UnitDetailsViewModel GetUnitPreview(int unitId)
         {
             Unit unit = this.Context.Units.Find(unitId);
+            if (unit == null)
+            {
+                return null;
+            }
             UnitDetailsViewModel viewModel = Mapper.Instance
                 .Map<Unit, UnitDetailsViewModel>(unit);
 
@@ -105,7 +119,7 @@
         {
             User user = this.GetCurrentUser(userId);
             Course course = this.Context.Courses.Find(courseId);
-            course.Students.Add(user);
+            if (course != null && user != null) course.Students.Add(user);
             this.Context.SaveChanges();
 
         }
@@ -113,6 +127,10 @@
         public PreviewQuizViewModel GetQuizPreview(int quizId)
         {
             Quiz quiz = this.Context.Quizzes.Find(quizId);
+            if (quiz == null)
+            {
+                return null;
+            }
             PreviewQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, PreviewQuizViewModel>(quiz);
 
@@ -120,7 +138,7 @@
             {
                 PreviewQuestionViewModel questionViewModel = Mapper.Instance
                     .Map<Question, PreviewQuestionViewModel>(question);
-                
+
                 questionViewModel.Answers = Mapper.Instance
                     .Map<ICollection<Answer>, ICollection<AnswerViewModel>>(question.Answers);
 
@@ -144,14 +162,19 @@
             result = this.CheckAnswer(model.AnswerNine, result);
             result = this.CheckAnswer(model.AnswerTen, result);
 
-            Course course = this.Context.Quizzes.Find(model.Id).Course;
+            Quiz quiz = this.Context.Quizzes.Find(model.Id);
+            if (quiz == null)
+            {
+                return -1;
+            }
+            Course course = quiz.Course;
             User user = this.GetCurrentUser(userId);
-            Grade grade= new Grade()
+            Grade grade = new Grade()
             {
                 Student = user,
                 Course = course,
                 Result = result,
-                QuizTitle = this.Context.Quizzes.Find(model.Id).Title
+                QuizTitle = quiz.Title
             };
 
             this.Context.Grades.Add(grade);
@@ -163,6 +186,10 @@
         public GradeViewModel GetGradeViewModel(int id)
         {
             Grade grade = this.Context.Grades.Find(id);
+            if (grade == null)
+            {
+                return null;
+            }
             GradeViewModel viewModel = Mapper.Instance
                 .Map<Grade, GradeViewModel>(grade);
 

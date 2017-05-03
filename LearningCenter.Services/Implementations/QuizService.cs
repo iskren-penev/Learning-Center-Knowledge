@@ -28,6 +28,10 @@
         public EditQuizViewModel GetEditViewModel(int id)
         {
             Quiz quiz = this.GetQuiz(id);
+            if (quiz==null)
+            {
+                return null;
+            }
             EditQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, EditQuizViewModel>(quiz);
 
@@ -60,6 +64,10 @@
         public EditQuestionViewModel GetEditQuestionViewModel(int id)
         {
             Question question = this.GetQuestion(id);
+            if (question == null)
+            {
+                return null;
+            }
             EditQuestionViewModel viewModel = new EditQuestionViewModel()
             {
                 Id = question.Id,
@@ -95,6 +103,10 @@
         public void EditQuestion(EditQuestionBindingModel model)
         {
             Question question = this.GetQuestion(model.Id);
+            if (question == null)
+            {
+                return;
+            }
             question.Description = model.Description;
 
             bool firstCorrect = model.CorrectAnswer == 1;
@@ -102,16 +114,25 @@
             bool thirdCorrect = model.CorrectAnswer == 3;
 
             Answer answerOne = this.Context.Answers.Find(model.AnswerOneId);
-            answerOne.Value = model.OptionOne;
-            answerOne.IsCorrect = firstCorrect;
+            if (answerOne != null)
+            {
+                answerOne.Value = model.OptionOne;
+                answerOne.IsCorrect = firstCorrect;
+            }
 
             Answer answerTwo = this.Context.Answers.Find(model.AnswerTwoId);
-            answerTwo.Value = model.OptionTwo;
-            answerTwo.IsCorrect = secondCorrect;
+            if (answerTwo != null)
+            {
+                answerTwo.Value = model.OptionTwo;
+                answerTwo.IsCorrect = secondCorrect;
+            }
 
             Answer answerThree = this.Context.Answers.Find(model.AnswerThreeId);
-            answerThree.Value = model.OptionThree;
-            answerThree.IsCorrect = thirdCorrect;
+            if (answerThree != null)
+            {
+                answerThree.Value = model.OptionThree;
+                answerThree.IsCorrect = thirdCorrect;
+            }
 
             this.Context.SaveChanges();
         }
@@ -119,7 +140,10 @@
         public PreviewQuestionViewModel GetPreviewQuestionViewModel(int id)
         {
             Question question = this.GetQuestion(id);
-
+            if ( question== null)
+            {
+                return null;
+            }
             PreviewQuestionViewModel viewModel = Mapper.Instance
                 .Map<Question, PreviewQuestionViewModel>(question);
 
@@ -132,6 +156,10 @@
         public void EditQuiz(EditQuizBindingModel model)
         {
             Quiz quiz = this.GetQuiz(model.Id);
+            if (quiz== null)
+            {
+                return;
+            }
             quiz.Title = model.Title;
 
             this.Context.SaveChanges();
@@ -140,6 +168,10 @@
         public PreviewQuizViewModel GetPreviewQuizViewModel(int id)
         {
             Quiz quiz = this.GetQuiz(id);
+            if (quiz==null)
+            {
+                return null;
+            }
             PreviewQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, PreviewQuizViewModel>(quiz);
 
@@ -156,8 +188,10 @@
         {
             Quiz quiz = this.GetQuiz(quizId);
             Question question = this.GetQuestion(questionId);
-
+            if (quiz != null && question != null)
+            {
             quiz.Questions.Remove(question);
+            }
             this.Context.SaveChanges();
         }
 
@@ -165,12 +199,15 @@
         {
             Quiz quiz = this.GetQuiz(quizId);
             Question question = this.GetQuestion(questionId);
-
-            if (quiz.Questions.Count >= 10)
+            if (quiz != null && question != null)
             {
-                throw new ArgumentException("There can only be 10 questions in the quiz!");
+                if (quiz.Questions.Count >= 10)
+                {
+                    throw new ArgumentException("There can only be 10 questions in the quiz!");
+                }
+                quiz.Questions.Add(question);
             }
-            quiz.Questions.Add(question);
+           
             this.Context.SaveChanges();
         }
 
