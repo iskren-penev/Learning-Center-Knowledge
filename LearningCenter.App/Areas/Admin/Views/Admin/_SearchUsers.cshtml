@@ -1,22 +1,22 @@
 ﻿@using LearningCenter.Models.ViewModels.Admin
-@model IEnumerable<UserListViewModel>
+@model List<UserListViewModel>
 
 <table class="table table-striped table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Roles)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnrolledCourses)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EnrolledCourses)
         </th>
         <th></th>
     </tr>

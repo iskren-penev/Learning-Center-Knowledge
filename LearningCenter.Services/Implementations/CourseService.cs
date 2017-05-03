@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Course;
@@ -12,6 +13,10 @@
 
     public class CourseService : Service, ICourseService
     {
+        public CourseService(ILearningCenterContext context) : base(context)
+        {
+        }
+
         public IEnumerable<AllCourseViewModel> GetAllCourses()
         {
             IEnumerable<AllCourseViewModel> courses =

@@ -5,10 +5,12 @@ namespace LearningCenter.App.App_Start
 {
     using System;
     using System.Web;
+    using LearningCenter.Data.Interfaces;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
     using Services.Interfaces;
+    using LearningCenter.Data;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Services.Implementations;
     using Microsoft.AspNet.Identity;
@@ -78,6 +80,7 @@ namespace LearningCenter.App.App_Start
             kernel.Bind<IAdminService>().To<AdminService>();
             kernel.Bind<IUnitsService>().To<UnitsService>();
             kernel.Bind<IQuizService>().To<QuizService>();
+            kernel.Bind<ILearningCenterContext>().To<LearningCenterContext>();
         }
     }
 }

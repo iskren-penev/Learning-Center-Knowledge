@@ -1,6 +1,7 @@
 ﻿namespace LearningCenter.Services.Implementations
 {
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Units;
@@ -8,6 +9,10 @@
 
     public class UnitsService : Service, IUnitsService
     {
+        public UnitsService(ILearningCenterContext context) : base(context)
+        {
+        }
+
         public UnitDetailsViewModel GetUnitDetailsViewModel(int id)
         {
             Unit unit = this.Context.Units.Find(id);

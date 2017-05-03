@@ -4,32 +4,32 @@
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
 
-    public interface IAdminService
+    public interface IAdminService : IService
     {
-        IEnumerable<UserListViewModel> GetAllUsers();
+        List<UserListViewModel> GetAllUsers();
 
-        IEnumerable<UserListViewModel> SearchUsers(string search);
+        List<UserListViewModel> SearchUsers(string search);
 
         void SetRoleNameForModel(UserListViewModel model, List<string> roleNames);
 
         User GetCurrentUserByEmail(string email);
-        
-        IEnumerable<CourseListViewModel> GetAllCourses();
 
-        IEnumerable<CourseListViewModel> SearchCourses(string search);
+        List<CourseListViewModel> GetAllCourses();
 
-        IEnumerable<UnitListViewModel> GetAllUnits();
+        List<CourseListViewModel> SearchCourses(string search);
 
-        IEnumerable<UnitListViewModel> SearchUnits(string search);
+        List<UnitListViewModel> GetAllUnits();
+
+        List<UnitListViewModel> SearchUnits(string search);
 
         bool CheckUserExists(string userId);
 
-        IEnumerable<QuizListViewModel> GetAllQuizzes();
+        List<QuizListViewModel> GetAllQuizzes();
 
-        IEnumerable<QuizListViewModel> SearchQuizzes(string search);
+        List<QuizListViewModel> SearchQuizzes(string search);
 
-        IEnumerable<QuestionListViewModel> GetAllQuestions();
-        
-        IEnumerable<QuestionListViewModel> SearchQuestions(string search);
+        List<QuestionListViewModel> GetAllQuestions();
+
+        List<QuestionListViewModel> SearchQuestions(string search);
     }
 }

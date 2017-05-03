@@ -1,11 +1,9 @@
 ﻿namespace LearningCenter.Services.Interfaces
 {
-    using System.Collections.Generic;
     using LearningCenter.Models.BindingModels.User;
-    using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.User;
 
-    public interface IUserService
+    public interface IUserService : IService
     {
         void EditProfile(EditProfileBindingModel model, string userId);
 

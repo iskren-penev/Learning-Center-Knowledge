@@ -40,7 +40,7 @@
         [Route("users")]
         public ActionResult UsersList()
         {
-            IEnumerable<UserListViewModel> viewModels = this.service.GetAllUsers();
+            List<UserListViewModel> viewModels = this.service.GetAllUsers();
 
             foreach (var model in viewModels)
             {
@@ -54,7 +54,7 @@
 
         public PartialViewResult SearchUsers(string search)
         {
-            IEnumerable<UserListViewModel> viewModels = this.service.SearchUsers(search);
+            List<UserListViewModel> viewModels = this.service.SearchUsers(search);
 
             foreach (var model in viewModels)
             {
@@ -116,14 +116,14 @@
         [Route("courses")]
         public ActionResult CourseList()
         {
-            IEnumerable<CourseListViewModel> viewModels = this.service.GetAllCourses();
+            List<CourseListViewModel> viewModels = this.service.GetAllCourses();
             return this.View(viewModels);
         }
 
         [HttpGet]
         public PartialViewResult SearchCourses(string search)
         {
-            IEnumerable<CourseListViewModel> viewModels = this.service.SearchCourses(search);
+            List<CourseListViewModel> viewModels = this.service.SearchCourses(search);
             return this.PartialView("_SearchCourses", viewModels);
         }
 
@@ -133,14 +133,14 @@
         [Route("units")]
         public ActionResult UnitsList()
         {
-            IEnumerable<UnitListViewModel> viewModels = this.service.GetAllUnits();
+            List<UnitListViewModel> viewModels = this.service.GetAllUnits();
             return this.View(viewModels);
         }
 
         [HttpGet]
         public PartialViewResult SearchUnits(string search)
         {
-            IEnumerable<UnitListViewModel> viewModels = this.service.SearchUnits(search);
+            List<UnitListViewModel> viewModels = this.service.SearchUnits(search);
             return this.PartialView("_SearchUnits", viewModels);
         }
 
@@ -157,14 +157,14 @@
         [Route("quizzes")]
         public ActionResult QuizList()
         {
-            IEnumerable<QuizListViewModel> viewModels = this.service.GetAllQuizzes();
+            List<QuizListViewModel> viewModels = this.service.GetAllQuizzes();
             return this.View(viewModels);
         }
 
         [HttpGet]
         public PartialViewResult SearchQuizzes(string search)
         {
-            IEnumerable<QuizListViewModel> viewModels = this.service.SearchQuizzes(search);
+            List<QuizListViewModel> viewModels = this.service.SearchQuizzes(search);
             return this.PartialView("_SearchQuizzes", viewModels);
         }
 
@@ -174,14 +174,14 @@
         [Route("questions")]
         public ActionResult QuestionList()
         {
-            IEnumerable<QuestionListViewModel> viewModels = this.service.GetAllQuestions();
+            List<QuestionListViewModel> viewModels = this.service.GetAllQuestions();
             return this.View(viewModels);
         }
 
         [HttpGet]
         public PartialViewResult SearchQuestions(string search)
         {
-            IEnumerable<QuestionListViewModel> viewModels = this.service.SearchQuestions(search);
+            List<QuestionListViewModel> viewModels = this.service.SearchQuestions(search);
             return this.PartialView("_SearchQuestions", viewModels);
         }
     }

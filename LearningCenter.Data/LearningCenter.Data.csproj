@@ -87,8 +87,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILearningCenterContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="LearningCenterContext.cs" />
+    <Compile Include="Mocks\FakeAnswerDbSet.cs" />
+    <Compile Include="Mocks\FakeCourseDbSet.cs" />
+    <Compile Include="Mocks\FakeDbSet.cs" />
+    <Compile Include="Mocks\FakeGradeDbSet.cs" />
+    <Compile Include="Mocks\FakeLearningCenterContext.cs" />
+    <Compile Include="Mocks\FakeQuestionDbSet.cs" />
+    <Compile Include="Mocks\FakeQuizDbSet.cs" />
+    <Compile Include="Mocks\FakeReplyDbSet.cs" />
+    <Compile Include="Mocks\FakeTagDbSet.cs" />
+    <Compile Include="Mocks\FakeTopicDbSet.cs" />
+    <Compile Include="Mocks\FakeUnitDbSet.cs" />
+    <Compile Include="Mocks\FakeUserDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

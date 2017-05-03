@@ -76,6 +76,7 @@
     <Compile Include="Interfaces\IUnitsService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\ICourseService.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementations\ForumService.cs" />

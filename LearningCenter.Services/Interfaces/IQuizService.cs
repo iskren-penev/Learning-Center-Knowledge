@@ -3,7 +3,7 @@
     using LearningCenter.Models.BindingModels.Quiz;
     using LearningCenter.Models.ViewModels.Quiz;
 
-    public interface IQuizService
+    public interface IQuizService : IService
     {
         void AddNewQuiz(AddQuizBindingModel model);
 

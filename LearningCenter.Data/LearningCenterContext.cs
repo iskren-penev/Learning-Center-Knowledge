@@ -1,10 +1,11 @@
 namespace LearningCenter.Data
 {
     using System.Data.Entity;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.EntityModels;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class LearningCenterContext : IdentityDbContext<User>
+    public class LearningCenterContext : IdentityDbContext<User>, ILearningCenterContext
     {
         public LearningCenterContext()
             : base("OnlineLearningCenter", throwIfV1Schema: false)

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Forum;
@@ -11,6 +12,10 @@
 
     public class ForumService : Service, IForumService
     {
+        public ForumService(ILearningCenterContext context) : base(context)
+        {
+        }
+
         public IEnumerable<AllTopicsViewModel> GetAllTopics()
         {
             IEnumerable<Topic> topics = this.Context.Topics;

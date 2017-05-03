@@ -3,7 +3,7 @@
     using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.ViewModels.Units;
 
-    public interface IUnitsService
+    public interface IUnitsService : IService
     {
         UnitDetailsViewModel GetUnitDetailsViewModel(int id);
 

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.Quiz;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Quiz;
@@ -11,6 +12,10 @@
 
     public class QuizService : Service, IQuizService
     {
+        public QuizService(ILearningCenterContext context) : base(context)
+        {
+        }
+
         public void AddNewQuiz(AddQuizBindingModel model)
         {
             Quiz quiz = Mapper.Instance

@@ -11,7 +11,6 @@
     {
         private ICollection<Grade> grades;
         private ICollection<Course> enrolledCourses;
-        private ICollection<Course> instructingCourses;
         private ICollection<Topic> topics;
         private ICollection<Reply> replies;
 
@@ -19,7 +18,6 @@
         {
             this.grades = new List<Grade>();
             this.enrolledCourses = new List<Course>();
-            this.instructingCourses = new List<Course>();
             this.topics = new List<Topic>();
             this.replies = new List<Reply>();
         }
@@ -35,13 +33,7 @@
             get { return this.enrolledCourses; }
             set { this.enrolledCourses = value; }
         }
-
-        public virtual ICollection<Course> InstructingCourses
-        {
-            get { return this.instructingCourses; }
-            set { this.instructingCourses = value; }
-        }
-
+        
         public virtual ICollection<Topic> Topics
         {
             get { return this.topics; }

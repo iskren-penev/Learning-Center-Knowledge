@@ -21,6 +21,10 @@
         [Route("units/{id:int:min(1)}")]
         public ActionResult UnitPreview(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             UnitDetailsViewModel viewModel = this.service.GetUnitDetailsViewModel(id);
             if (viewModel == null)
             {
@@ -55,6 +59,10 @@
         [Route("units/edit/{id:int:min(1)}")]
         public ActionResult EditUnit(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(id);
             if (viewModel == null)
             {

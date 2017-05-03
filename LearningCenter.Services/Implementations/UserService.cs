@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.User;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Course;
@@ -13,6 +14,10 @@
 
     public class UserService : Service, IUserService
     {
+        public UserService(ILearningCenterContext context) : base(context)
+        {
+        }
+
         public void EditProfile(EditProfileBindingModel model, string userId)
         {
             User currentUser = this.GetCurrentUser(userId);

@@ -1,14 +1,14 @@
 ﻿@using LearningCenter.Models.ViewModels.Admin
-@model IEnumerable<QuestionListViewModel>
+@model List<QuestionListViewModel>
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuizName)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().QuizName)
             </th>
             <th></th>
         </tr>

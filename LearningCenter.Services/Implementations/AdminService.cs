@@ -3,23 +3,28 @@
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
+    using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Admin;
     using LearningCenter.Services.Interfaces;
 
     public class AdminService : Service, IAdminService
     {
-        public IEnumerable<UserListViewModel> GetAllUsers()
+        public AdminService(ILearningCenterContext context) : base(context)
         {
-            IEnumerable<User> users = this.Context.Users;
-            IEnumerable<UserListViewModel> viewModels = Mapper.Instance
-                .Map<IEnumerable<User>, IEnumerable<UserListViewModel>>(users).ToList();
+        }
+
+        public List<UserListViewModel> GetAllUsers()
+        {
+            List<User> users = this.Context.Users.ToList();
+            List<UserListViewModel> viewModels = Mapper.Instance
+                .Map<List<User>, List<UserListViewModel>>(users);
 
             return viewModels;
         }
 
 
-        public IEnumerable<UserListViewModel> SearchUsers(string search)
+        public List<UserListViewModel> SearchUsers(string search)
         {
             var viewModels = this.GetAllUsers();
             if (!string.IsNullOrEmpty(search))
@@ -27,7 +32,7 @@
                 search = search.ToLower();
                 viewModels = viewModels.Where(user =>
                     user.Email.ToLower().Contains(search)
-                    || (user.FirstName + " " + user.LastName).ToLower().Contains(search));
+                    || (user.FirstName + " " + user.LastName).ToLower().Contains(search)).ToList();
             }
 
             return viewModels;
@@ -45,22 +50,22 @@
             return this.Context.Users.FirstOrDefault(u => u.Email == email);
         }
         
-        public IEnumerable<CourseListViewModel> GetAllCourses()
+        public List<CourseListViewModel> GetAllCourses()
         {
-            IEnumerable<Course> courses = this.Context.Courses;
-            IEnumerable<CourseListViewModel> viewModels = Mapper.Instance
-                .Map<IEnumerable<Course>, IEnumerable<CourseListViewModel>>(courses);
+            List<Course> courses = this.Context.Courses.ToList();
+            List<CourseListViewModel> viewModels = Mapper.Instance
+                .Map<List<Course>, List<CourseListViewModel>>(courses);
 
             return viewModels;
         }
 
-        public IEnumerable<CourseListViewModel> SearchCourses(string search)
+        public List<CourseListViewModel> SearchCourses(string search)
         {
-            IEnumerable<CourseListViewModel> viewModels = this.GetAllCourses();
+            List<CourseListViewModel> viewModels = this.GetAllCourses();
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
-                viewModels = viewModels.Where(model => model.Title.ToLower().Contains(search));
+                viewModels = viewModels.Where(model => model.Title.ToLower().Contains(search)).ToList();
             }
 
             return viewModels;
@@ -70,6 +75,7 @@
         {
             return this.Context.Users.Find(userId) != null;
         }
+
 
        
     }

@@ -42,6 +42,10 @@
         [Route("quizzes/edit/{id:int:min(1)}")]
         public ActionResult EditQuiz(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             EditQuizViewModel viewModel = this.service.GetEditViewModel(id);
             if (viewModel==null)
             {
@@ -71,6 +75,10 @@
         [Route("quizzes/{id:int:min(1)}")]
         public ActionResult PreviewQuiz(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             PreviewQuizViewModel viewModel = this.service.GetPreviewQuizViewModel(id);
             if (viewModel == null)
             {
@@ -125,6 +133,10 @@
         [Route("questions/edit/{id:int:min(1)}")]
         public ActionResult EditQuestion(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             EditQuestionViewModel viewModel = this.service.GetEditQuestionViewModel(id);
             if (viewModel == null)
             {
@@ -157,6 +169,10 @@
         [Route("questions/{id:int:min(1)}")]
         public ActionResult PreviewQuestion(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             PreviewQuestionViewModel viewModel = this.service.GetPreviewQuestionViewModel(id);
             if (viewModel == null)
             {

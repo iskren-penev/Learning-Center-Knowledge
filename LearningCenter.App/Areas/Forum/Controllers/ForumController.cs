@@ -1,6 +1,5 @@
 ﻿namespace LearningCenter.App.Areas.Forum.Controllers
 {
-    using System.Collections.Generic;
     using System.Net;
     using System.Web.Mvc;
     using LearningCenter.Models.BindingModels.Forum;
@@ -43,6 +42,10 @@
         [Route("topic/{id:int:min(1)}")]
         public ActionResult Detailed(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             this.ViewBag.TopicId = id;
             DetailedTopicViewModel viewModel =  this.service.DetailedTopic(id);
             if (viewModel == null)
@@ -67,6 +70,10 @@
         {
             if (this.ModelState.IsValid)
             {
+                if (this.User == null)
+                {
+                return this.RedirectToAction("All");
+                }
                 string userId = this.User.Identity.GetUserId();
                 this.service.AddTopic(model, userId);
                 return this.RedirectToAction("All");
@@ -79,6 +86,10 @@
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditTopic(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             EditTopicViewModel viewModel = this.service.GetEditViewModel(id);
             if (viewModel == null)
             {

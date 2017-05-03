@@ -37,7 +37,15 @@
         [AllowAnonymous]
         public ActionResult Detailed(int id)
         {
-            string userId = this.User.Identity.GetUserId();
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string userId = string.Empty;
+            if (this.User != null)
+            {
+                userId = this.User.Identity.GetUserId();
+            }
             DetailedCourseViewModel viewModel = this.service.GetDetailedCourseViewModel(id, userId);
             if (viewModel == null)
             {
@@ -49,8 +57,12 @@
 
         [HttpGet]
         [Route("showunitdescription")]
-        public PartialViewResult ShowDescription(string Description)
+        public ActionResult ShowDescription(string Description)
         {
+            if (string.IsNullOrEmpty(Description))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return this.PartialView("_ShowDescription", Description);
         }
 
@@ -58,7 +70,7 @@
         [Route("showunitcontent")]
         public ActionResult ShowUnitContent(int unitId)
         {
-            if (unitId <= 0)
+            if (unitId < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -75,7 +87,7 @@
         [Route("showquiz")]
         public ActionResult ShowQuiz(int quizId)
         {
-            if (quizId <= 0)
+            if (quizId < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -108,6 +120,10 @@
         [Route("grade/{id:int:min(1)}")]
         public ActionResult QuizResult(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             GradeViewModel viewModel = this.service.GetGradeViewModel(id);
             if (viewModel == null)
             {
@@ -120,7 +136,7 @@
         [Route("enrollincourse")]
         public ActionResult EnrollInCourse(int courseId)
         {
-            if (courseId <= 0)
+            if (courseId < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -160,6 +176,10 @@
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditCourse(int id)
         {
+            if (id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(id);
             if (viewModel == null)
             {

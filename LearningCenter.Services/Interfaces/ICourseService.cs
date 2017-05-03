@@ -6,7 +6,7 @@ namespace LearningCenter.Services.Interfaces
     using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Models.ViewModels.Units;
 
-    public interface ICourseService
+    public interface ICourseService : IService
     {
         IEnumerable<AllCourseViewModel> GetAllCourses();
 
