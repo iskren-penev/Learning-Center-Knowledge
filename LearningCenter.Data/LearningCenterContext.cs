@@ -2,14 +2,16 @@ namespace LearningCenter.Data
 {
     using System.Data.Entity;
     using LearningCenter.Data.Interfaces;
+    using LearningCenter.Data.Migrations;
     using LearningCenter.Models.EntityModels;
     using Microsoft.AspNet.Identity.EntityFramework;
 
     public class LearningCenterContext : IdentityDbContext<User>, ILearningCenterContext
     {
         public LearningCenterContext()
-            : base("OnlineLearningCenter", throwIfV1Schema: false)
+            : base("OnlineLearningCenter")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LearningCenterContext, Configuration>());
         }
 
         public static LearningCenterContext Create()

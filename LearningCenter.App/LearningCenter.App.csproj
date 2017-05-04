@@ -293,6 +293,7 @@
     <Content Include="Areas\Admin\Views\Units\DisplayTemplates\UnitDetailsViewModel.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\DisplayTemplates\DetailedTopicViewModel.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\_DisplayQuizzes.cshtml" />
+    <None Include="Properties\PublishProfiles\KnowledgeLearning - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

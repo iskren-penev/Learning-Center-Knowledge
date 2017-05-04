@@ -363,6 +363,7 @@
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
+        [Route("account/externalloginconfirmation")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
@@ -393,6 +394,7 @@
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        this.UserManager.AddToRole(user.Id, "User");
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -417,6 +419,7 @@
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
+        [Route("account/externalloginfailure")]
         public ActionResult ExternalLoginFailure()
         {
             return View();
