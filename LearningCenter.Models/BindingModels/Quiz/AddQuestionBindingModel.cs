@@ -5,7 +5,7 @@
     public class AddQuestionBindingModel
     {
         [Required]
-        [MinLength(20)]
+        [StringLength(500, MinimumLength = 20, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string Descrioption { get; set; }
 
         [Required]

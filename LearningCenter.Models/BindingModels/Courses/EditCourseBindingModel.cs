@@ -15,15 +15,15 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 4)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(50)]
+        [StringLength(300, MinimumLength = 50, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string ShortDescription { get; set; }
 
         [Required]
-        [MinLength(250)]
+        [StringLength(10000, MinimumLength = 250, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string Description { get; set; }
         
         public ICollection<UnitListViewModel> UnitsInCourse { get; set; }

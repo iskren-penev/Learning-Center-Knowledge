@@ -5,15 +5,15 @@
     public class AddCourseBindingModel
     {
         [Required]
-        [StringLength(50, MinimumLength = 4)]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(50)]
+        [StringLength(300, MinimumLength = 50, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string ShortDescription { get; set; }
 
         [Required]
-        [MinLength(250)]
+        [StringLength(10000, MinimumLength = 250, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string Description { get; set; }
     }
 }
