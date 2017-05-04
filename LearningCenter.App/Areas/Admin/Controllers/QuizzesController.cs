@@ -2,11 +2,12 @@
 {
     using System.Net;
     using System.Web.Mvc;
+    using LearningCenter.App.Extensions;
     using LearningCenter.Models.BindingModels.Quiz;
     using LearningCenter.Models.ViewModels.Quiz;
     using LearningCenter.Services.Interfaces;
 
-    [Authorize(Roles = "Admin,Instructor")]
+    [CustomAuthorize(Roles = "Admin,Instructor")]
     [RouteArea("admin")]
     public class QuizzesController : Controller
     {
@@ -47,10 +48,6 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EditQuizViewModel viewModel = this.service.GetEditViewModel(id);
-            if (viewModel==null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
             return this.View(viewModel);
         }
 
@@ -64,10 +61,7 @@
                 return this.RedirectToAction("PreviewQuiz", "Quizzes", new { area = "Admin", id=model.Id });
             }
             EditQuizViewModel viewModel = this.service.GetEditViewModel(model.Id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
@@ -80,10 +74,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PreviewQuizViewModel viewModel = this.service.GetPreviewQuizViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+           
             return this.View(viewModel);
         }
 
@@ -138,10 +129,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EditQuestionViewModel viewModel = this.service.GetEditQuestionViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
@@ -158,10 +146,7 @@
 
             }
             EditQuestionViewModel viewModel = this.service.GetEditQuestionViewModel(model);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+           
             return this.View(viewModel);
         }
 
@@ -174,10 +159,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PreviewQuestionViewModel viewModel = this.service.GetPreviewQuestionViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+           
             return this.View(viewModel);
         }
     }

@@ -95,14 +95,7 @@
             this.controller.WithCallTo(c => c.EditQuiz(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void EditQuiz_Get_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.EditQuiz(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void EditQuiz_Get_Valid_ReturnDefaultViewWithModel()
         {
@@ -128,14 +121,7 @@
             this.controller.WithCallTo(c => c.PreviewQuiz(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void PreviewQuiz_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.PreviewQuiz(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void PreviewQuiz_Valid_RenderDefaultViewWithModel()
         {
@@ -169,14 +155,7 @@
             this.controller.WithCallTo(c => c.EditQuestion(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void EditQuestion_Get_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.EditQuestion(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void EditQuestion_Get_Valid_RenderDefaultViewWithModel()
         {
@@ -203,14 +182,7 @@
             this.controller.WithCallTo(c => c.PreviewQuestion(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void PreviewQuestion_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.PreviewQuestion(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void PreviewQuestion_Valid_RenderDefaultViewWithModel()
         {

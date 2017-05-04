@@ -42,14 +42,7 @@
             this.controller.WithCallTo(c => c.UnitPreview(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void UnitPreview_NotFound()
-        {
-            this.controller.WithCallTo(c => c.UnitPreview(10))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void UnitPreview_RendersDefaultViewWithModel()
         {
@@ -79,14 +72,7 @@
             this.controller.WithCallTo(c => c.EditUnit(0))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void EditUnit_Get_NotFound()
-        {
-            this.controller.WithCallTo(c => c.EditUnit(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void EditUnit_Get_RendersDefaultViewWithModel()
         {

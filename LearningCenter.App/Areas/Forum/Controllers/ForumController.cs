@@ -2,13 +2,14 @@
 {
     using System.Net;
     using System.Web.Mvc;
+    using LearningCenter.App.Extensions;
     using LearningCenter.Models.BindingModels.Forum;
     using LearningCenter.Models.ViewModels.Forum;
     using LearningCenter.Services.Interfaces;
     using Microsoft.AspNet.Identity;
     using PagedList;
+    
 
-    //[Authorize]
     [RouteArea("forum")]
     public class ForumController : Controller
     {
@@ -28,6 +29,8 @@
             return this.View(viewModel);
         }
         
+        [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult Display(string search, int? page)
         {
             this.ViewBag.SearchKeyWord = search;
@@ -48,15 +51,12 @@
             }
             this.ViewBag.TopicId = id;
             DetailedTopicViewModel viewModel =  this.service.DetailedTopic(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
         [HttpGet]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         [Route("add")]
         public ActionResult Add()
         {
@@ -64,7 +64,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         [Route("add")]
         public ActionResult Add([Bind(Include = "Title,Content,Tags")] AddTopicBindingModel model)
         {
@@ -82,7 +82,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditTopic(int id)
         {
@@ -91,15 +91,12 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EditTopicViewModel viewModel = this.service.GetEditViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditTopic([Bind(Include = "Id,Content,Tags")] EditTopicBindingModel model)
         {
@@ -114,14 +111,14 @@
 
         
         [HttpGet]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         public ActionResult AddReply()
         {
             return this.PartialView("_AddReply");
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Admin,Instructor")]
+        [CustomAuthorize(Roles = "User,Admin,Instructor")]
         public ActionResult AddReply([Bind(Include = "TopicId,Content")] AddReplyBindingModel model)
         {
             if (this.ModelState.IsValid)

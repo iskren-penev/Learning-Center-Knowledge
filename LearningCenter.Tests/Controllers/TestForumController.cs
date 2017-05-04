@@ -70,14 +70,7 @@
             this.controller.WithCallTo(c => c.Detailed(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void Detailed_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.Detailed(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void Detailed_Valid_RenderDefaultViewWithModel()
         {
@@ -115,13 +108,7 @@
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
 
-        [TestMethod]
-        public void EditTopic_Get_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.EditTopic(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+       
         [TestMethod]
         public void EditTopic_Get_Valid_RenderDefaultViewWithModel()
         {

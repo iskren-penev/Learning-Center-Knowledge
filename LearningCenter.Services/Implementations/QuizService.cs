@@ -20,6 +20,9 @@
         {
             Quiz quiz = Mapper.Instance
                 .Map<AddQuizBindingModel, Quiz>(model);
+
+            this.Context.Quizzes.Add(quiz);
+            this.Context.SaveChanges();
         }
 
         public AddQuizViewModel GetAddViewModel(AddQuizBindingModel model)
@@ -33,9 +36,9 @@
         public EditQuizViewModel GetEditViewModel(int id)
         {
             Quiz quiz = this.GetQuiz(id);
-            if (quiz==null)
+            if (quiz == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Quiz with such Id.");
             }
             EditQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, EditQuizViewModel>(quiz);
@@ -71,7 +74,7 @@
             Question question = this.GetQuestion(id);
             if (question == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Question with such Id.");
             }
             EditQuestionViewModel viewModel = new EditQuestionViewModel()
             {
@@ -110,7 +113,7 @@
             Question question = this.GetQuestion(model.Id);
             if (question == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Question with such Id.");
             }
             question.Description = model.Description;
 
@@ -145,9 +148,9 @@
         public PreviewQuestionViewModel GetPreviewQuestionViewModel(int id)
         {
             Question question = this.GetQuestion(id);
-            if ( question== null)
+            if (question == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Question with such Id.");
             }
             PreviewQuestionViewModel viewModel = Mapper.Instance
                 .Map<Question, PreviewQuestionViewModel>(question);
@@ -161,9 +164,9 @@
         public void EditQuiz(EditQuizBindingModel model)
         {
             Quiz quiz = this.GetQuiz(model.Id);
-            if (quiz== null)
+            if (quiz == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Quiz with such Id.");
             }
             quiz.Title = model.Title;
 
@@ -173,9 +176,9 @@
         public PreviewQuizViewModel GetPreviewQuizViewModel(int id)
         {
             Quiz quiz = this.GetQuiz(id);
-            if (quiz==null)
+            if (quiz == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Quiz with such Id.");
             }
             PreviewQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, PreviewQuizViewModel>(quiz);
@@ -193,10 +196,16 @@
         {
             Quiz quiz = this.GetQuiz(quizId);
             Question question = this.GetQuestion(questionId);
-            if (quiz != null && question != null)
+            if (quiz == null)
             {
-            quiz.Questions.Remove(question);
+                throw new ArgumentNullException(nameof(quizId), "There is no Quiz with such Id.");
             }
+            if (question == null)
+            {
+                throw new ArgumentNullException(nameof(questionId), "There is no Question with such Id.");
+            }
+            quiz.Questions.Remove(question);
+
             this.Context.SaveChanges();
         }
 
@@ -204,15 +213,21 @@
         {
             Quiz quiz = this.GetQuiz(quizId);
             Question question = this.GetQuestion(questionId);
-            if (quiz != null && question != null)
+            if (quiz == null)
             {
-                if (quiz.Questions.Count >= 10)
-                {
-                    throw new ArgumentException("There can only be 10 questions in the quiz!");
-                }
-                quiz.Questions.Add(question);
+                throw new ArgumentNullException(nameof(quizId), "There is no Quiz with such Id.");
             }
-           
+            if (question == null)
+            {
+                throw new ArgumentNullException(nameof(questionId), "There is no Question with such Id.");
+            }
+            if (quiz.Questions.Count >= 10)
+            {
+                throw new ArgumentException("There can only be 10 questions in the quiz!");
+            }
+            quiz.Questions.Add(question);
+
+
             this.Context.SaveChanges();
         }
 

@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using LearningCenter.App.Extensions;
     using LearningCenter.Models.EntityModels;
     using LearningCenter.Models.ViewModels.Account;
     using LearningCenter.Models.ViewModels.Admin;
@@ -13,7 +14,6 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
 
-    [Authorize(Roles = "Admin")]
     [RouteArea("admin")]
     public class AdminController : Controller
     {
@@ -38,6 +38,7 @@
 
         [HttpGet]
         [Route("users")]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult UsersList()
         {
             List<UserListViewModel> viewModels = this.service.GetAllUsers();
@@ -51,7 +52,8 @@
             return this.View(viewModels);
         }
         
-
+        [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult SearchUsers(string search)
         {
             List<UserListViewModel> viewModels = this.service.SearchUsers(search);
@@ -112,7 +114,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("courses")]
         public ActionResult CourseList()
         {
@@ -121,6 +123,7 @@
         }
 
         [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult SearchCourses(string search)
         {
             List<CourseListViewModel> viewModels = this.service.SearchCourses(search);
@@ -129,7 +132,7 @@
 
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("units")]
         public ActionResult UnitsList()
         {
@@ -138,6 +141,7 @@
         }
 
         [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult SearchUnits(string search)
         {
             List<UnitListViewModel> viewModels = this.service.SearchUnits(search);
@@ -153,7 +157,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("quizzes")]
         public ActionResult QuizList()
         {
@@ -162,6 +166,7 @@
         }
 
         [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult SearchQuizzes(string search)
         {
             List<QuizListViewModel> viewModels = this.service.SearchQuizzes(search);
@@ -170,7 +175,7 @@
 
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("questions")]
         public ActionResult QuestionList()
         {
@@ -179,6 +184,7 @@
         }
 
         [HttpGet]
+        [OutputCache(Duration = 3)]
         public PartialViewResult SearchQuestions(string search)
         {
             List<QuestionListViewModel> viewModels = this.service.SearchQuestions(search);

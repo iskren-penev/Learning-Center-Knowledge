@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.Services.Implementations
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
@@ -45,7 +46,7 @@
             Course course = this.Context.Courses.Find(id);
             if (course == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Course with that Id.");
             }
             EditCourseViewModel viewModel = Mapper.Instance.Map<Course, EditCourseViewModel>(course);
 
@@ -59,12 +60,13 @@
         {
             Course course = this.Context.Courses.Find(model.Id);
 
-            if (course != null)
+            if (course == null)
             {
-                course.Title = model.Title;
-                course.ShortDescription = model.ShortDescription;
-                course.Description = model.Description;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Course with that Id.");
             }
+            course.Title = model.Title;
+            course.ShortDescription = model.ShortDescription;
+            course.Description = model.Description;
 
             this.Context.SaveChanges();
         }
@@ -74,7 +76,15 @@
             Course course = this.Context.Courses.Find(courseId);
             Unit unit = this.Context.Units.Find(unitId);
 
-            if (course != null && unit != null) course.Units.Add(unit);
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(courseId), "There is no Course with such Id.");
+            }
+            if (unit == null)
+            {
+                throw new ArgumentNullException(nameof(unitId), "There is no Unit with such Id.");
+            }
+            course.Units.Add(unit);
             this.Context.SaveChanges();
         }
 
@@ -82,8 +92,15 @@
         {
             Course course = this.Context.Courses.Find(courseId);
             Unit unit = this.Context.Units.Find(unitId);
-
-            if (course != null && unit != null) course.Units.Remove(unit);
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(courseId), "There is no Course with such Id.");
+            }
+            if (unit == null)
+            {
+                throw new ArgumentNullException(nameof(unitId), "There is no Unit with such Id.");
+            }
+            course.Units.Remove(unit);
             this.Context.SaveChanges();
         }
 
@@ -92,7 +109,7 @@
             Course course = this.Context.Courses.Find(id);
             if (course == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Course with such Id.");
             }
             var units = course.Units.ToList();
 
@@ -112,7 +129,7 @@
             Unit unit = this.Context.Units.Find(unitId);
             if (unit == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(unitId), "There is no Unit with such Id.");
             }
             UnitDetailsViewModel viewModel = Mapper.Instance
                 .Map<Unit, UnitDetailsViewModel>(unit);
@@ -124,7 +141,15 @@
         {
             User user = this.GetCurrentUser(userId);
             Course course = this.Context.Courses.Find(courseId);
-            if (course != null && user != null) course.Students.Add(user);
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(courseId), "There is no Course with such Id.");
+            }
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(userId), "There is no User with such Id.");
+            }
+            course.Students.Add(user);
             this.Context.SaveChanges();
 
         }
@@ -134,7 +159,7 @@
             Quiz quiz = this.Context.Quizzes.Find(quizId);
             if (quiz == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(quizId), "There is no Quiz with such Id.");
             }
             PreviewQuizViewModel viewModel = Mapper.Instance
                 .Map<Quiz, PreviewQuizViewModel>(quiz);
@@ -170,7 +195,7 @@
             Quiz quiz = this.Context.Quizzes.Find(model.Id);
             if (quiz == null)
             {
-                return -1;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Quiz with such Id.");
             }
             Course course = quiz.Course;
             User user = this.GetCurrentUser(userId);
@@ -193,7 +218,7 @@
             Grade grade = this.Context.Grades.Find(id);
             if (grade == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Grade with such Id.");
             }
             GradeViewModel viewModel = Mapper.Instance
                 .Map<Grade, GradeViewModel>(grade);

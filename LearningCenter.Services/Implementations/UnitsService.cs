@@ -1,5 +1,6 @@
 ﻿namespace LearningCenter.Services.Implementations
 {
+    using System;
     using AutoMapper;
     using LearningCenter.Data.Interfaces;
     using LearningCenter.Models.BindingModels.Units;
@@ -18,7 +19,7 @@
             Unit unit = this.Context.Units.Find(id);
             if (unit == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Unit with such Id.");
             }
             UnitDetailsViewModel viewModel = Mapper.Instance.Map<Unit, UnitDetailsViewModel>(unit);
             if (unit.CourseId != null)
@@ -54,7 +55,7 @@
             Unit unit = this.Context.Units.Find(id);
             if (unit == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Unit with such Id.");
             }
             EditUnitViewModel viewModel = Mapper.Instance
                 .Map<Unit, EditUnitViewModel>(unit);
@@ -67,7 +68,7 @@
             Unit unit = this.Context.Units.Find(model.Id);
             if (unit == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Unit with such Id.");
             }
             unit.Title = model.Title;
             unit.ContentUrl = model.ContentUrl;

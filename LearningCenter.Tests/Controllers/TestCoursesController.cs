@@ -75,13 +75,7 @@
             this.controller.WithCallTo(c => c.Detailed(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void Detailed_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.Detailed(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
+        
 
         [TestMethod]
         public void Detailed_Valid_RenderDefaultViewWithModel()
@@ -112,13 +106,7 @@
             this.controller.WithCallTo(c => c.ShowUnitContent(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void ShowUnitContent_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.ShowUnitContent(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
+        
 
         [TestMethod]
         public void ShowUnitContent_Valid_RenderPartialViewWithModel()
@@ -134,13 +122,7 @@
             this.controller.WithCallTo(c => c.ShowQuiz(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void ShowQuiz_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.ShowQuiz(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
+        
 
         [TestMethod]
         public void ShowQuiz_Valid_RenderPartialViewWithModel()
@@ -156,14 +138,7 @@
             this.controller.WithCallTo(c => c.QuizResult(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void QuizResult_InvalidId_NotFound()
-        {
-            this.controller.WithCallTo(c => c.QuizResult(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void QuizResult_Valid_RenderViewWithModel()
         {
@@ -234,14 +209,7 @@
             this.controller.WithCallTo(c => c.EditCourse(-1))
                 .ShouldGiveHttpStatus(HttpStatusCode.BadRequest);
         }
-
-        [TestMethod]
-        public void EditCourse_Get_NotFound()
-        {
-            this.controller.WithCallTo(c => c.EditCourse(int.MaxValue))
-                .ShouldGiveHttpStatus(HttpStatusCode.NotFound);
-        }
-
+        
         [TestMethod]
         public void EditCourse_Get_RenderDefaultViewWithModel()
         {

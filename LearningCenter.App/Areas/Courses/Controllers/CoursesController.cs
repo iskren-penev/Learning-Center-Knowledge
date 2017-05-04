@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Web.Mvc;
+    using LearningCenter.App.Extensions;
     using LearningCenter.Models.BindingModels.Courses;
     using LearningCenter.Models.ViewModels.Course;
     using LearningCenter.Models.ViewModels.Quiz;
@@ -11,7 +12,7 @@
     using Microsoft.AspNet.Identity;
 
 
-    [Authorize(Roles = "Admin,Instructor,User")]
+    [CustomAuthorize(Roles = "Admin,Instructor,User")]
     [RouteArea("courses")]
     public class CoursesController : Controller
     {
@@ -47,11 +48,7 @@
                 userId = this.User.Identity.GetUserId();
             }
             DetailedCourseViewModel viewModel = this.service.GetDetailedCourseViewModel(id, userId);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
+            
             return this.View(viewModel);
         }
 
@@ -75,11 +72,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             UnitDetailsViewModel viewModel = this.service.GetUnitPreview(unitId);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-
-            }
+            
             return this.PartialView("_ShowUnitContent", viewModel);
         }
 
@@ -92,11 +85,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PreviewQuizViewModel viewModel = this.service.GetQuizPreview(quizId);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-
-            }
+            
             return this.PartialView("_ShowQuiz", viewModel);
         }
 
@@ -109,10 +98,7 @@
         {
             string userId = this.User.Identity.GetUserId();
             int gradeId = this.service.EvaluateQuiz(model, userId);
-            if (gradeId < 1)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.RedirectToAction("QuizResult", new { id = gradeId });
         }
 
@@ -125,11 +111,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GradeViewModel viewModel = this.service.GetGradeViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-
-            }
+            
             return this.View(viewModel);
         }
 
@@ -146,7 +128,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("add")]
         public ActionResult AddCourse()
         {
@@ -155,7 +137,7 @@
 
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("add")]
         [ValidateAntiForgeryToken]
         public ActionResult AddCourse([Bind(Include = "Title,ShortDescription,Description")]AddCourseBindingModel model)
@@ -172,7 +154,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         public ActionResult EditCourse(int id)
         {
@@ -181,15 +163,12 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("edit/{id:int:min(1)}")]
         [ValidateAntiForgeryToken]
         public ActionResult EditCourse([Bind(Include = "Id,Title,ShortDescription,Description")] EditCourseBindingModel model)
@@ -202,14 +181,11 @@
             }
 
             EditCourseViewModel viewModel = this.service.GetEditCourseViewModel(model.Id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("addcourseunit")]
         public ActionResult AddCourseUnit(int unitId, int courseId)
         {
@@ -222,7 +198,7 @@
             return this.RedirectToAction("EditCourse", new { id = courseId });
         }
 
-        [Authorize(Roles = "Admin,Instructor")]
+        [CustomAuthorize(Roles = "Admin,Instructor")]
         [Route("removecourseunit")]
         public ActionResult RemoveCourseUnit(int unitId, int courseId)
         {

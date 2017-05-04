@@ -42,7 +42,7 @@
             Topic topic = this.Context.Topics.Find(id);
             if (topic == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(id), "There is no Topic with such Id."); ;
             }
             DetailedTopicViewModel viewModel = Mapper.Instance.Map<DetailedTopicViewModel>(topic);
             viewModel.Replies = Mapper.Map<IEnumerable<ReplyViewModel>>(topic.Replies);
@@ -82,6 +82,10 @@
         public EditTopicViewModel GetEditViewModel(int id)
         {
             Topic topic = this.Context.Topics.Find(id);
+            if (topic == null)
+            {
+                throw new ArgumentNullException(nameof(id), "There is no Topic with such Id."); ;
+            }
             EditTopicViewModel viewModel = Mapper.Instance.Map<EditTopicViewModel>(topic);
             return viewModel;
         }
@@ -89,9 +93,10 @@
         public void EditTopic(EditTopicBindingModel model)
         {
             Topic topic = this.Context.Topics.Find(model.Id);
-            if (topic==null)
+
+            if (topic == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(model.Id), "There is no Topic with such Id."); 
             }
             string[] tags = model.Tags.Split(new[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string tagString in tags)
@@ -122,7 +127,7 @@
             Topic currentTopic = this.Context.Topics.Find(model.TopicId);
             if (currentTopic == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(model.TopicId), "There is no Topic with such Id.");
             }
             Reply reply = Mapper.Instance.Map<Reply>(model);
             reply.Topic = currentTopic;
@@ -136,7 +141,7 @@
 
         public AddTopicViewModel GetAddTopicViewModel(AddTopicBindingModel model)
         {
-            if (model== null)
+            if (model == null)
             {
                 return null;
             }

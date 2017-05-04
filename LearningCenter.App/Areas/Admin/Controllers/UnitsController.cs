@@ -2,11 +2,12 @@
 {
     using System.Net;
     using System.Web.Mvc;
+    using LearningCenter.App.Extensions;
     using LearningCenter.Models.BindingModels.Units;
     using LearningCenter.Models.ViewModels.Units;
     using LearningCenter.Services.Interfaces;
 
-    [Authorize(Roles = "Admin,Instructor")]
+    [CustomAuthorize(Roles = "Admin,Instructor")]
     [RouteArea("admin")]
     public class UnitsController : Controller
     {
@@ -26,10 +27,6 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             UnitDetailsViewModel viewModel = this.service.GetUnitDetailsViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
             return this.View(viewModel);
         }
 
@@ -64,10 +61,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
 
@@ -83,10 +77,7 @@
             }
 
             EditUnitViewModel viewModel = this.service.GetEditUnitViewModel(model.Id);
-            if (viewModel == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
+            
             return this.View(viewModel);
         }
     }
