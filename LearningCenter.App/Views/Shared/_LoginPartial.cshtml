@@ -15,14 +15,21 @@
                 @Html.ActionLink("Hello " + User.Identity.Name + "!", "ProfilePage", "Users", new { area = "", username = currentUsername }, null)
                 
             </li>
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || User.IsInRole("Instructor"))
             {
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">Admin Panel<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Users", "UsersList", "Admin", new { area = "Admin" }, null)</li>
-                        <li>@Html.ActionLink("Courses", "CourseList", "Admin", new { area = "Admin" }, null)</li>
-                        <li>@Html.ActionLink("Units", "UnitsList", "Admin", new { area = "Admin" }, null)</li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Users", "UsersList", "Admin", new { area = "Admin" }, null)</li>
+
+                        }
+                        <li>@Html.ActionLink("Courses", "CourseList", "Admin", new {area = "Admin"}, null)</li>
+                        <li>@Html.ActionLink("Units", "UnitsList", "Admin", new {area = "Admin"}, null)</li>
+                        <li>@Html.ActionLink("Quizzes", "QuizList", "Admin", new { area = "Admin" }, null)</li>
+                        <li>@Html.ActionLink("Questions", "QuestionList", "Admin", new { area = "Admin" }, null)</li>
+
                     </ul>
                 </li>
             }

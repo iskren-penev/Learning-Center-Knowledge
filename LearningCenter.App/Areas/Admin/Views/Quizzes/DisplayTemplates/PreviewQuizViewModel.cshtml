@@ -1,0 +1,28 @@
+﻿@using LearningCenter.Models.ViewModels.Quiz
+@model PreviewQuizViewModel
+
+<h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+@foreach (var question in Model.Questions)
+{<div class="row">
+     <div class="col-sm-10 col-sm-offse-1">
+         <div style="font-size: 18px">
+             <blockquote>
+                 @Html.DisplayFor(model => question.Description)
+             </blockquote>
+         </div>
+     </div>
+ </div>
+    <hr />
+    <h3 class="heading-centered">Answers:</h3>
+    foreach (var answer in question.Answers)
+    {
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                <p style="font-size: 16px">
+                    @Html.DisplayFor(model => answer.Value)
+                </p>
+            </div>
+        </div>
+    }
+}

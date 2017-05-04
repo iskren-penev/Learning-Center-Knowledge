@@ -1,0 +1,64 @@
+﻿@using LearningCenter.Models.ViewModels.Forum
+@model DetailedTopicViewModel
+
+@{
+    ViewBag.Title = "View topic";
+}
+
+<h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+<div class="row">
+    <div class="col-sm-2">
+        <h4>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.Author):
+            </label>
+        </h4>
+    </div>
+    <div class="col-sm-6">
+        <h4>
+            @Html.DisplayFor(model => model.Author)
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <h4>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.Tags):
+            </label>
+        </h4>
+    </div>
+    <div class="col-sm-6">
+        <h4>
+            @foreach (string tg in Model.Tags)
+            {
+                @Html.DisplayFor(model => tg)<span> </span>
+            }
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <h4>
+            <label class="label label-info">
+                @Html.DisplayNameFor(model => model.PublishDate):
+            </label>
+        </h4>
+    </div>
+    <div class="col-sm-6">
+        <h4>
+            @Html.DisplayFor(model => model.PublishDate)
+        </h4>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div style="font-size: 18px">
+            <blockquote>
+                @Html.Raw(Model.Content)
+            </blockquote>
+        </div>
+    </div>
+</div>

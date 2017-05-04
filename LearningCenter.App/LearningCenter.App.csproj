@@ -288,6 +288,10 @@
     <Content Include="Areas\Admin\Views\Quizzes\_DisplayQuestions.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\_ShowQuiz.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\QuizResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\DisplayTemplates\PreviewQuestionViewModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Quizzes\DisplayTemplates\PreviewQuizViewModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Units\DisplayTemplates\UnitDetailsViewModel.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\DisplayTemplates\DetailedTopicViewModel.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

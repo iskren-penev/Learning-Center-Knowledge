@@ -1,0 +1,14 @@
+﻿@using LearningCenter.Models.ViewModels.Units
+@model UnitDetailsViewModel
+
+<h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+<h3 class="heading-centered">
+    @Html.DisplayNameFor(model => model.CourseName) : @Html.DisplayFor(model => model.CourseName)
+</h3>
+<div class="container jumbotron">
+    <div class="col-sm-offset-1 col-sm-10">
+
+        <iframe src="@Html.DisplayFor(model => model.ContentUrl)" width="850" height="480" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+</div>
