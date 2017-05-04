@@ -16,10 +16,12 @@
     </div>
     @using (Ajax.BeginForm("SearchUnits", new AjaxOptions()
     {
-        UpdateTargetId = "search-result",
+        HttpMethod = "GET",
+        UpdateTargetId = "searchResult",
         InsertionMode = InsertionMode.Replace,
         LoadingElementId = "loadingElement",
-        LoadingElementDuration = 2000
+        LoadingElementDuration = 1500,
+        AllowCache = true
     }))
     {
         <div class="col-sm-8">
@@ -43,7 +45,7 @@
         </div>
     </div>
 
-    <div id="search-result">
+    <div id="searchResult">
         @Html.Partial("_SearchUnits", Model)
     </div>
 </div>

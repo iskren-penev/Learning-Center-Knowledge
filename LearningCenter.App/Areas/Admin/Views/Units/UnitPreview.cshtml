@@ -6,3 +6,12 @@
 }
 
 @Html.DisplayForModel("UnitDetailsViewModel")
+
+<div class="row">
+    <div class="col-sm-2 col-sm-offset-2">
+        @Html.ActionLink("Back to list", "UnitsList", "Admin", new { area = "Admin" }, new { @class = "btn btn-block btn-default" })
+    </div>
+    <div class="col-sm-2">
+        @Html.ActionLink("Edit unit", "EditUnit", "Units", new { area = "Admin", id = @Model.Id }, new { @class = "btn btn-block btn-warning" })
+    </div>
+</div>

@@ -33,5 +33,9 @@ namespace LearningCenter.Services.Interfaces
         int EvaluateQuiz(EvaluateQuizBindingModel model, string userId);
 
         GradeViewModel GetGradeViewModel(int id);
+
+        void AddQuizToCourse(int quizId, int courseId);
+
+        void RemoveQuizFromCourse(int quizId, int courseId);
     }
 }

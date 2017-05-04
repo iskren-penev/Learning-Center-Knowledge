@@ -23,6 +23,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditUnit","Units", new {area="Admin", id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Preview", "UnitPreview", "Units", new { area = "Admin", id = item.Id }, new { @class = "btn btn-info" })
                 </td>
             </tr>
         }

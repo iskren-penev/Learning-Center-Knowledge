@@ -50,10 +50,9 @@
 
             if (!string.IsNullOrEmpty(search))
             {
-                search = search.ToLower();
                 viewModels = viewModels.Where(model =>
-                    model.Title.ToLower().Contains(search)
-                    || model.CourseName.ToLower().Contains(search)).ToList();
+                    model.Title.Contains(search)
+                    || model.CourseName.Contains(search)).ToList();
             }
 
             return viewModels;

@@ -52,6 +52,8 @@
 
             viewModel.UnitsInCourse = this.SearchUnits(course.Title).ToList();
             viewModel.UnassignedUnits = this.SearchUnits("Unassigned").ToList();
+            viewModel.QuizzesInCourse = this.SearchQuizzes(course.Title).ToList();
+            viewModel.UnassignedQuizzes = this.SearchQuizzes("Unassigned").ToList();
 
             return viewModel;
         }
@@ -224,6 +226,38 @@
                 .Map<Grade, GradeViewModel>(grade);
 
             return viewModel;
+        }
+
+        public void AddQuizToCourse(int quizId, int courseId)
+        {
+            Course course = this.Context.Courses.Find(courseId);
+            Quiz quiz = this.Context.Quizzes.Find(quizId);
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(courseId), "There is no Course with such Id.");
+            }
+            if (quiz == null)
+            {
+                throw new ArgumentNullException(nameof(quizId), "There is no Quiz with such Id.");
+            }
+            course.Quizzes.Add(quiz);
+            this.Context.SaveChanges();
+        }
+
+        public void RemoveQuizFromCourse(int quizId, int courseId)
+        {
+            Course course = this.Context.Courses.Find(courseId);
+            Quiz quiz = this.Context.Quizzes.Find(quizId);
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(courseId), "There is no Course with such Id.");
+            }
+            if (quiz == null)
+            {
+                throw new ArgumentNullException(nameof(quizId), "There is no Quiz with such Id.");
+            }
+            course.Quizzes.Remove(quiz);
+            this.Context.SaveChanges();
         }
 
         private int CheckAnswer(int? answerId, int result)

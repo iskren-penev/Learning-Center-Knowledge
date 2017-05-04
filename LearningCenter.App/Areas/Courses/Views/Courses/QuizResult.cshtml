@@ -4,10 +4,16 @@
 @{
     ViewBag.Title = "Result";
 }
-
-<div class="custom-form">
-    <h2 class="heading-centered">Course: @Html.DisplayFor(model => model.CourseTitle)</h2>
-    <h3 class="heading-centered">@Html.DisplayFor(model => model.QuizTitle)</h3>
-    <p>You got @Model.Result out of 10 points</p>
-    @Html.ActionLink("Back to course", "Detailed", new { area="Courses", id=Model.CourseId}, new {@class="btn btn-default"})
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@Html.ActionLink("Course: " + Model.CourseTitle, "Detailed", "Courses", new { area = "Courses", id = Model.CourseId }, null)</h3>
+    </div>
+    <div class="panel-body">
+        <h4>Quiz Title: @Model.QuizTitle</h4>
+        <h4>Result: @Model.Result / 10</h4>
+    </div>
 </div>
+<br />
+    @Html.ActionLink("Back to course", "Detailed", new { area="Courses", id=Model.CourseId}, new {@class="btn btn-default"})

@@ -1,0 +1,49 @@
+﻿@using LearningCenter.Models.ViewModels.Admin
+@model Tuple<int, ICollection<QuizListViewModel>>
+
+<table class="table table-bordered table-striped" style="table-layout: fixed">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Item2.FirstOrDefault().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item2.FirstOrDefault().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item2.FirstOrDefault().CourseName)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var quiz in Model.Item2)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => quiz.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(model => quiz.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => quiz.CourseName)
+            </td>
+            <td>
+                @if (quiz.CourseName == "Unassigned")
+                {
+                    @Html.ActionLink("Add to course", "AddCourseQuiz",
+                        new { area="Courses", quizId = quiz.Id, courseId = Model.Item1 },
+                        new { @class = "btn btn-success" })
+                }
+                else
+                {
+                    @Html.ActionLink("Remove from course", "RemoveCourseQuiz",
+                        new { quizId = quiz.Id, courseId = Model.Item1 },
+                        new { @class = "btn btn-danger" })
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

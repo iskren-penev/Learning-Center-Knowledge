@@ -16,6 +16,8 @@
     </div>
     @using (Ajax.BeginForm("SearchQuizzes", new AjaxOptions()
     {
+        HttpMethod = "GET",
+        AllowCache = true,
         UpdateTargetId = "search-result",
         InsertionMode = InsertionMode.Replace,
         LoadingElementId = "loadingElement",

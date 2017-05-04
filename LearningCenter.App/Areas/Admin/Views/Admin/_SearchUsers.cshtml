@@ -26,7 +26,7 @@
         var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
         <tr>
             <td>
-                @Html.ActionLink(item.Email, "ProfilePage", "Users", new {area="", username = currentUsername }, null)
+                @Html.ActionLink(item.Email, "ProfilePage", "Users", new { area = "", username = currentUsername }, null)
             </td>
             <td>
                 @Html.DisplayFor(model => item.FirstName)
@@ -44,11 +44,7 @@
                 @Html.DisplayFor(model => item.EnrolledCourses)
             </td>
             <td>
-                @if (Roles.IsUserInRole(item.Email, "Instructor"))
-                {
-                    @Html.ActionLink("Add Instructor role", "MakeInstructor", new {userId = item.Email}, new {@class= "btn btn-warning"})
-
-                }
+                @Html.ActionLink("Add Instructor role", "MakeInstructor", new { userEmail = item.Email }, new { @class = "btn btn-warning" })
             </td>
         </tr>
     }

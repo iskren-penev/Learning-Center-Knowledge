@@ -5,7 +5,7 @@
     public class AddQuestionViewModel
     {
         [Required]
-        [StringLength(500, MinimumLength = 20, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        [StringLength(500, MinimumLength = 20, ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
         public string Description { get; set; }
 
         [Required]

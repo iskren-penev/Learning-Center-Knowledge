@@ -4,6 +4,11 @@
 
     public class PreviewQuizViewModel
     {
+        public PreviewQuizViewModel()
+        {
+            this.Questions = new List<PreviewQuestionViewModel>();
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }

@@ -22,3 +22,8 @@
         @Html.ActionLink("ENROLL IN COURSE", "EnrollInCourse", new {courseId = Model.Id}, new { @class = "btn btn-block btn-success" })
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+        @Html.ActionLink("Back to courses", "AllCourses", new { area = "Courses" }, new { @class = "btn btn-block btn-default" })
+    </div>
+</div>

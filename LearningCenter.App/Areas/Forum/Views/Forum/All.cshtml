@@ -35,6 +35,7 @@
         <div class="row">
             @using (Ajax.BeginForm("Display", new AjaxOptions()
             {
+                HttpMethod = "GET",
                 UpdateTargetId = "searchResult",
                 InsertionMode = InsertionMode.Replace,
                 LoadingElementId = "loadingElement",

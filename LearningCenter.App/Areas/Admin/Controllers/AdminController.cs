@@ -53,6 +53,7 @@
         }
         
         [HttpGet]
+        [Route("searchusers")]
         [OutputCache(Duration = 3)]
         public PartialViewResult SearchUsers(string search)
         {
@@ -100,11 +101,12 @@
             
             return this.View(model);
         }
-
-        [HttpPost]
-        public ActionResult MakeInstructor(string userId)
+        
+        [Route("makeinstructor")]
+        public ActionResult MakeInstructor(string userEmail)
         {
-            if (this.service.CheckUserExists(userId))
+            string userId = this.service.GetCurrentUserByEmail(userEmail).Id;
+            if (!this.service.CheckUserExists(userId))
             {
                 throw new ArgumentNullException(nameof(userId), "User with this Id does not exist");
             }
@@ -139,14 +141,18 @@
             List<UnitListViewModel> viewModels = this.service.GetAllUnits();
             return this.View(viewModels);
         }
+        
 
         [HttpGet]
+        [Route("searchunits")]
         [OutputCache(Duration = 3)]
         public PartialViewResult SearchUnits(string search)
         {
             List<UnitListViewModel> viewModels = this.service.SearchUnits(search);
             return this.PartialView("_SearchUnits", viewModels);
         }
+
+
 
         private void AddErrors(IdentityResult result)
         {
@@ -166,6 +172,7 @@
         }
 
         [HttpGet]
+        [Route("searchquizzes")]
         [OutputCache(Duration = 3)]
         public PartialViewResult SearchQuizzes(string search)
         {
@@ -184,6 +191,7 @@
         }
 
         [HttpGet]
+        [Route("searchquestions")]
         [OutputCache(Duration = 3)]
         public PartialViewResult SearchQuestions(string search)
         {

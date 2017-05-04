@@ -210,5 +210,31 @@
 
             return this.RedirectToAction("EditCourse", new { id = courseId });
         }
+
+        [CustomAuthorize(Roles = "Admin,Instructor")]
+        [Route("addcoursequiz")]
+        public ActionResult AddCourseQuiz(int quizId, int courseId)
+        {
+            if (quizId <= 0 || courseId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            this.service.AddQuizToCourse(quizId, courseId);
+
+            return this.RedirectToAction("EditCourse", new { id = courseId });
+        }
+
+        [CustomAuthorize(Roles = "Admin,Instructor")]
+        [Route("removecoursequiz")]
+        public ActionResult RemoveCourseQuiz(int quizId, int courseId)
+        {
+            if (quizId <= 0 || courseId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            this.service.RemoveQuizFromCourse(quizId, courseId);
+
+            return this.RedirectToAction("EditCourse", new { id = courseId });
+        }
     }
 }

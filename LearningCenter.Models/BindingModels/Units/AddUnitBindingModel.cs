@@ -5,7 +5,7 @@
     public class AddUnitBindingModel
     {
         [Required]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "The {0} must be between {2} and 50 characters long.")]
         public string Title { get; set; }
 
         [Required]

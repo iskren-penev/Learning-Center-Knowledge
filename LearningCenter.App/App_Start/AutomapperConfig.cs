@@ -84,6 +84,10 @@
                     .ForMember(model => model.UnitsInCourse, configurationExpression =>
                         configurationExpression.Ignore())
                     .ForMember(model => model.UnassignedUnits, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.QuizzesInCourse, configurationExpression =>
+                        configurationExpression.Ignore())
+                    .ForMember(model => model.UnassignedQuizzes, configurationExpression =>
                         configurationExpression.Ignore());
 
                 exp.CreateMap<Course, DetailedCourseViewModel>()

@@ -109,7 +109,7 @@
 
         [HttpPost]
         [Route("questions/add")]
-        public ActionResult AddQuestion([Bind(Include = "Description,OptionOne,OptionTwo,OptrionThree,CorrectAnswer")]
+        public ActionResult AddQuestion([Bind(Include = "Description,OptionOne,OptionTwo,OptionThree,CorrectAnswer")]
             AddQuestionBindingModel model)
         {
             if (this.ModelState.IsValid)

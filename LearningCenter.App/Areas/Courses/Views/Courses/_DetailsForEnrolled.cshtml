@@ -2,30 +2,21 @@
 @model DetailedCourseViewModel
 
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         @Ajax.ActionLink("Description", "ShowDescription", new { description = Model.Description },
-        new AjaxOptions()
-        {
-            UpdateTargetId = "resultContainer",
-            InsertionMode = InsertionMode.Replace,
-            LoadingElementDuration = 1500,
-            LoadingElementId = "loadingElement"
-        }, new { @class = "btn btn-block btn-primary" })
-        <br />
-        @foreach (var item in Model.Units)
-        {
-            @Ajax.ActionLink(item.Title, "ShowUnitContent", new { unitId = item.Id },
             new AjaxOptions()
             {
                 UpdateTargetId = "resultContainer",
                 InsertionMode = InsertionMode.Replace,
                 LoadingElementDuration = 1500,
                 LoadingElementId = "loadingElement"
-            }, new { @class = "btn btn-block btn-primary" })
-        }
-        @foreach (var item in Model.Quizzes)
+            }, new { @class = "btn btn-block btn-info" })
+        <br />
+        @foreach (var item in Model.Units)
         {
-            @Ajax.ActionLink(item.Title, "ShowQuiz", new { quiz = item.Id },
+            var index = item.Title.LastIndexOf("-");
+            var displayTitle = item.Title.Substring(index+1);
+            @Ajax.ActionLink(displayTitle, "ShowUnitContent", new { unitId = item.Id },
                 new AjaxOptions()
                 {
                     UpdateTargetId = "resultContainer",
@@ -34,9 +25,22 @@
                     LoadingElementId = "loadingElement"
                 }, new { @class = "btn btn-block btn-primary" })
         }
+        <br />
+        @foreach (var item in Model.Quizzes)
+        {
+            @Ajax.ActionLink(item.Title, "ShowQuiz", new { quizId = item.Id },
+                new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    UpdateTargetId = "resultContainer",
+                    InsertionMode = InsertionMode.Replace,
+                    LoadingElementDuration = 1500,
+                    LoadingElementId = "loadingElement"
+                }, new { @class = "btn btn-block btn-warning" })
+        }
     </div>
 
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div id="loadingElement" hidden="hidden">
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" style="width: 100%"></div>
@@ -51,3 +55,5 @@
 
     </div>
 </div>
+
+@Html.ActionLink("Back to courses", "AllCourses", new { area = "Courses" }, new { @class = "btn btn-default" })

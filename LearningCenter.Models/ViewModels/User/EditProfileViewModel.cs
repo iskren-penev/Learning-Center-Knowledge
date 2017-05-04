@@ -4,9 +4,13 @@
 
     public class EditProfileViewModel
     {
+        [Required]
+        [StringLength(30, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 3)]
         [Display(Name = "Name")]
         public string FirstName { get; set; }
-        [Display(Name = "Surname(s)")]
+        
+        [StringLength(30, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 3)]
+        [Display(Name = "Name")]
         public string LastName { get; set; }
     }
 }
