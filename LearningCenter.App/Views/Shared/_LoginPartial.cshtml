@@ -40,7 +40,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", null, new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", new {area=""}, new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", new { area = "" }, new { id = "loginLink" })</li>
     </ul>
 }

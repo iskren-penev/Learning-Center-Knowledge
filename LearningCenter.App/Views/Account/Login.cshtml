@@ -8,10 +8,10 @@
 <div class="container-fluid custom-form">
     <h2 class="heading-centered">@ViewBag.Title.</h2>
     <div class="row">
-        <div class="col-md-5 col-md-offset-1">
+        <div class="col-md-8 col-md-offset-2">
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+                {
                     @Html.AntiForgeryToken()
                     <h4 style="text-align:center">Use a local account to log in.</h4>
                     <hr />
@@ -41,11 +41,9 @@
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-6">
                             <input type="submit" value="Log in" class="btn btn-primary" />
+                            @Html.ActionLink("Register as a new user", "Register", new {area=""}, new {@class="btn btn-default"})
                         </div>
                     </div>
-                    <p class="col-md-offset-2 col-md-10">
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
                     @* Enable this once you have account confirmation enabled for password reset functionality
                         <p class="col-md-2">
                             @Html.ActionLink("Forgot your password?", "ForgotPassword")
@@ -53,7 +51,9 @@
                 }
             </section>
         </div>
-        <div class="col-md-5">
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <section id="socialLoginForm">
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </section>

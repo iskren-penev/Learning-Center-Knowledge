@@ -143,7 +143,7 @@
         {
             AddQuestionBindingModel model = new AddQuestionBindingModel()
             {
-                CorrectAnswer = 1, Descrioption = "Lorem ipsum ...", OptionTwo = "text2", OptionOne = "text1", OptionThree = "text3"
+                CorrectAnswer = 1, Description = "Lorem ipsum ...", OptionTwo = "text2", OptionOne = "text1", OptionThree = "text3"
             };
             this.controller.WithCallTo(c => c.AddQuestion(model))
                 .ShouldRedirectTo<AdminController>(typeof(AdminController).GetMethod("QuestionList"));

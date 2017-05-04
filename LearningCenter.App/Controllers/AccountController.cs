@@ -54,7 +54,7 @@
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        [Route("login")]
+        [Route("account/login")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -65,7 +65,7 @@
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
+        [Route("account/login")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -138,7 +138,7 @@
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        [Route("register")]
+        [Route("account/register")]
         public ActionResult Register()
         {
             return View();
@@ -148,7 +148,7 @@
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [Route("register")]
+        [Route("account/register")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register([Bind(Include = "Email,Password,FirstName,LastName,ConfirmPassword")]RegisterViewModel model)
         {
@@ -285,6 +285,7 @@
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
+        [Route("account/externallogin")]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
@@ -330,6 +331,7 @@
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
+        [Route("account/externallogincallback")]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -377,7 +379,13 @@
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
