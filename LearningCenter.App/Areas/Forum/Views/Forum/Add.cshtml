@@ -52,7 +52,10 @@
     </div>
 }
 
-@section scripts{
+@section Scripts {
+    
+    @Scripts.Render("~/bundles/tinymce")
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         tinymce.init({
             selector: '#mytextarea',
@@ -100,8 +103,7 @@
                 "99CCFF", "Light sky blue",
                 "CC99FF", "Plum"],
             toolbar: 'styleselect | removeformat formats | forecolor  | bold italic underline | alignleft aligncenter alignright alignjustify | link | emoticons',
-            menubar:false
-
+            menubar: false
         });
     </script>
 }

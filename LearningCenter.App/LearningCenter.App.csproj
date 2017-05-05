@@ -332,13 +332,9 @@
     <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
     <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
     <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
     <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
     <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />

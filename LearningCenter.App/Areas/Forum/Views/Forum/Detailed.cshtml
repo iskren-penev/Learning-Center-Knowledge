@@ -30,11 +30,14 @@
     </div>
 }
 @Html.Partial("_AddReply")
-@section scripts{
+@section Scripts {
+
+    @Scripts.Render("~/bundles/tinymce")
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         tinymce.init({
             selector: '#mytextarea',
-            width: 945,
+            width: 800,
             heigth: 400,
             plugins: 'textcolor, link, wordcount, emoticons',
             textcolor_map: [
@@ -79,7 +82,6 @@
                 "CC99FF", "Plum"],
             toolbar: 'styleselect | removeformat formats | forecolor  | bold italic underline | alignleft aligncenter alignright alignjustify | link | emoticons',
             menubar: false
-
         });
     </script>
 }

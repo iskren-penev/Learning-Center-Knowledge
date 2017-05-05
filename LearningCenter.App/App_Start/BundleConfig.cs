@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace LearningCenter.App
 {
@@ -29,8 +28,18 @@ namespace LearningCenter.App
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
-                        "~/Scripts/tinymce/tinymce.js"));
+            bundles.Add(new ScriptBundle("~/bundles/tinymce")
+                        .Include("~/Scripts/tinymce/tinymce.min.js")
+                        .Include("~/Scripts/tinymce/jquery.tinymce.min.js")
+                        .Include("~/Scripts/tinymce/themes/modern/theme.js")
+                        .Include("~/Scripts/tinymce/plugins/emoticons/plugin.js")
+                        .Include("~/Scripts/tinymce/plugins/link/plugin.js")
+                        .Include("~/Scripts/tinymce/plugins/textcolor/plugin.js")
+                        .Include("~/Scripts/tinymce/plugins/wordcount/plugin.js"));
+
+            bundles.Add(new StyleBundle("~/Scripts/tinymce/skins/lightgray/css")
+                    .Include("~/Scripts/tinymce/skins/lightgray/skin.min.css")
+                    .Include("~/Scripts/tinymce/skins/lightgray/content.min.css"));
         }
     }
 }
