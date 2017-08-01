@@ -7,6 +7,8 @@ namespace LearningCenter.App
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.UseCdn = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -27,6 +29,8 @@ namespace LearningCenter.App
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/hovernavbar")
+                        .Include("~/Scripts/hoverNavbar.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymce")
                         .Include("~/Scripts/tinymce/tinymce.min.js")
@@ -40,6 +44,8 @@ namespace LearningCenter.App
             bundles.Add(new StyleBundle("~/Scripts/tinymce/skins/lightgray/css")
                     .Include("~/Scripts/tinymce/skins/lightgray/skin.min.css")
                     .Include("~/Scripts/tinymce/skins/lightgray/content.min.css"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

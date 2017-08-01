@@ -7,10 +7,10 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Scripts/tinymce/skins/lightgray/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,13 +21,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Courses", "AllCourses", "Courses", new { area="Courses"}, null)</li>
-                    <li>@Html.ActionLink("Forum", "All", "Forum", new {area="Forum"}, null)</li>
+                    <li>@Html.ActionLink("Courses", "AllCourses", "Courses", new { area = "Courses" }, null)</li>
+                    <li>@Html.ActionLink("Forum", "All", "Forum", new { area = "Forum" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
     </div>
@@ -41,6 +41,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

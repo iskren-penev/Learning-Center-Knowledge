@@ -3,4 +3,7 @@
     
 <h2 class="heading-centered">@Html.DisplayFor(model => model.Title)</h2>
 <hr />
-<iframe src="@Html.DisplayFor(model => model.ContentUrl)" width="727" height="411" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="@Html.DisplayFor(model => model.ContentUrl)" width="727" height="411" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+</div>
