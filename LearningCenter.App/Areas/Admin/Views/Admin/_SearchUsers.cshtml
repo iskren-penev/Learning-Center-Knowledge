@@ -23,7 +23,7 @@
     @foreach (var item in Model)
     {
         var indexOfAt = item.Email.IndexOf("@");
-        var currentUsername = User.Identity.Name.Substring(0, indexOfAt);
+        var currentUsername = item.Email.Substring(0, indexOfAt);
         <tr>
             <td>
                 @Html.ActionLink(item.Email, "ProfilePage", "Users", new { area = "", username = currentUsername }, null)

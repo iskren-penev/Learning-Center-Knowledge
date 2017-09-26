@@ -22,7 +22,7 @@
             <div class="row">
                 @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-xs-2" })
                 <div class="col-xs-10">
-                    <textarea name="Content" rows="10" cols="200" class="form-control" id="mytextarea"></textarea>
+                    <textarea name="Content" rows="10" cols="200" class="form-control" id="mytextarea" value="@Model.Content"></textarea>
                     @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
             </div>
