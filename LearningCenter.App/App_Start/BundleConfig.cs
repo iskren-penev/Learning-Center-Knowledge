@@ -36,10 +36,10 @@ namespace LearningCenter.App
                         .Include("~/Scripts/tinymce/tinymce.min.js")
                         .Include("~/Scripts/tinymce/jquery.tinymce.min.js")
                         .Include("~/Scripts/tinymce/themes/modern/theme.js")
-                        .Include("~/Scripts/tinymce/plugins/emoticons/plugin.js")
-                        .Include("~/Scripts/tinymce/plugins/link/plugin.js")
-                        .Include("~/Scripts/tinymce/plugins/textcolor/plugin.js")
-                        .Include("~/Scripts/tinymce/plugins/wordcount/plugin.js"));
+                        .Include("~/Scripts/tinymce/plugins/emoticons/plugin.min.js")
+                        .Include("~/Scripts/tinymce/plugins/link/plugin.min.js")
+                        .Include("~/Scripts/tinymce/plugins/textcolor/plugin.min.js")
+                        .Include("~/Scripts/tinymce/plugins/wordcount/plugin.min.js"));
 
             bundles.Add(new StyleBundle("~/Scripts/tinymce/skins/lightgray/css")
                     .Include("~/Scripts/tinymce/skins/lightgray/skin.min.css")
