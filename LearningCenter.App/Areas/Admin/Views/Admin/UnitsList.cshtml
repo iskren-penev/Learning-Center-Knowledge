@@ -18,10 +18,7 @@
     {
         HttpMethod = "GET",
         UpdateTargetId = "searchResult",
-        InsertionMode = InsertionMode.Replace,
-        LoadingElementId = "loadingElement",
-        LoadingElementDuration = 1500,
-        AllowCache = true
+        InsertionMode = InsertionMode.Replace
     }))
     {
         <div class="col-sm-8">
@@ -49,3 +46,7 @@
         @Html.Partial("_SearchUnits", Model)
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/loading-bar.js" type="text/javascript"></script>
+}

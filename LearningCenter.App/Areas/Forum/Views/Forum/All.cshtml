@@ -23,9 +23,7 @@
             @Ajax.ActionLink(tag.Name, "Display", new { search = tag.Name }, new AjaxOptions()
         {
            UpdateTargetId = "searchResult",
-           InsertionMode = InsertionMode.Replace,
-           LoadingElementId = "loadingElement",
-           LoadingElementDuration = 1500
+           InsertionMode = InsertionMode.Replace
         }, new { @class = "btn btn-info" })
             <br/>
             <br/>
@@ -67,6 +65,8 @@
     </div>
 </div>
 
-
+@section Scripts{
+    <script src="~/Scripts/loading-bar.js" type="text/javascript"></script>
+}
 
 

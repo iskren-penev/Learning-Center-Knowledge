@@ -29,8 +29,6 @@ namespace LearningCenter.App
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            bundles.Add(new ScriptBundle("~/bundles/hovernavbar")
-                        .Include("~/Scripts/hoverNavbar.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymce")
                         .Include("~/Scripts/tinymce/tinymce.min.js")

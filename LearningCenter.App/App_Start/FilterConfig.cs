@@ -13,7 +13,7 @@ namespace LearningCenter.App
             filters.Add(new HandleErrorAttribute()
             {
                 ExceptionType = typeof(ArgumentNullException),
-                View = "OoutOfRangeError"
+                View = "OutOfRangeError"
             });
             filters.Add(new HandleErrorAttribute()
             {
